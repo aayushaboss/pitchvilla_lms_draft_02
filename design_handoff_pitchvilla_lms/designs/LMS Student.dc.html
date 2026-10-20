@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <style>body{margin:0;font-family:Poppins,sans-serif;color:#2B2B2B;-webkit-font-smoothing:antialiased;} a{color:#2B2B2B;} a:hover{color:#6B6966;} input,textarea{font-family:Poppins,sans-serif;} *{scrollbar-width:none;-ms-overflow-style:none;} *::-webkit-scrollbar{display:none;width:0;height:0;}</style>
+</helmet>
+<div style="min-height:calc(100vh - var(--flow-h,0px));background:#FFFFFF;font-family:Poppins,sans-serif;color:#2B2B2B;">
+
+<sc-if value="{{ inApp }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Student app" style="display:flex;min-height:calc(100vh - var(--flow-h,0px));">
+    <div style="width:248px;flex-shrink:0;background:#F5F4F1;border-right:1px solid #E8E6E1;display:flex;flex-direction:column;padding:24px 16px 20px;gap:18px;box-sizing:border-box;position:sticky;top:var(--flow-h,0px);height:calc(100vh - var(--flow-h,0px));">
+      <div style="display:flex;align-items:center;gap:7px;padding:0 12px;"><div style="width:12px;height:12px;border-radius:50%;background:#FFCC00;"></div><span style="font-weight:500;font-size:14px;letter-spacing:-0.3px;">pitchvilla</span><span style="font-size:10px;font-weight:500;padding:2px 6px;border-radius:5px;background:#ECEAE5;color:#2B2B2B;">LMS</span></div>
+      <div style="display:flex;flex-direction:column;gap:2px;overflow:auto;">
+        <sc-for list="{{ tabs }}" as="n" hint-placeholder-count="9">
+          <div onClick="{{ n.onClick }}" style="display:flex;align-items:center;gap:14px;height:36px;padding:0 12px;border-radius:10px;background:{{ n.bg }};cursor:pointer;flex-shrink:0;" style-hover="background:#EFEDE8;">
+            <ion-icon name="{{ n.icon }}" style="font-size:13px;color:{{ n.fg }};"></ion-icon>
+            <span style="font-size:12px;font-weight:{{ n.fw }};color:{{ n.fg }};flex:1;">{{ n.label }}</span>
+            <sc-if value="{{ n.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;font-weight:500;min-width:16px;height:16px;padding:0 4px;box-sizing:border-box;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;line-height:16px;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:0;text-box:trim-both cap alphabetic;background:#2B2B2B;color:#FFFFFF;">{{ n.badge }}</span></sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div onClick="{{ toProfile }}" style="margin-top:auto;display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;border:1px solid #E8E6E1;cursor:pointer;" style-hover="background:#EFEDE8;">
+        <div style="width:36px;height:36px;border-radius:50%;background:#ECEAE5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;">RD</div>
+        <div style="display:flex;flex-direction:column;min-width:0;"><span style="font-size:12px;font-weight:500;">Riya Deshmukh</span><span style="font-size:11px;color:#6B6966;">VIT Pune · Sem 5</span></div><div onClick="{{ logout }}" title="Log out" style="margin-left:auto;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" style-hover="background:#ECEAE5;"><ion-icon name="log-out-outline" style="font-size:16px;color:#6B6966;"></ion-icon></div>
+      </div>
+    </div>
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+    <div style="display:flex;align-items:center;gap:16px;padding:12px 32px;border-bottom:1px solid #E8E6E1;position:relative;">
+      <div style="flex:1;max-width:420px;height:38px;box-sizing:border-box;border-radius:999px;background:#F5F4F1;display:flex;align-items:center;gap:10px;padding:0 20px;"><ion-icon name="search-outline" style="font-size:13px;color:#6B6966;"></ion-icon><span style="font-size:12px;color:#9C9A95;">Search courses, lectures, materials</span></div>
+      <div style="flex:1;"></div>
+      <div style="display:flex;align-items:center;gap:10px;height:38px;box-sizing:border-box;padding:0 4px 0 14px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;min-width:0;">
+        <div style="width:7px;height:7px;border-radius:50%;background:#D92D20;flex-shrink:0;"></div>
+        <span style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><b style="font-weight:500;">Next live</b> · UI Basics · Sat, 17 Oct · 6:00 PM IST</span>
+                <div onClick="{{ joinLive }}" style="box-sizing:border-box;height:28px;padding:0 14px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;white-space:nowrap;">Join</div>
+      </div>
+      <div onClick="{{ addCal }}" title="Add to calendar" style="width:38px;height:38px;box-sizing:border-box;border-radius:50%;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" style-hover="background:#F7F6F3;"><ion-icon name="calendar-outline" style="font-size:15px;color:#2B2B2B;"></ion-icon></div>
+      <div onClick="{{ toggleNotif }}" style-hover="background:#F7F6F3;" style="width:38px;height:38px;box-sizing:border-box;border-radius:50%;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;flex-shrink:0;"><ion-icon name="notifications-outline" style="font-size:15px;color:#2B2B2B;"></ion-icon><div style="position:absolute;top:8px;right:9px;width:8px;height:8px;border-radius:50%;background:#D92D20;border:1.5px solid #FFFFFF;"></div></div>
+      <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:60px;right:32px;width:380px;background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;box-shadow:0 20px 50px rgba(43,43,43,0.14);z-index:20;padding:8px;">
+          <div style="padding:12px 14px;font-size:12px;font-weight:500;">Notifications</div>
+          <sc-for list="{{ notifs }}" as="n" hint-placeholder-count="4">
+            <div style="display:flex;gap:12px;padding:12px 14px;border-radius:16px;" style-hover="background:#F5F4F1;">
+              <div style="width:34px;height:34px;border-radius:10px;background:#F5F4F1;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><ion-icon name="{{ n.icon }}" style="font-size:13px;"></ion-icon></div>
+              <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;line-height:1.4;">{{ n.t }}</span><span style="font-size:11px;color:#9C9A95;">{{ n.when }}</span></div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="flex:1;width:100%;max-width:1360px;padding:24px 32px 48px;box-sizing:border-box;">
+
+      <sc-if value="{{ tHome }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:22px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;"><span style="font-size:18px;font-weight:500;letter-spacing:-0.4px;">Good afternoon, Riya</span><span style="font-size:12px;color:#6B6966;">Wed, 14 Oct 2026 · UI/UX Design · Coordinator Prof. Deepak Kulkarni</span></div>
+          <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;">
+            <sc-for list="{{ stats }}" as="s" hint-placeholder-count="5">
+              <div onClick="{{ s.onClick }}" style="position:relative;overflow:hidden;min-width:0;padding:20px 24px;box-sizing:border-box;border-radius:16px;border:1px solid {{ s.bd }};background:{{ s.cellBg }};display:flex;flex-direction:column;gap:4px;cursor:pointer;" style-hover="background:{{ s.hov }};">
+                <ion-icon name="{{ s.icon }}" style="position:absolute;right:16px;top:16px;font-size:20px;color:{{ s.ic }};"></ion-icon>
+                <span style="font-size:28px;font-weight:500;letter-spacing:-0.8px;line-height:1.2;color:{{ s.numFg }};">{{ s.v }}</span>
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;min-width:0;"><span style="font-size:12px;color:#6B6966;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ s.k }}</span><span style="font-size:11px;font-weight:500;color:{{ s.ctaFg }};white-space:nowrap;">{{ s.cta }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:24px;display:flex;gap:20px;align-items:center;">
+            <div style="width:176px;height:99px;border-radius:10px;flex-shrink:0;position:relative;overflow:hidden;">
+              <sc-if value="{{ hasCover }}" hint-placeholder-val="{{ true }}"><img src="assets/module-01-cover.png" alt="Module 01 cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></img></sc-if>
+              <sc-if value="{{ noCover }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:#2F3A36;overflow:hidden;box-sizing:border-box;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;"><span style="font-size:10px;font-weight:500;letter-spacing:0.8px;color:rgba(255,255,255,0.72);">MODULE</span><span style="font-size:34px;font-weight:500;line-height:1;letter-spacing:-1px;color:#FFFFFF;">{{ curModNum }}</span><div style="position:absolute;right:12px;bottom:12px;width:30px;height:30px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;"><ion-icon name="play" style="font-size:12px;margin-left:2px;color:#2B2B2B;"></ion-icon></div><div style="position:absolute;right:-28px;top:-28px;width:96px;height:96px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);"></div><div style="position:absolute;right:-8px;top:-8px;width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);"></div></div></sc-if>
+              <div style="position:absolute;right:8px;bottom:8px;width:28px;height:28px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(43,43,43,0.18);"><ion-icon name="play" style="font-size:12px;margin-left:2px;color:#2B2B2B;"></ion-icon></div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;">
+              <span style="font-size:11px;font-weight:500;letter-spacing:0.6px;color:#8A8884;">CONTINUE WHERE YOU LEFT OFF</span>
+              <span style="font-size:14px;font-weight:500;letter-spacing:-0.2px;">{{ curLessonTitle }}</span>
+              <span style="font-size:12px;color:#6B6966;">UI/UX Design Specialisation · Introduction to UI UX</span>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:2px;"><div style="width:180px;height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ coursePctW }};background:#FFCC00;border-radius:999px;"></div></div><span style="font-size:12px;font-weight:500;white-space:nowrap;">{{ lessonsDone }}<span style="color:#9C9A95;font-weight:400;">/{{ lessonsTotal }} lessons</span></span></div>
+            </div>
+            <div onClick="{{ openPlayer }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;white-space:nowrap;">Resume<ion-icon name="chevron-forward"></ion-icon></div>
+          </div>
+          <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:16px 24px;display:flex;align-items:center;gap:32px;">
+            <div title="Needs all four parts plus admin approval" style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+              <svg width="32" height="32" viewBox="0 0 120 120" style="flex-shrink:0;"><circle cx="60" cy="60" r="50" fill="none" stroke="#E8E6E1" stroke-width="16"></circle><circle cx="60" cy="60" r="50" fill="none" stroke="#FFCC00" stroke-width="16" stroke-linecap="round" stroke-dasharray="{{ ringDash }}" transform="rotate(-90 60 60)"></circle></svg>
+              <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;font-weight:500;white-space:nowrap;">Certificate · {{ overall }}%</span><span style="font-size:11px;color:#9C9A95;white-space:nowrap;"><span style="color:#2B2B2B;font-weight:500;">{{ doneHours }}</span>/60h · all four + approval</span></div>
+            </div>
+            <div style="width:1px;align-self:stretch;background:#E8E6E1;flex-shrink:0;"></div>
+            <div style="flex:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;min-width:0;">
+              <sc-for list="{{ buckets }}" as="b" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:8px;min-width:0;">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;"><span style="font-size:11px;color:#6B6966;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ b.label }}</span><span style="font-size:11px;font-weight:500;white-space:nowrap;">{{ b.done }}<span style="color:#9C9A95;font-weight:400;">/{{ b.total }}h</span></span></div>
+                  <div style="height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ b.pct }};background:#FFCC00;border-radius:999px;"></div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start;">
+            <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0;">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;"><span style="font-size:14px;font-weight:500;">Announcements</span><span onClick="{{ toCalendar }}" style="font-size:12px;color:#6B6966;cursor:pointer;" style-hover="color:#2B2B2B;">View all</span></div>
+              <div style="display:flex;flex-direction:column;gap:20px;">
+                <sc-for list="{{ announcements }}" as="a" hint-placeholder-count="2">
+                  <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:13px;font-weight:500;">{{ a.t }}</span>
+                    <span style="font-size:12px;color:#6B6966;line-height:1.5;">{{ a.body }}</span>
+                    <span style="font-size:11px;color:#9C9A95;">{{ a.from }} · {{ a.when }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0;">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;"><span style="font-size:14px;font-weight:500;">Upcoming exams</span><span onClick="{{ toCalendar }}" style="font-size:12px;color:#6B6966;cursor:pointer;" style-hover="color:#2B2B2B;">Calendar</span></div>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <sc-for list="{{ exams }}" as="e" hint-placeholder-count="3">
+                  <div style="display:flex;gap:12px;align-items:center;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:#F5F4F1;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;line-height:1.1;"><span style="font-size:13px;font-weight:500;">{{ e.d }}</span><span style="font-size:10px;color:#6B6966;">{{ e.m }}</span></div>
+                    <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ e.t }}</span><span style="font-size:11px;color:#9C9A95;">{{ e.when }}</span></div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="height:1px;background:#E8E6E1;"></div>
+              <div style="display:flex;flex-direction:column;gap:4px;margin:-4px -8px -8px;">
+                <div onClick="{{ toResults }}" style="display:flex;align-items:center;gap:8px;height:36px;padding:0 8px;border-radius:10px;cursor:pointer;" style-hover="background:#F7F6F3;"><ion-icon name="ribbon-outline" style="font-size:15px;color:#6B6966;"></ion-icon><span style="flex:1;font-size:12px;">Semester 4 results are out</span><ion-icon name="chevron-forward-outline" style="font-size:14px;color:#9C9A95;"></ion-icon></div>
+                <div onClick="{{ download }}" style="display:flex;align-items:center;gap:8px;height:36px;padding:0 8px;border-radius:10px;cursor:pointer;" style-hover="background:#F7F6F3;"><ion-icon name="document-text-outline" style="font-size:15px;color:#6B6966;"></ion-icon><span style="flex:1;font-size:12px;">Odd Semester 2026 timetable</span><ion-icon name="download-outline" style="font-size:14px;color:#9C9A95;"></ion-icon></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tCourses }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;">
+            <div style="display:flex;background:#F5F4F1;border-radius:999px;padding:4px;">
+              <div onClick="{{ subCourses }}" style="padding:8px 22px;border-radius:999px;font-size:12px;font-weight:500;cursor:pointer;background:{{ subCBg }};">My courses</div>
+              <div onClick="{{ subResults }}" style="padding:8px 22px;border-radius:999px;font-size:12px;font-weight:500;cursor:pointer;background:{{ subRBg }};">Results</div>
+            </div>
+            <div style="width:320px;height:38px;border-radius:999px;background:#F5F4F1;display:flex;align-items:center;gap:10px;padding:0 18px;"><ion-icon name="search-outline" style="color:#6B6966;"></ion-icon><input value="{{ search }}" onChange="{{ setSearch }}" placeholder="Search courses" style="flex:1;border:none;background:transparent;font-size:12px;outline:none;"></input></div>
+          </div>
+          <sc-if value="{{ showCourseGrid }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;">
+              <sc-for list="{{ courses }}" as="c" hint-placeholder-count="4">
+                <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;">
+                  <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#E8E6E1 0 10px,#F5F4F1 10px 20px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6B6966;">course cover</span></div>
+                  <div style="padding:16px;display:flex;flex-direction:column;gap:8px;flex:1;">
+                    <span style="font-size:13px;font-weight:500;">{{ c.t }}</span>
+                    <span style="font-size:12px;color:#6B6966;">{{ c.by }} · {{ c.mods }} modules</span>
+                    <div style="display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:4px;"><div style="flex:1;height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ c.pctW }};background:{{ c.bar }};"></div></div><span style="font-size:12px;font-weight:500;">{{ c.pctW }}</span></div>
+                    <div onClick="{{ c.onClick }}" style="height:36px;box-sizing:border-box;border-radius:10px;border:{{ c.btnBorder }};background:{{ c.btnBg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;box-sizing:border-box;">{{ c.cta }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showResultsTbl }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;">
+              <div style="display:grid;grid-template-columns:minmax(0,2fr) 1fr 1fr 1fr;gap:16px;padding:12px 20px;background:#F7F6F3;border-bottom:1px solid #E8E6E1;font-size:11px;font-weight:500;color:#6B6966;"><span>Subject</span><span>Semester</span><span>Marks</span><span>Grade</span></div>
+              <sc-for list="{{ results }}" as="r" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(0,2fr) 1fr 1fr 1fr;gap:16px;padding:14px 20px;border-top:1px solid #E8E6E1;font-size:12px;"><span style="font-weight:400;">{{ r.s }}</span><span>{{ r.sem }}</span><span>{{ r.m }}</span><span style="font-weight:500;">{{ r.g }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tLive }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <span style="font-size:12px;font-weight:500;">Upcoming</span>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;">
+              <sc-for list="{{ upcoming }}" as="u" hint-placeholder-count="3">
+                <div style="background:#FFFFFF;border:{{ u.border }};border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;box-sizing:border-box;">
+                  <span style="font-size:11px;font-weight:500;letter-spacing:0.6px;color:#6B6966;">{{ u.when }}</span>
+                  <span style="font-size:13px;font-weight:500;">{{ u.t }}</span>
+                  <span style="font-size:12px;color:#6B6966;">{{ u.host }} · {{ u.dur }}</span>
+                  <div style="display:flex;gap:8px;">
+                    <div onClick="{{ joinLive }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;">Join</div>
+                    <div onClick="{{ addCal }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;">Add to calendar</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <span style="font-size:12px;font-weight:500;">Past recordings</span>
+            <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;">
+              <sc-for list="{{ recordings }}" as="r" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid #E8E6E1;">
+                  <div onClick="{{ r.onClick }}" style="width:36px;height:36px;border-radius:50%;background:#F5F4F1;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;"><ion-icon name="play" style="font-size:13px;"></ion-icon></div>
+                  <div style="flex:1;display:flex;flex-direction:column;min-width:0;"><span style="font-size:12px;font-weight:500;">{{ r.t }}</span><span style="font-size:12px;color:#6B6966;">{{ r.date }} · {{ r.host }} · {{ r.dur }}</span></div>
+                  <span style="font-size:11px;font-weight:500;padding:4px 8px;border-radius:999px;white-space:nowrap;background:{{ r.attBg }};color:{{ r.attFg }};">{{ r.att }}</span>
+                  <span style="font-size:11px;font-weight:400;padding:4px 10px;border-radius:999px;background:#F5F4F1;gap:6px;"><ion-icon name="document-attach-outline"></ion-icon>{{ r.asg }}</span>
+                  <div onClick="{{ download }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;"><ion-icon name="download-outline"></ion-icon>Attachment</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tAssign }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:12px;font-weight:500;">Assignments · UI/UX Design Specialisation</span>
+          <div style="border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;">
+            <div style="display:grid;grid-template-columns:minmax(0,2.4fr) 1fr 1fr 1fr 40px;gap:16px;padding:12px 20px;background:#F7F6F3;border-bottom:1px solid #E8E6E1;font-size:11px;font-weight:500;color:#6B6966;"><span>Assignment</span><span>Due date</span><span>Status</span><span>Marks</span><span></span></div>
+            <sc-for list="{{ assignRows }}" as="a" hint-placeholder-count="5">
+              <div onClick="{{ a.onClick }}" style="display:grid;grid-template-columns:minmax(0,2.4fr) 1fr 1fr 1fr 40px;gap:16px;padding:14px 20px;border-top:1px solid #E8E6E1;font-size:12px;align-items:center;cursor:pointer;" style-hover="background:#F7F6F3;">
+                <span style="font-weight:400;">{{ a.t }}</span><span>{{ a.due }}</span>
+                <span><span style="font-size:11px;font-weight:500;padding:4px 8px;border-radius:999px;white-space:nowrap;background:{{ a.bg }};color:{{ a.fg }};">{{ a.status }}</span></span>
+                <span>{{ a.marks }}</span><ion-icon name="chevron-forward" style="color:#9C9A95;"></ion-icon>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tProfile }}" hint-placeholder-val="{{ false }}">
+        <dc-import name="StudentProfile" viewer="self" hint-size="100%,700px"></dc-import>
+      </sc-if>
+
+      <sc-if value="{{ xTests }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:18px;font-weight:500;letter-spacing:-0.4px;">Tests and quizzes</span><span style="font-size:12px;color:#6B6966;">Module quizzes count toward the 6 h tests bucket. Pass mark is 2 / 3 unless stated.</span></div><div style="display:flex;gap:8px;align-items:center;"></div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="display:flex;background:#F5F4F1;border-radius:999px;padding:4px;width:max-content;"><sc-for list="{{ tsSeg }}" as="g" hint-placeholder-count="3"><div onClick="{{ g.onClick }}" style="padding:8px 22px;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;background:{{ g.bg }};color:#2B2B2B;">{{ g.label }}<span style="font-size:11px;font-weight:400;color:#9C9A95;">{{ g.n }}</span></div></sc-for></div></div><div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;display:grid;grid-template-columns:minmax(0,2.2fr) 1.2fr 1fr 0.7fr max-content max-content;column-gap:16px;">
+            <div style="display:grid;grid-template-columns:subgrid;grid-column:1 / -1;padding:12px 24px;background:#F7F6F3;border-bottom:1px solid #E8E6E1;font-size:11px;font-weight:500;color:#6B6966;"><span>Test</span><span>Date</span><span>Format</span><span>Score</span><span>Status</span><span></span></div>
+            <sc-for list="{{ tsRows }}" as="r" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:subgrid;grid-column:1 / -1;padding:10px 24px;align-items:center;border-top:{{ r.bt }};font-size:12px;min-height:60px;box-sizing:border-box;"><div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.t }}</span><span style="font-size:11px;color:#9C9A95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.mod }}</span></div><span style="color:#6B6966;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.date }}</span><span style="color:#6B6966;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.fmt }}</span><span style="font-weight:500;font-variant-numeric:tabular-nums;">{{ r.score }}</span><div><span style="font-size:11px;font-weight:500;padding:4px 8px;border-radius:999px;background:{{ r.stBg }};color:{{ r.stFg }};white-space:nowrap;">{{ r.st }}</span></div><div style="display:flex;gap:8px;"><div onClick="{{ r.on }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;white-space:nowrap;padding:0 16px;background:{{ r.btnBg }};border:{{ r.btnBorder }};flex:1;justify-content:center;">{{ r.btn }}</div></div></div></sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ xMaterials }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:18px;font-weight:500;letter-spacing:-0.4px;">Study materials</span><span style="font-size:12px;color:#6B6966;">Readings, templates and links shared by your coordinators.</span></div><div style="display:flex;gap:8px;align-items:center;"></div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="display:flex;background:#F5F4F1;border-radius:999px;padding:4px;width:max-content;"><sc-for list="{{ mtSeg }}" as="g" hint-placeholder-count="3"><div onClick="{{ g.onClick }}" style="padding:8px 22px;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;background:{{ g.bg }};color:#2B2B2B;">{{ g.label }}<span style="font-size:11px;font-weight:400;color:#9C9A95;">{{ g.n }}</span></div></sc-for></div><div style="width:320px;height:38px;box-sizing:border-box;border-radius:999px;background:#F5F4F1;display:flex;align-items:center;gap:10px;padding:0 18px;"><ion-icon name="search-outline" style="font-size:13px;color:#6B6966;"></ion-icon><span style="font-size:12px;color:#9C9A95;">Search materials</span></div></div>
+<div style="display:flex;flex-direction:column;gap:24px;">
+            <sc-for list="{{ mtGroups }}" as="g" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:14px;font-weight:500;white-space:nowrap;flex-shrink:0;">{{ g.course }}</span><span style="font-size:11px;color:#9C9A95;white-space:nowrap;">{{ g.meta }}</span></div>
+                <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;display:grid;grid-template-columns:minmax(0,2.4fr) 1.4fr max-content 0.6fr 60px;column-gap:16px;">
+                  <div style="display:grid;grid-template-columns:subgrid;grid-column:1 / -1;padding:12px 24px;background:#F7F6F3;border-bottom:1px solid #E8E6E1;font-size:11px;font-weight:500;color:#6B6966;"><span>Material</span><span>Module</span><span>Type</span><span>Size</span><span></span></div>
+                  <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:subgrid;grid-column:1 / -1;padding:10px 24px;align-items:center;border-top:{{ r.bt }};font-size:12px;min-height:60px;box-sizing:border-box;"><div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.t }}</span><span style="font-size:11px;color:#9C9A95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.by }}</span></div><span style="color:#6B6966;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.mod }}</span><div><span style="font-size:11px;font-weight:500;padding:4px 8px;border-radius:999px;background:{{ r.typeBg }};color:{{ r.typeFg }};white-space:nowrap;">{{ r.type }}</span></div><span style="color:#6B6966;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.size }}</span><div style="display:flex;justify-content:flex-end;"><div onClick="{{ r.on }}" title="{{ r.btn }}" style="width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;" style-hover="background:#F5F4F1;"><ion-icon name="{{ r.icon }}" style="font-size:16px;color:#6B6966;"></ion-icon></div></div></div></sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ mtEmpty }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#6B6966;">No materials of this type yet.</span></sc-if>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ xCalendar }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:18px;font-weight:500;letter-spacing:-0.4px;">Calendar</span><span style="font-size:12px;color:#6B6966;">Lectures, deadlines and exams for Odd Semester 2026.</span></div><div style="display:flex;gap:8px;align-items:center;"><div onClick="{{ calSync }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;white-space:nowrap;padding:0 16px;background:#FFFFFF;border:1px solid #E8E6E1;" style-hover="background:#F7F6F3;"><ion-icon name="calendar-outline" style="font-size:15px;"></ion-icon>Sync to Google Calendar</div></div></div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start;">
+            <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 24px;"><div style="display:flex;align-items:center;gap:8px;"><ion-icon name="chevron-back-outline" style="font-size:16px;color:#9C9A95;"></ion-icon><span style="font-size:14px;font-weight:500;white-space:nowrap;">October 2026</span><ion-icon name="chevron-forward-outline" style="font-size:16px;color:#9C9A95;"></ion-icon></div><div style="display:flex;gap:16px;font-size:11px;color:#6B6966;white-space:nowrap;"><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:2px;background:#FFF6D1;border:1px solid #E6C34D;"></span>Live lecture</span><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:2px;background:rgba(255,59,48,0.12);"></span>Deadline / exam</span><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:2px;background:#F5F4F1;"></span>Other</span></div></div>
+              <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));padding:0 0 8px;font-size:11px;color:#9C9A95;"><span style="padding:0 12px;">Mon</span><span style="padding:0 12px;">Tue</span><span style="padding:0 12px;">Wed</span><span style="padding:0 12px;">Thu</span><span style="padding:0 12px;">Fri</span><span style="padding:0 12px;">Sat</span><span style="padding:0 12px;">Sun</span></div>
+              <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));">
+                <sc-for list="{{ calDays }}" as="c" hint-placeholder-count="35"><div style="min-height:60px;padding:6px 8px;box-sizing:border-box;border-top:1px solid #E8E6E1;border-left:{{ c.bl }};background:{{ c.bg }};display:flex;flex-direction:column;gap:4px;min-width:0;"><span style="font-size:11px;font-weight:{{ c.fw }};color:{{ c.fg }};width:22px;height:22px;border-radius:50%;background:{{ c.dotBg }};display:flex;align-items:center;justify-content:center;">{{ c.d }}</span><sc-for list="{{ c.ev }}" as="e" hint-placeholder-count="0"><div style="font-size:10px;line-height:1.3;padding:2px 6px;border-radius:4px;background:{{ e.bg }};color:#2B2B2B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ e.t }}</div></sc-for></div></sc-for>
+              </div>
+            </div>
+            <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0;"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;"><span style="font-size:14px;font-weight:500;">This week</span></div><div style="display:flex;flex-direction:column;gap:12px;"><sc-for list="{{ calAgenda }}" as="a" hint-placeholder-count="4"><div style="display:flex;gap:12px;align-items:center;"><div style="width:40px;height:40px;border-radius:10px;background:#F5F4F1;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;line-height:1.1;"><span style="font-size:13px;font-weight:500;">{{ a.d }}</span><span style="font-size:10px;color:#6B6966;">{{ a.m }}</span></div><div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12px;font-weight:500;">{{ a.t }}</span><span style="font-size:11px;color:#9C9A95;">{{ a.sub }}</span></div></div></sc-for></div></div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ xCommunity }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:18px;font-weight:500;letter-spacing:-0.4px;">Community</span><span style="font-size:12px;color:#6B6966;">You've been added to these groups by VIT Pune. Conversations happen on WhatsApp and Discord.</span></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;">
+            <sc-for list="{{ cxGroups }}" as="g" hint-placeholder-count="4">
+              <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:44px;height:44px;border-radius:50%;background:#F5F4F1;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><ion-icon name="{{ g.icon }}" style="font-size:20px;color:#2B2B2B;"></ion-icon></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:14px;font-weight:500;">{{ g.name }}</span><span style="font-size:11px;color:#6B6966;">{{ g.meta }}</span></div>
+                  <span style="font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;background:rgba(88,204,2,0.12);color:#3C8200;flex-shrink:0;">{{ g.role }}</span>
+                </div>
+                <span style="font-size:12px;line-height:1.6;color:#6B6966;text-wrap:pretty;">{{ g.desc }}</span>
+                <div onClick="{{ g.open }}" style="align-self:flex-start;height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;padding:0 16px;background:{{ g.bg }};border:1px solid {{ g.bd }};" style-hover="opacity:0.85;">Open in {{ g.app }}<ion-icon name="open-outline" style="font-size:13px;"></ion-icon></div>
+              </div>
+            </sc-for>
+          </div>
+          <span style="font-size:11px;color:#9C9A95;">Opens in a new tab. Missing a group? Contact your coordinator to be added.</span>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ inPlayer }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Course player" style="height:{{ playerH }};display:flex;overflow:hidden;background:#FFFFFF;">
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative;">
+      <div style="display:flex;align-items:center;gap:8px;height:56px;padding:0 24px 0 16px;border-bottom:1px solid #E8E6E1;box-sizing:border-box;flex-shrink:0;">
+        <div onClick="{{ closePlayer }}" title="Back to home" style="width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" style-hover="background:#F5F4F1;"><ion-icon name="arrow-back-outline" style="font-size:16px;color:#2B2B2B;"></ion-icon></div>
+        <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;font-size:12px;white-space:nowrap;">
+          <span style="color:#6B6966;overflow:hidden;text-overflow:ellipsis;">{{ crumbA }}</span>
+          <ion-icon name="chevron-forward-outline" style="font-size:12px;color:#9C9A95;flex-shrink:0;"></ion-icon>
+          <span style="font-weight:500;flex-shrink:0;">{{ crumbB }}</span>
+        </div>
+        <div onClick="{{ toggleAi }}" title="Ask AI mentor" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;white-space:nowrap;padding:0 16px;background:{{ aiBg }};" style-hover="background:#F5F4F1;"><ion-icon name="sparkles-outline" style="font-size:16px;"></ion-icon>AI mentor</div>
+        <sc-if value="{{ drawerClosed }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ openDrawer }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;padding:0 16px;white-space:nowrap;" style-hover="background:#F5F4F1;"><ion-icon name="list-outline" style="font-size:16px;"></ion-icon>Course content</div>
+        </sc-if>
+      </div>
+      <div style="flex:1;overflow:auto;">
+        <div style="max-width:1120px;margin:0 auto;padding:24px 32px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px;">
+          <sc-if value="{{ isMedia }}" hint-placeholder-val="{{ true }}">
+            <div style="position:relative;width:min(100%, calc((100vh - var(--flow-h,0px) - 240px) * 16 / 9));min-width:480px;align-self:center;aspect-ratio:16/9;border-radius:16px;background:#2B2B2B;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span style="position:absolute;left:16px;top:16px;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:rgba(255,255,255,0.4);">{{ mediaLabel }}</span>
+              <sc-if value="{{ showPlayBtn }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ play }}" title="Play" style="position:absolute;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;cursor:pointer;" style-hover="background:#FFFFFF;"><ion-icon name="play" style="font-size:20px;margin-left:3px;color:#2B2B2B;"></ion-icon></div>
+              </sc-if>
+              <div style="position:absolute;left:16px;right:16px;bottom:16px;display:flex;align-items:center;gap:16px;color:#FFFFFF;">
+                <ion-icon name="{{ playIcon }}" onClick="{{ play }}" style="font-size:16px;cursor:pointer;"></ion-icon>
+                <div style="flex:1;height:4px;border-radius:999px;background:rgba(255,255,255,0.2);overflow:hidden;"><div style="height:100%;width:{{ vidW }};background:#FFCC00;border-radius:999px;"></div></div>
+                <span style="font-size:12px;font-variant-numeric:tabular-nums;">{{ vidTime }}</span>
+                <ion-icon name="volume-high-outline" style="font-size:16px;"></ion-icon><ion-icon name="settings-outline" style="font-size:16px;"></ion-icon><ion-icon name="expand-outline" style="font-size:16px;"></ion-icon>
+              </div>
+            </div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:4px;padding-top:8px;">
+            <span style="font-size:18px;font-weight:500;letter-spacing:-0.4px;">{{ pTitle }}</span>
+            <span style="font-size:12px;color:#6B6966;">{{ pMeta }}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <div onClick="{{ prev }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;padding:0 16px;border:1px solid #E8E6E1;background:#FFFFFF;white-space:nowrap;" style-hover="background:#F7F6F3;"><ion-icon name="chevron-back-outline" style="font-size:14px;"></ion-icon>Previous</div>
+            <div onClick="{{ next }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;padding:0 16px;border:1px solid #E8E6E1;background:#FFFFFF;white-space:nowrap;" style-hover="background:#F7F6F3;">Next<ion-icon name="chevron-forward-outline" style="font-size:14px;"></ion-icon></div>
+            <div onClick="{{ download }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;padding:0 16px;white-space:nowrap;" style-hover="background:#F5F4F1;"><ion-icon name="download-outline" style="font-size:15px;"></ion-icon>Download attachment</div>
+            <div style="flex:1;"></div>
+            <div onClick="{{ markComplete }}" title="{{ mcTip }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;padding:0 16px;background:{{ mcBg }};color:{{ mcFg }};cursor:{{ mcCursor }};white-space:nowrap;"><ion-icon name="{{ mcIcon }}" style="font-size:15px;"></ion-icon>{{ mcLabel }}</div>
+          </div>
+          <sc-if value="{{ showMcqLocked }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#6B6966;">
+              <ion-icon name="lock-closed-outline" style="font-size:14px;"></ion-icon><span>3 MCQs unlock when the video ends</span>
+              <div style="width:1px;height:12px;background:#E8E6E1;margin:0 8px;"></div>
+              <span onClick="{{ skipEnd }}" style="font-size:11px;color:#9C9A95;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;">Skip to end (prototype)</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showMcq }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ goMcq }}" style="display:flex;align-items:center;gap:8px;font-size:12px;color:#2B2B2B;cursor:pointer;width:max-content;">
+              <ion-icon name="lock-open-outline" style="font-size:14px;"></ion-icon><span>3 MCQs unlocked. Pass 2 of 3 to complete this lesson.</span><span style="font-weight:500;display:flex;align-items:center;gap:4px;text-decoration:underline;text-underline-offset:3px;">Go to questions<ion-icon name="arrow-down-outline" style="font-size:13px;"></ion-icon></span>
+            </div>
+            <div ref="{{ mcqRef }}" style="border:1px solid #E8E6E1;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:24px;margin-top:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;"><span style="font-size:14px;font-weight:500;">Check your understanding</span><span style="font-size:12px;color:#6B6966;">Pass mark 2 / 3 · counts toward tests bucket</span></div>
+              <sc-for list="{{ mcqs }}" as="q" hint-placeholder-count="3">
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <span style="font-size:12px;font-weight:500;">{{ q.n }}. {{ q.q }}</span>
+                  <div style="display:flex;flex-direction:column;gap:2px;margin-left:-8px;">
+                    <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="4">
+                      <div onClick="{{ o.onClick }}" style="display:flex;align-items:center;gap:10px;min-height:36px;padding:0 8px;border-radius:8px;font-size:12px;color:{{ o.fg }};cursor:pointer;width:max-content;" style-hover="background:#F7F6F3;"><ion-icon name="{{ o.icon }}" style="font-size:18px;color:{{ o.ic }};flex-shrink:0;"></ion-icon>{{ o.t }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="display:flex;align-items:center;gap:16px;">
+                <sc-if value="{{ mcqNotSubmitted }}" hint-placeholder-val="{{ true }}"><div onClick="{{ submitMcq }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;padding:0 16px;background:#FFCC00;white-space:nowrap;">Submit answers</div></sc-if>
+                <sc-if value="{{ mcqFailed }}" hint-placeholder-val="{{ false }}"><div onClick="{{ retakeMcq }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;padding:0 16px;border:1px solid #E8E6E1;white-space:nowrap;" style-hover="background:#F7F6F3;">Retake</div></sc-if>
+                <span style="font-size:12px;font-weight:500;color:{{ mcqFg }};">{{ mcqMsg }}</span>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isAssign }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px;">
+              <span style="font-size:12px;line-height:1.6;max-width:880px;color:#6B6966;">The download below has the full brief. Compile all solutions into a single .zip file and submit it with the button below.</span>
+              <div style="border-radius:16px;overflow:hidden;background:#2B2B2B;display:flex;flex-direction:column;height:480px;">
+                <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;color:#FFFFFF;font-size:12px;"><ion-icon name="menu-outline" style="font-size:16px;"></ion-icon><span style="font-weight:500;">{{ aPdf }}</span><span style="margin-left:24px;padding:2px 8px;background:rgba(255,255,255,0.1);border-radius:6px;">1 / 3</span><ion-icon name="remove-outline"></ion-icon><span>75%</span><ion-icon name="add-outline"></ion-icon><div style="flex:1;"></div><ion-icon name="download-outline" onClick="{{ download }}" style="font-size:16px;cursor:pointer;"></ion-icon><ion-icon name="print-outline" style="font-size:16px;"></ion-icon></div>
+                <div style="flex:1;display:flex;gap:16px;padding:0 16px 16px;min-height:0;">
+                  <div style="width:140px;display:flex;flex-direction:column;gap:12px;">
+                    <div style="height:170px;border-radius:6px;background:#FFFFFF;border:2px solid #FFFFFF;outline:2px solid rgba(255,255,255,0.4);box-sizing:border-box;"></div>
+                    <div style="height:170px;border-radius:6px;background:#FFFFFF;opacity:0.6;"></div>
+                  </div>
+                  <div style="flex:1;background:#FFFFFF;border-radius:6px;padding:48px 64px;display:flex;flex-direction:column;gap:16px;overflow:auto;">
+                    <span style="font-size:11px;font-weight:500;letter-spacing:0.8px;color:#6B6966;">MODULE 12 · ASSIGNMENT</span>
+                    <span style="font-size:16px;font-weight:500;">{{ aTitle }}</span>
+                    <span style="font-size:12px;line-height:1.7;color:#6B6966;">Scenario: a regional food delivery startup in Pune needs a consistent visual language before its Android launch. Define colour, type, spacing and component rules, then apply them to three screens.</span>
+                    <span style="font-size:12px;line-height:1.7;color:#6B6966;">Deliverables: style guide (PDF), Figma file link, three applied screens.</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                <div onClick="{{ openSubmit }}" style="height:36px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;padding:0 16px;background:#FFCC00;white-space:nowrap;"><ion-icon name="cloud-upload-outline" style="font-size:15px;"></ion-icon>{{ submitCta }}</div>
+                <span style="font-size:12px;">Obtained marks: <b style="font-weight:500;">{{ aMarks }}</b></span>
+                <span style="width:1px;height:16px;background:#E8E6E1;"></span>
+                <span style="font-size:12px;">Due: <b style="font-weight:500;">{{ aDue }}</b></span>
+                <span style="font-size:11px;font-weight:500;padding:4px 8px;border-radius:999px;white-space:nowrap;background:{{ aBg }};color:{{ aFg }};">{{ aStatus }}</span>
+              </div>
+              <sc-if value="{{ aFeedback }}" hint-placeholder-val="{{ false }}"><div style="padding:16px 24px;border-radius:16px;border:1px solid #E8E6E1;font-size:12px;line-height:1.5;"><b style="font-weight:500;">Feedback from Prof. Deepak:</b> {{ aFeedback }}</div></sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      
+      <sc-if value="{{ aiOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;right:24px;top:64px;width:320px;background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;box-shadow:0 20px 50px rgba(43,43,43,0.14);z-index:11;display:flex;flex-direction:column;overflow:hidden;">
+          <div style="padding:16px;border-bottom:1px solid #E8E6E1;display:flex;align-items:center;gap:8px;"><ion-icon name="sparkles-outline" style="font-size:16px;"></ion-icon><span style="font-size:12px;font-weight:500;flex:1;">AI mentor</span><ion-icon name="close-outline" onClick="{{ toggleAi }}" style="font-size:18px;cursor:pointer;color:#6B6966;"></ion-icon></div>
+          <div style="padding:16px;display:flex;flex-direction:column;gap:8px;max-height:300px;overflow:auto;">
+            <sc-for list="{{ chat }}" as="m" hint-placeholder-count="2">
+              <div style="align-self:{{ m.align }};max-width:85%;padding:8px 12px;border-radius:10px;background:{{ m.bg }};font-size:12px;line-height:1.45;">{{ m.t }}</div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:8px;padding:16px;border-top:1px solid #E8E6E1;"><input value="{{ aiInput }}" onChange="{{ setAi }}" placeholder="Ask about this lesson" style="flex:1;height:36px;border-radius:10px;border:1px solid #E8E6E1;background:#FFFFFF;padding:0 12px;font-size:12px;outline:none;box-sizing:border-box;"></input><div onClick="{{ sendAi }}" style="width:36px;height:36px;border-radius:10px;background:#FFCC00;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;"><ion-icon name="arrow-up"></ion-icon></div></div>
+        </div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ true }}">
+      <div style="width:336px;flex-shrink:0;border-left:1px solid #E8E6E1;display:flex;flex-direction:column;min-height:0;background:#FFFFFF;">
+        <div style="display:flex;align-items:center;gap:8px;height:56px;padding:0 8px 0 16px;border-bottom:1px solid #E8E6E1;box-sizing:border-box;flex-shrink:0;">
+          <sc-for list="{{ ptabs }}" as="p" hint-placeholder-count="4">
+            <div onClick="{{ p.onClick }}" style="height:56px;padding:0 4px;display:flex;align-items:center;font-size:12px;font-weight:{{ p.fw }};color:{{ p.fg }};box-shadow:{{ p.line }};cursor:pointer;box-sizing:border-box;">{{ p.label }}</div>
+          </sc-for>
+          <div style="flex:1;"></div>
+          <div onClick="{{ closeDrawer }}" title="Collapse panel" style="width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;" style-hover="background:#F5F4F1;"><ion-icon name="chevron-forward-outline" style="font-size:16px;color:#6B6966;"></ion-icon></div>
+        </div>
+        <div style="flex:1;overflow:auto;display:flex;flex-direction:column;">
+          <sc-if value="{{ rSelf }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:16px 16px 8px;display:flex;flex-direction:column;gap:8px;">
+              <span style="font-size:13px;font-weight:500;">UI/UX Design Specialisation</span>
+              <div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ coursePctW }};background:#FFCC00;border-radius:999px;"></div></div><span style="font-size:12px;font-weight:500;">{{ coursePct }}%</span></div>
+            </div>
+            <div style="padding:8px 8px 24px;display:flex;flex-direction:column;gap:4px;">
+              <sc-for list="{{ mods }}" as="m" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;flex-shrink:0;">
+                  <div onClick="{{ m.toggle }}" style="display:flex;align-items:flex-start;gap:8px;padding:8px;border-radius:10px;cursor:pointer;" style-hover="background:#F7F6F3;">
+                    <ion-icon name="{{ m.chev }}" style="font-size:12px;color:#9C9A95;margin-top:3px;flex-shrink:0;"></ion-icon>
+                    <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12px;font-weight:{{ m.fw }};line-height:1.4;">{{ m.t }}</span><span style="font-size:11px;color:#9C9A95;">{{ m.meta }}</span></div>
+                  </div>
+                  <sc-if value="{{ m.open }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column;gap:2px;padding:4px 0 8px 20px;">
+                      <sc-for list="{{ m.lessons }}" as="l" hint-placeholder-count="2">
+                        <div onClick="{{ l.onClick }}" style="display:flex;align-items:center;gap:8px;min-height:36px;padding:8px;box-sizing:border-box;border-radius:10px;background:{{ l.bg }};cursor:pointer;flex-shrink:0;" style-hover="background:{{ l.hov }};">
+                          <ion-icon name="{{ l.icon }}" style="font-size:14px;color:{{ l.ic }};flex-shrink:0;"></ion-icon>
+                          <span style="flex:1;font-size:12px;font-weight:{{ l.fw }};color:#2B2B2B;">{{ l.t }}</span><span style="font-size:11px;color:#9C9A95;font-variant-numeric:tabular-nums;">{{ l.dur }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ rLive }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:16px 8px 24px;display:flex;flex-direction:column;gap:2px;">
+              <span style="font-size:11px;font-weight:500;letter-spacing:0.6px;color:#8A8884;padding:0 8px 8px;">SESSION RECORDINGS</span>
+              <sc-for list="{{ recordings }}" as="r" hint-placeholder-count="5">
+                <div onClick="{{ r.onClick }}" style="display:flex;gap:8px;padding:8px;border-radius:10px;background:{{ r.bg }};cursor:pointer;flex-shrink:0;" style-hover="background:#F7F6F3;"><ion-icon name="play-circle-outline" style="font-size:14px;flex-shrink:0;color:{{ r.ic }};margin-top:1px;"></ion-icon><div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;line-height:1.4;">{{ r.t }}</span><span style="font-size:11px;color:#9C9A95;">{{ r.date }} · {{ r.host }}</span></div></div>
+              </sc-for>
+              <span style="font-size:11px;font-weight:500;letter-spacing:0.6px;color:#8A8884;padding:16px 8px 8px;">ASSIGNMENTS</span>
+              <sc-for list="{{ assignRows }}" as="a" hint-placeholder-count="4">
+                <div onClick="{{ a.onClick }}" style="display:flex;gap:8px;padding:8px;border-radius:10px;background:{{ a.dBg }};cursor:pointer;flex-shrink:0;" style-hover="background:#F7F6F3;"><ion-icon name="document-text-outline" style="font-size:14px;flex-shrink:0;color:#8A8884;margin-top:1px;"></ion-icon><div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;line-height:1.4;">{{ a.t }}</span><span style="font-size:11px;color:{{ a.fg }};">{{ a.status }} · due {{ a.due }}</span></div></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ rMat }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:16px 8px 24px;display:flex;flex-direction:column;gap:2px;">
+              <sc-for list="{{ materials }}" as="m" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:10px;flex-shrink:0;" style-hover="background:#F7F6F3;">
+                  <ion-icon name="{{ m.icon }}-outline" style="font-size:14px;color:#8A8884;flex-shrink:0;"></ion-icon>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12px;">{{ m.t }}</span><span style="font-size:11px;color:#9C9A95;">{{ m.tag }}</span></div>
+                  <ion-icon name="download-outline" onClick="{{ download }}" style="font-size:15px;cursor:pointer;color:#6B6966;"></ion-icon>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ rNotes }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+              <textarea value="{{ noteText }}" onChange="{{ setNote }}" placeholder="Write a note for this lesson…" style="min-height:88px;border-radius:10px;border:1px solid #E8E6E1;background:#FFFFFF;padding:12px;font-size:12px;resize:vertical;outline:none;"></textarea>
+              <div onClick="{{ addBookmark }}" style="height:36px;box-sizing:border-box;border-radius:10px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;justify-content:center;border:1px solid #E8E6E1;" style-hover="background:#F7F6F3;"><ion-icon name="bookmark-outline" style="font-size:15px;"></ion-icon>Bookmark at {{ vidTimeNow }}</div>
+            </div>
+            <div style="padding:0 8px 24px;display:flex;flex-direction:column;gap:2px;">
+              <sc-for list="{{ bookmarks }}" as="b" hint-placeholder-count="2">
+                <div style="display:flex;gap:8px;padding:8px;flex-shrink:0;"><span style="font-size:11px;font-weight:500;padding:1px 6px;border-radius:4px;background:#F5F4F1;color:#6B6966;height:max-content;font-variant-numeric:tabular-nums;">{{ b.at }}</span><span style="font-size:12px;line-height:1.45;">{{ b.t }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{ submitOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(43,43,43,0.45);display:flex;align-items:center;justify-content:center;z-index:50;">
+    <div style="width:480px;background:#FFFFFF;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;font-weight:500;">Submit assignment</span><ion-icon name="close" onClick="{{ closeSubmit }}" style="font-size:13px;cursor:pointer;"></ion-icon></div>
+      <span style="font-size:12px;color:#6B6966;">{{ aTitle }}</span>
+      <div onClick="{{ pickZip }}" style="border:1.5px dashed {{ zipBorder }};border-radius:16px;padding:28px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;background:{{ zipBg }};">
+        <ion-icon name="{{ zipIcon }}" style="font-size:17px;"></ion-icon>
+        <span style="font-size:12px;font-weight:500;">{{ zipLabel }}</span>
+        <span style="font-size:12px;color:#6B6966;">{{ zipSub }}</span>
+      </div>
+      <div onClick="{{ confirmSubmit }}" style="box-sizing:border-box;height:36px;border-radius:999px;background:#FFCC00;opacity:{{ zipOpacity }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;">Submit</div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ tourOn }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(43,43,43,0.55);display:flex;align-items:center;justify-content:center;z-index:60;">
+    <div style="width:520px;background:#FFFFFF;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="height:140px;background:#FFF6D1;display:flex;align-items:center;justify-content:center;"><ion-icon name="{{ tour.icon }}" style="font-size:42px;color:#8A6D00;"></ion-icon></div>
+      <div style="padding:24px 28px;display:flex;flex-direction:column;gap:12px;">
+        <span style="font-size:12px;font-weight:500;letter-spacing:0.8px;color:#6B6966;">WELCOME · {{ tour.n }} OF 3</span>
+        <span style="font-size:14px;font-weight:500;letter-spacing:-0.4px;">{{ tour.t }}</span>
+        <span style="font-size:12px;color:#6B6966;line-height:1.6;">{{ tour.body }}</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;">
+          <div style="display:flex;gap:6px;"><sc-for list="{{ tourDots }}" as="d" hint-placeholder-count="3"><div style="width:{{ d.w }};height:8px;border-radius:999px;background:{{ d.bg }};"></div></sc-for></div>
+          <div style="display:flex;gap:10px;align-items:center;"><span onClick="{{ skipTour }}" style="font-size:12px;font-weight:500;color:#6B6966;cursor:pointer;">Skip</span><div onClick="{{ nextTour }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;">{{ tour.cta }}</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+  <sc-if value="{{ trOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ trClose }}" style="position:fixed;inset:0;z-index:80;background:rgba(43,43,43,0.32);display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:Poppins,sans-serif;">
+      <div onClick="{{ ovStop }}" data-screen-label="Quiz review" style="width:100%;max-width:640px;max-height:calc(100vh - 48px);background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;box-shadow:0 20px 50px rgba(43,43,43,0.14);display:flex;flex-direction:column;overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;border-bottom:1px solid #E8E6E1;flex-shrink:0;"><div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:14px;font-weight:500;">{{ trHead }}</span><span style="font-size:11px;color:#6B6966;">{{ trSub }}</span></div><div onClick="{{ trClose }}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" style-hover="background:#F5F4F1;"><ion-icon name="close" style="font-size:16px;"></ion-icon></div></div>
+        <div style="flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:14px;">
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;"><sc-for list="{{ trStats }}" as="k" hint-placeholder-count="3"><div style="padding:14px 16px;border-radius:12px;background:#F5F4F1;display:flex;flex-direction:column;gap:2px;"><span style="font-size:16px;font-weight:500;color:{{ k.fg }};">{{ k.v }}</span><span style="font-size:11px;color:#6B6966;">{{ k.k }}</span></div></sc-for></div>
+          <sc-for list="{{ trQs }}" as="q" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:8px;padding:14px 16px;border:1px solid {{ q.bd }};border-radius:12px;"><div style="display:flex;align-items:flex-start;gap:8px;"><ion-icon name="{{ q.icon }}" style="font-size:16px;color:{{ q.ic }};flex-shrink:0;margin-top:1px;"></ion-icon><span style="font-size:12px;font-weight:500;line-height:1.5;">{{ q.n }}. {{ q.q }}</span></div><sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:{{ o.bg }};font-size:12px;color:{{ o.fg }};"><span style="flex:1;">{{ o.t }}</span><span style="font-size:11px;font-weight:500;">{{ o.tag }}</span></div></sc-for><sc-if value="{{ q.hasWhy }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;color:#6B6966;line-height:1.5;">{{ q.why }}</span></sc-if></div></sc-for>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;border-top:1px solid #E8E6E1;flex-shrink:0;">
+          <span style="font-size:11px;color:#6B6966;">{{ trNote }}</span>
+          <div style="display:flex;gap:8px;"><sc-if value="{{ trFailed }}" hint-placeholder-val="{{ false }}"><div onClick="{{ trRetake }}" style="height:36px;box-sizing:border-box;padding:0 18px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;"><ion-icon name="refresh-outline" style="font-size:14px;"></ion-icon>Retake quiz</div></sc-if><div onClick="{{ trClose }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;" style-hover="background:#F7F6F3;">Close</div></div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:50%;bottom:32px;transform:translateX(-50%);background:#2B2B2B;color:#FFFFFF;padding:12px 20px;border-radius:999px;font-size:12px;font-weight:400;display:flex;align-items:center;gap:8px;z-index:70;box-shadow:0 10px 30px rgba(43,43,43,0.3);"><ion-icon name="checkmark-circle" style="color:#FFCC00;"></ion-icon>{{ toast }}</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;firstLogin&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;startPlayer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;startCollapsed&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;fixedHeight&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;}}">
+const MODS = [
+  { t: 'Introduction to UI UX', l: [['What is UI and UX', 760], ['Prerequisites', 1085]] },
+  { t: 'Module 1 — User Centered Design Process', l: [['What is user-centred design', 860], ['The double diamond', 1265], ['Design thinking in practice', 1008]] },
+  { t: 'Module 2 — User Research', l: [['Research methods', 1170], ['Interviews and surveys', 1450], ['Synthesis and affinity maps', 1022]] },
+  { t: 'Module 3 — Design Interactions', l: [['Interaction principles', 944], ['Micro-interactions', 729]] },
+  { t: 'Module 4 — Fundamentals of UI, Heuristics and Interaction Design', l: [['Nielsen heuristics', 1350], ['Visual hierarchy', 1095]] },
+  { t: 'Module 5 — Elementary Sketching and Wireframing', l: [['Sketching basics', 830], ['Lo-fi wireframes', 1240]] },
+];
+const REC = [['Design Process and Thinking Method', 'Wed, 7 Oct 2026', 'Prof. Deepak', '1h 58m', 'Attended', 'Good and Bad UX Examples'], ['Introduction to UI/UX', 'Sat, 3 Oct 2026', 'Prof. Deepak', '1h 50m', 'Attended', 'Lo-Fi and Hi-Fi Wireframes'], ['Personas and Journey Maps', 'Wed, 30 Sep 2026', 'Prof. Deepak', '2h 00m', 'Missed', 'Define a User Research Plan'], ['Tools — Figma basics', 'Sat, 26 Sep 2026', 'TA Kiara', '2h 00m', 'Attended', 'Creating a Poster in Figma'], ['Portfolio evaluation session', 'Sat, 19 Sep 2026', 'Prantik Sen', '1h 32m', 'Attended', '—']];
+const ASG = [['Creating and Defining Style Guide for the App', 'Mon, 12 Oct 2026', 'Overdue', '—', ''], ['Creating Good and Bad UX Design Examples', 'Tue, 20 Oct 2026', 'Pending', '—', ''], ['Creating a Poster in Figma', 'Sun, 4 Oct 2026', 'Graded', '18 / 20', 'Strong hierarchy. Tighten the kerning on the headline and check contrast on the footer text.'], ['Creating Lo-Fi and Hi-Fi Wireframes', 'Sun, 27 Sep 2026', 'Late · graded', '14 / 20', 'Good flows; the hi-fi screens skip the empty states we discussed in class.'], ['Define and Create a User Research Plan', 'Sat, 19 Sep 2026', 'Graded', '17 / 20', 'Clear research questions and a realistic recruitment plan.']];
+const fmt = s => { s = Math.round(s); const m = Math.floor(s / 60), x = s % 60; return m + ':' + String(x).padStart(2, '0'); };
+class Component extends DCLogic {
+  cxVals() {
+    const G = [['logo-whatsapp', 'UI/UX Sem 5 · VIT Pune', 'WhatsApp group · 64 members', 'Batch group for class updates, deadlines and quick questions.', 'WhatsApp', 'https://chat.whatsapp.com/'], ['logo-discord', 'Pitchvilla Design Community', 'Discord server · 1,240 members', 'Portfolio feedback, critiques and design resources across colleges.', 'Discord', 'https://discord.com/'], ['logo-whatsapp', 'UI/UX Doubts', 'WhatsApp group · 58 members', 'Ask doubts about lectures and assignments. Coordinators reply here.', 'WhatsApp', 'https://chat.whatsapp.com/'], ['logo-discord', 'Live Lecture Lounge', 'Discord channel · 312 members', 'Voice rooms and chat during live classes.', 'Discord', 'https://discord.com/']];
+    return { cxGroups: G.map(([icon, name, meta, desc, app, url], i) => ({ icon, name, meta, desc, app, role: 'Member', bg: i === 0 ? '#FFCC00' : '#FFFFFF', bd: i === 0 ? '#FFCC00' : '#E8E6E1', open: () => window.open(url, '_blank', 'noopener') })) };
+  }
+  state = { tab: 'home', view: 'app', mode: 'video', rail: 'self', drawer: true, openMod: 0, cur: [0, 1], done: ['0-0'], prog: 0, playing: false, ans: {}, mcqSub: false, rec: 0, asg: 0, submitted: {}, submitOpen: false, zip: false, aiOpen: false, aiInput: '', chat: [{ me: false, t: 'Hi Riya. Ask me anything about this lesson.' }], tour: -1, toast: '', notif: false, sub: 'courses', search: '', note: '', bms: [{ at: '04:12', t: 'Difference between UX and UI — good exam answer' }] };
+  componentDidMount() { if (this.props.firstLogin) this.setState({ tour: 0 }); if (this.props.startPlayer) this.setState({ view: 'player', drawer: !this.props.startCollapsed }); }
+  mcqRef = React.createRef();
+  scrollMcq() { const el = this.mcqRef.current; if (!el) return; let p = el.parentElement; while (p && !/(auto|scroll)/.test(getComputedStyle(p).overflowY)) p = p.parentElement; if (!p) return; p.scrollTo({ top: p.scrollTop + el.getBoundingClientRect().top - p.getBoundingClientRect().top - 24, behavior: 'smooth' }); }
+  componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.tt); }
+  flash(t) { clearTimeout(this.tt); this.setState({ toast: t }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2400); }
+  setLesson(m, l) { clearInterval(this.iv); this.setState({ cur: [m, l], mode: 'video', prog: 0, playing: false, ans: {}, mcqSub: false, openMod: m }); }
+  play() {
+    if (this.state.playing) { clearInterval(this.iv); return this.setState({ playing: false }); }
+    if (this.state.prog >= 100) this.setState({ prog: 0 });
+    this.setState({ playing: true });
+    this.iv = setInterval(() => this.setState(s => { const p = Math.min(100, s.prog + 2.5); if (p >= 100) { clearInterval(this.iv); setTimeout(() => this.scrollMcq(), 350); } return { prog: p, playing: p < 100 }; }), 100);
+  }
+  renderVals() {
+    const S = this.state, [cm, cl] = S.cur, key = cm + '-' + cl;
+    const total = MODS.reduce((a, m) => a + m.l.length, 0);
+    const coursePct = Math.round(S.done.length / total * 100);
+    const T = { ok: ['rgba(88,204,2,0.12)', '#3C8200'], warn: ['rgba(255,149,0,0.14)', '#B25900'], bad: ['rgba(255,59,48,0.12)', '#D92D20'], neu: ['#F5F4F1', '#6B6966'] };
+    const B = [['Pre-recorded', 18.5, 30, 'play-circle'], ['Live lectures', 7, 12, 'videocam'], ['Community', 4.5, 12, 'people'], ['Tests & assessments', 2, 6, 'checkbox']];
+    const doneH = B.reduce((a, b) => a + b[1], 0), overall = Math.round(doneH / 60 * 100), C = 2 * Math.PI * 50;
+    const TABS = [['home', 'Home'], ['courses', 'My courses'], ['live', 'Live classes'], ['assignments', 'Assignments', 2], ['tests', 'Tests & quizzes'], ['materials', 'Study materials'], ['calendar', 'Calendar'], ['community', 'Community'], ['profile', 'My profile']];
+    const go = tab => this.setState({ tab, notif: false });
+    const openPlayer = (mode, extra) => this.setState({ view: 'player', mode: mode || 'video', rail: mode === 'video' || !mode ? 'self' : 'live', drawer: true, ...(extra || {}) });
+    const asgState = (i) => { const a = ASG[i]; const sub = S.submitted[i]; const st = sub ? 'Submitted' : a[2]; const tone = st === 'Overdue' ? 'bad' : st === 'Pending' ? 'neu' : st.startsWith('Late') ? 'warn' : 'ok'; return { st, tone }; };
+    const assignRows = ASG.map((a, i) => { const { st, tone } = asgState(i); const sel = S.view === 'player' && S.mode === 'assignment' && S.asg === i; return { t: a[0], due: a[1], status: st, marks: a[3], bg: T[tone][0], fg: T[tone][1], dBorder: sel ? '1px solid #2B2B2B' : '1px solid #E8E6E1', dBg: sel ? '#FFF6D1' : 'transparent', onClick: () => { clearInterval(this.iv); openPlayer('assignment', { asg: i, rail: 'live' }); } }; });
+    const recordings = REC.map((r, i) => { const sel = S.view === 'player' && S.mode === 'recording' && S.rec === i; const tone = r[4] === 'Missed' ? 'bad' : 'ok'; return { t: r[0], date: r[1], host: r[2], dur: r[3], att: r[4], asg: r[5], attBg: T[tone][0], attFg: T[tone][1], border: sel ? '1px solid #2B2B2B' : '1px solid #E8E6E1', bg: sel ? '#FFF6D1' : 'transparent', ic: sel ? '#2B2B2B' : '#9C9A95', onClick: () => { clearInterval(this.iv); openPlayer('recording', { rec: i, rail: 'live', prog: 0, playing: false }); } }; });
+    const isVideo = S.mode === 'video', isRec = S.mode === 'recording', isAsg = S.mode === 'assignment';
+    const dur = isVideo ? MODS[cm].l[cl][1] : 6800;
+    const ended = S.prog >= 100;
+    const Q = [['What does UX design primarily focus on?', ['Visual polish', 'The whole experience of using a product', 'Code quality', 'Brand logos'], 1], ['Which comes first in a user-centred process?', ['High-fidelity mockups', 'Understanding users', 'Choosing colours', 'Development'], 1], ['A prerequisite for good usability testing is…', ['Real tasks for real users', 'A finished app', 'A large budget', 'Only expert reviewers'], 0]];
+    const score = Q.filter((q, i) => S.ans[i] === q[2]).length, passed = S.mcqSub && score >= 2;
+    const isDone = S.done.includes(key);
+    const canComplete = isVideo ? passed || isDone : true;
+    const asgI = S.asg, aS = asgState(asgI);
+    const flatList = MODS.flatMap((m, mi) => m.l.map((_, li) => [mi, li]));
+    const idx = flatList.findIndex(p => p[0] === cm && p[1] === cl);
+    const tourSteps = [['grid', 'This is your dashboard', 'Stat cards show what needs attention: courses to do, overdue assignments and quizzes, completed courses and attendance.', 'Next'], ['ribbon', 'Earn your certificate in four parts', 'Complete 30 h pre-recorded, 12 h live lectures, 12 h community and 6 h tests. The admin approves the certificate once all four are done.', 'Next'], ['videocam', 'Your next live lecture', 'UI Basics with Prof. Deepak — Sat, 17 Oct 2026 · 6:00 PM IST. It stays pinned at the top so you can join in one click.', 'Start learning']];
+    const t = tourSteps[Math.max(0, S.tour)];
+    const RAIL = [['self', 'bulb-outline', 'Self-paced'], ['live', 'videocam-outline', 'Live classes'], ['materials', 'library-outline', 'Study materials'], ['notes', 'bookmarks-outline', 'Notes / bookmarks']];
+    const courses = [['UI/UX Design Specialisation', 'Prof. Deepak Kulkarni', 6, coursePct], ['Visual Communication', 'Prof. Meera Iyer', 5, 62], ['Design Research Methods', 'Prof. Sandeep Rao', 4, 12], ['Portfolio Lab', 'Prantik Sen', 3, 100]].filter(c => !S.search || c[0].toLowerCase().includes(S.search.toLowerCase()));
+    return {
+      inApp: S.view === 'app', inPlayer: S.view === 'player',
+      tabs: TABS.map(([k, l, b]) => { const on = S.tab === k; const ic = { home: 'grid', courses: 'albums', live: 'videocam', assignments: 'document-text', tests: 'checkbox', materials: 'library', calendar: 'calendar', community: 'chatbubbles', profile: 'person' }[k]; return { label: l, badge: b || 0, icon: on ? ic : ic + '-outline', bg: on ? '#FFFFFF' : 'transparent', fw: on ? 500 : 400, fg: on ? '#2B2B2B' : '#6B6966', onClick: () => go(k) }; }), toProfile: () => go('profile'),
+      tHome: S.tab === 'home', tCourses: S.tab === 'courses', tLive: S.tab === 'live', tAssign: S.tab === 'assignments', tProfile: S.tab === 'profile', tOther: ['tests', 'materials', 'calendar', 'community'].includes(S.tab), tabLabel: (TABS.find(x => x[0] === S.tab) || [])[1],
+      notifOpen: S.notif, toggleNotif: () => this.setState({ notif: !S.notif }),
+      notifs: [['videocam', 'Live lecture "UI Basics" starts Sat, 17 Oct 2026 · 6:00 PM IST', '2 h ago'], ['document-text', 'Prof. Deepak graded "Creating a Poster in Figma" — 18 / 20', 'Yesterday'], ['ribbon', 'Semester 4 results are published', 'Mon, 12 Oct 2026'], ['calendar', 'Admin posted the Odd Semester 2026 timetable', 'Sat, 10 Oct 2026']].map(n => ({ icon: n[0], t: n[1], when: n[2] })),
+      joinLive: () => this.flash('Join opens 15 minutes before the lecture starts'), addCal: () => this.flash('Added to your calendar'), download: () => this.flash('Download started'),
+      ringDash: (C * overall / 100) + ' ' + C, overall, doneHours: doneH,
+      buckets: B.map(b => ({ label: b[0], done: b[1], total: b[2], icon: b[3], pct: Math.round(b[1] / b[2] * 100) + '%' })),
+      stats: [['4', 'Courses to do', 'school', 'courses'], ['2', 'Assignments overdue', 'alarm', 'assignments'], ['0', 'Quizzes overdue', 'timer', 'tests'], ['1', 'Completed course', 'ribbon', 'courses'], ['86%', 'Attendance', 'stats-chart', 'live']].map((s, i) => { const alert = (i === 1 || i === 2) && s[0] !== '0'; const zero = s[0] === '0'; return { v: s[0], k: s[1], icon: s[2] + '-outline', ic: alert ? '#D92D20' : '#6B6966', numFg: alert ? '#D92D20' : zero ? '#9C9A95' : '#2B2B2B', cellBg: alert ? '#FEF3F2' : '#FFFFFF', hov: alert ? '#FDE8E6' : '#F7F6F3', bd: alert ? '#FECDCA' : '#E8E6E1', blob: alert ? 'rgba(217,45,32,0.08)' : '#F5F4F1', cta: alert ? 'Review →' : '', ctaFg: '#D92D20', divider: i === 0 ? 'none' : '1px solid #E8E6E1', onClick: () => go(s[3]) }; }),
+      curLessonTitle: MODS[cm].l[cl][0], curModNum: String(cm + 1).padStart(2, '0'), hasCover: cm === 0, noCover: cm !== 0, lessonsDone: S.done.length, lessonsTotal: total, coursePct, coursePctW: coursePct + '%', openPlayer: () => openPlayer('video'),
+      announcements: [['Mid-sem viva on Sat, 24 Oct 2026', 'Bring your printed style guide and Figma link. Slots will be shared on Monday.', 'Prof. Deepak Kulkarni · UI/UX Design', 'Tue, 13 Oct 2026'], ['Library closed on Tue, 20 Oct 2026', 'Diwali holiday. Digital library access stays open.', 'Admin · VIT Pune', 'Sun, 11 Oct 2026']].map(a => ({ t: a[0], body: a[1], from: a[2], when: a[3] })),
+      toResults: () => this.setState({ tab: 'courses', sub: 'results' }), toCalendar: () => go('calendar'),
+      exams: [['27', 'Oct', 'UI/UX Design — Mid-sem', 'Tue, 27 Oct 2026 · 10:00 AM IST · Hall B2'], ['29', 'Oct', 'Visual Communication', 'Thu, 29 Oct 2026 · 10:00 AM IST · Hall B2'], ['31', 'Oct', 'Design Research Methods', 'Sat, 31 Oct 2026 · 2:00 PM IST · Lab 4']].map(e => ({ d: e[0], m: e[1], t: e[2], when: e[3].split(' · ').slice(1).join(' · ') })),
+      subCourses: () => this.setState({ sub: 'courses' }), subResults: () => this.setState({ sub: 'results' }), subCBg: S.sub === 'courses' ? '#FFFFFF' : 'transparent', subRBg: S.sub === 'results' ? '#FFFFFF' : 'transparent',
+      showCourseGrid: S.sub === 'courses', showResultsTbl: S.sub === 'results', search: S.search, setSearch: e => this.setState({ search: e.target.value }),
+      courses: courses.map(c => ({ t: c[0], by: c[1], mods: c[2], pctW: c[3] + '%', bar: c[3] === 100 ? '#58CC02' : '#FFCC00', cta: c[3] === 100 ? 'Review' : c[3] > 0 ? 'Continue' : 'Start', btnBg: '#FFFFFF', btnBorder: '1px solid #E8E6E1', onClick: () => openPlayer('video') })),
+      results: [['Human Computer Interaction', 'Semester 4', '78 / 100', 'A'], ['Visual Communication II', 'Semester 4', '71 / 100', 'B+'], ['Typography', 'Semester 4', '84 / 100', 'A+'], ['Design History', 'Semester 4', '66 / 100', 'B']].map(r => ({ s: r[0], sem: r[1], m: r[2], g: r[3] })),
+      upcoming: [['Sat, 17 Oct 2026 · 6:00 PM IST', 'UI Basics', 'Prof. Deepak', '2 h'], ['Wed, 21 Oct 2026 · 6:00 PM IST', 'Heuristic Evaluation Workshop', 'Prof. Deepak', '2 h'], ['Sat, 24 Oct 2026 · 11:00 AM IST', 'Portfolio review', 'Prantik Sen', '1.5 h']].map((u, i) => ({ when: u[0], t: u[1], host: u[2], dur: u[3], border: i === 0 ? '1px solid #E6C34D' : '1px solid #E8E6E1' })),
+      recordings, assignRows,
+      closePlayer: () => { clearInterval(this.iv); this.setState({ view: 'app', playing: false, aiOpen: false }); },
+      crumbA: isVideo ? MODS[cm].t : 'Live classes', crumbB: isVideo ? 'Lesson ' + (cl + 1) : isRec ? 'Session recording' : 'Assignment',
+      pMeta: isVideo ? fmt(dur) + ' · 1 attachment' : isRec ? REC[S.rec][1] + ' · ' + REC[S.rec][2] + ' · ' + REC[S.rec][3] : 'Due ' + ASG[asgI][1],
+      playerH: this.props.fixedHeight ? this.props.fixedHeight + 'px' : 'calc(100vh - var(--flow-h,0px))',
+      drawerClosed: !S.drawer, openDrawer: () => this.setState({ drawer: true }),
+      ptabs: [['self', 'Lessons'], ['materials', 'Materials'], ['notes', 'Notes'], ['live', 'Live']].map(([k, l]) => ({ label: l, fw: S.rail === k ? 500 : 400, fg: S.rail === k ? '#2B2B2B' : '#6B6966', line: S.rail === k ? 'inset 0 -2px 0 #2B2B2B' : 'none', onClick: () => this.setState({ rail: k }) })),
+      pTitle: isVideo ? MODS[cm].l[cl][0] : isRec ? REC[S.rec][0] : ASG[asgI][0],
+      prev: () => { if (isVideo && idx > 0) this.setLesson(...flatList[idx - 1]); else if (isRec && S.rec > 0) this.setState({ rec: S.rec - 1, prog: 0 }); else if (isAsg && asgI > 0) this.setState({ asg: asgI - 1 }); },
+      next: () => { if (isVideo && idx < flatList.length - 1) this.setLesson(...flatList[idx + 1]); else if (isRec && S.rec < REC.length - 1) this.setState({ rec: S.rec + 1, prog: 0 }); else if (isAsg && asgI < ASG.length - 1) this.setState({ asg: asgI + 1 }); },
+      isMedia: !isAsg, isAssign: isAsg, mediaLabel: isVideo ? 'lesson video' : 'session recording · ' + REC[S.rec][1] + '.mp4',
+      showPlayBtn: !S.playing && S.prog === 0, play: () => this.play(), playIcon: S.playing ? 'pause' : 'play',
+      vidW: S.prog + '%', vidTime: fmt(dur * S.prog / 100) + ' / ' + fmt(dur), vidTimeNow: fmt(dur * S.prog / 100),
+      showMcqLocked: isVideo && !ended && !isDone, showMcq: isVideo && ended && !isDone, skipEnd: () => { clearInterval(this.iv); this.setState({ prog: 100, playing: false }); setTimeout(() => this.scrollMcq(), 350); }, mcqRef: this.mcqRef, goMcq: () => this.scrollMcq(),
+      mcqs: Q.map((q, qi) => ({ n: qi + 1, q: q[0], opts: q[1].map((o, oi) => { const picked = S.ans[qi] === oi; const right = S.mcqSub && oi === q[2], wrong = S.mcqSub && picked && oi !== q[2]; return { t: o, icon: right ? 'checkmark-circle' : wrong ? 'close-circle' : picked ? 'radio-button-on' : 'radio-button-off', ic: right ? '#3C8200' : wrong ? '#D92D20' : picked ? '#2B2B2B' : '#9C9A95', fg: right ? '#3C8200' : wrong ? '#D92D20' : '#2B2B2B', onClick: () => !S.mcqSub && this.setState({ ans: { ...S.ans, [qi]: oi } }) }; }) })),
+      mcqNotSubmitted: !S.mcqSub, mcqFailed: S.mcqSub && !passed,
+      submitMcq: () => Object.keys(S.ans).length === Q.length ? this.setState({ mcqSub: true }) : this.flash('Answer all 3 questions first'),
+      retakeMcq: () => this.setState({ ans: {}, mcqSub: false }),
+      mcqMsg: S.mcqSub ? (passed ? 'Passed · ' + score + ' / 3. You can mark this lesson complete.' : 'Scored ' + score + ' / 3. Pass mark is 2.') : '', mcqFg: passed ? '#3C8200' : '#D92D20',
+      aPdf: 'Module 12 Assignment', aTitle: ASG[asgI][0], aDue: ASG[asgI][1] + (aS.st === 'Overdue' ? ' · Expired' : ''), aMarks: ASG[asgI][3], aStatus: aS.st, aBg: T[aS.tone][0], aFg: T[aS.tone][1], aFeedback: ASG[asgI][4],
+      submitCta: S.submitted[asgI] ? 'Resubmit' : 'Submit assignment (.zip)',
+      openSubmit: () => this.setState({ submitOpen: true, zip: false }), closeSubmit: () => this.setState({ submitOpen: false }), submitOpen: S.submitOpen,
+      pickZip: () => this.setState({ zip: true }), zipBorder: S.zip ? '#58CC02' : '#D6D3CD', zipBg: S.zip ? 'rgba(88,204,2,0.06)' : '#FFFFFF', zipIcon: S.zip ? 'document-attach' : 'cloud-upload-outline', zipLabel: S.zip ? 'riya_deshmukh_styleguide.zip' : 'Choose a .zip file', zipSub: S.zip ? '4.2 MB · ready to submit' : 'Max 50 MB', zipOpacity: S.zip ? 1 : 0.4,
+      confirmSubmit: () => { if (!S.zip) return; this.setState({ submitOpen: false, submitted: { ...S.submitted, [asgI]: true } }); this.flash('Submitted · Prof. Deepak has been notified'); },
+      markComplete: () => { if (isDone && isVideo) return; if (!canComplete) return this.flash('Finish the video and pass the MCQs first'); if (isVideo) { this.setState({ done: [...S.done, key] }); this.flash('Lesson complete · +' + Math.round(dur / 60) + ' min to pre-recorded'); } else this.flash('Marked as complete'); },
+      mcLabel: isVideo && isDone ? 'Completed' : 'Mark as complete', mcIcon: isVideo && isDone ? 'checkmark-circle' : 'checkmark-circle-outline', mcBg: isVideo && isDone ? '#F5F4F1' : canComplete ? '#FFCC00' : '#F5F4F1', mcFg: canComplete || isDone ? '#2B2B2B' : '#9C9A95', mcCursor: canComplete && !(isVideo && isDone) ? 'pointer' : 'default', mcTip: isVideo && isDone ? 'Lesson completed' : canComplete ? 'Mark this lesson as complete' : 'Available after the video ends and you pass the 3 MCQs',
+      drawerOpen: S.drawer, closeDrawer: () => this.setState({ drawer: false }), drawerTitle: { self: 'Self-paced', live: 'Live classes', materials: 'Study materials', notes: 'Notes and bookmarks' }[S.rail],
+      rSelf: S.rail === 'self', rLive: S.rail === 'live', rMat: S.rail === 'materials', rNotes: S.rail === 'notes',
+      mods: MODS.map((m, mi) => { const open = S.openMod === mi; const d = m.l.filter((_, li) => S.done.includes(mi + '-' + li)).length; return { t: m.t, fw: open ? 500 : 400, meta: (d > 0 || (isVideo && mi === cm)) ? d + ' of ' + m.l.length + ' done' : m.l.length + ' lessons · ' + Math.round(m.l.reduce((x, y) => x + y[1], 0) / 60) + ' min', open, chev: open ? 'chevron-down' : 'chevron-forward', border: open ? '1px solid #2B2B2B' : '1px solid #E8E6E1', toggle: () => this.setState({ openMod: open ? -1 : mi }), lessons: m.l.map((l, li) => { const k = mi + '-' + li, c = isVideo && mi === cm && li === cl, dn = S.done.includes(k); return { t: l[0], dur: fmt(l[1]), bg: c ? '#FFF6D1' : 'transparent', hov: c ? '#FFF6D1' : '#F7F6F3', fw: c ? 500 : 400, icon: c ? 'play-circle' : dn ? 'checkmark-circle-outline' : 'play-circle-outline', ic: c ? '#2B2B2B' : dn ? '#6B6966' : '#9C9A95', onClick: () => this.setLesson(mi, li) }; }) }; }),
+      materials: [['Reading list', 'Introduction to UI UX', 'document-text'], ['UCD process cheat sheet', 'Module 1', 'document-text'], ['Interview script template', 'Module 2 · coordinator extra', 'document-attach'], ['Nielsen Norman — 10 heuristics', 'Module 4 · link', 'link'], ['Wireframe kit (Figma)', 'Module 5 · link', 'link']].map(m => ({ t: m[0], tag: m[1], icon: m[2] })),
+      noteText: S.note, setNote: e => this.setState({ note: e.target.value }),
+      addBookmark: () => { this.setState({ bms: [{ at: fmt(dur * S.prog / 100), t: S.note || 'Bookmark' }, ...S.bms], note: '' }); },
+      bookmarks: S.bms,
+      aiBg: S.aiOpen ? '#F5F4F1' : 'transparent', rail: RAIL.map(([k, icon, label]) => ({ icon: S.rail === k && S.drawer ? icon.replace('-outline', '') : icon, label, short: { self: 'Lessons', live: 'Live', materials: 'Materials', notes: 'Notes' }[k], fg: S.rail === k && S.drawer ? '#2B2B2B' : '#8A8884', bg: S.rail === k && S.drawer ? '#F5F5F3' : 'transparent', fw: S.rail === k ? 500 : 400, onClick: () => this.setState({ rail: k, drawer: true }) })),
+      aiOpen: S.aiOpen, toggleAi: () => this.setState({ aiOpen: !S.aiOpen }), aiInput: S.aiInput, setAi: e => this.setState({ aiInput: e.target.value }),
+      sendAi: () => { if (!S.aiInput.trim()) return; this.setState({ aiInput: '', chat: [...S.chat, { me: true, t: S.aiInput }, { me: false, t: 'Good question. In "' + MODS[cm].l[cl][0] + '", Prof. Deepak covers this around 06:30. Short version: start from the user\'s goal, then pick the interface.' }] }); },
+      chat: S.chat.map(m => ({ t: m.t, align: m.me ? 'flex-end' : 'flex-start', bg: m.me ? '#ECEAE5' : '#F5F4F1' })),
+      tourOn: S.tour >= 0, tour: { icon: t[0], t: t[1], body: t[2], cta: t[3], n: S.tour + 1 },
+      tourDots: [0, 1, 2].map(i => ({ w: i === S.tour ? '22px' : '8px', bg: i === S.tour ? '#2B2B2B' : '#E8E6E1' })),
+      nextTour: () => this.setState({ tour: S.tour >= 2 ? -1 : S.tour + 1 }), skipTour: () => this.setState({ tour: -1 }),
+      ...this.extraVals(S),
+      toast: S.toast,
+    };
+  }
+  extraVals(S) {
+    const X = S.xs || {}; const setX = (k, v) => this.setState(s => ({ xs: { ...(s.xs || {}), [k]: v } })); const setXs = o => this.setState(s => ({ xs: { ...(s.xs || {}), ...o } }));
+    const TN = { ok: ['rgba(88,204,2,0.12)', '#3C8200'], warn: ['rgba(255,149,0,0.14)', '#B25900'], bad: ['rgba(255,59,48,0.12)', '#D92D20'], neu: ['#F5F4F1', '#6B6966'], brand: ['#FFF6D1', '#8A6D00'] };
+    const chip = (o, k, label, tone) => { o[k] = label; o[k + 'Bg'] = TN[tone][0]; o[k + 'Fg'] = TN[tone][1]; return o; };
+    const rows = a => a.map((r, i) => ({ ...r, bt: i === 0 ? 'none' : '1px solid #E8E6E1' }));
+    const seg = (k, opts, def) => { const cur = X[k] || def; return { cur, list: opts.map(([v, l, n]) => ({ label: l, n: n === undefined ? '' : n, bg: cur === v ? '#FFFFFF' : 'transparent', fg: cur === v ? '#2B2B2B' : '#6B6966', sh: cur === v ? '0 1px 2px rgba(43,43,43,0.08)' : 'none', onClick: () => setX(k, v) })) }; };
+    const pb = p => ({ btnBg: '#FFFFFF', btnBorder: '1px solid #E8E6E1' });
+    const flash = t => this.flash(t);
+    const ini = n => n.replace(/^(Prof\.|Dr\.|TA)\s/, '').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+    const cal = ev => { const out = []; for (let i = 0; i < 35; i++) { const d = i - 2; const inM = d >= 1 && d <= 31; const td = d === 17; out.push({ d: inM ? d : '', bl: i % 7 === 0 ? 'none' : '1px solid #E8E6E1', bg: inM ? '#FFFFFF' : '#FAF9F7', fw: td ? 500 : 400, fg: td ? '#FFFFFF' : '#6B6966', dotBg: td ? '#2B2B2B' : 'transparent', ev: inM ? (ev[d] || []).map(([t, tone]) => ({ t, bg: tone === 'live' ? '#FFF6D1' : tone === 'bad' ? 'rgba(255,59,48,0.12)' : '#F5F4F1' })) : [] }); } return out; };
+    const community = (me, role, ph, chans, base) => { const posts = X.posts || base; const liked = X.liked || {}; const ch = X.ch || 'all'; const RT = { Coordinator: 'brand', Admin: 'neu', Student: 'neu', TA: 'neu' };
+      return { cmMe: ini(me), cmPh: ph, cmText: X.post || '', cmSetText: e => setX('post', e.target.value),
+        cmSend: () => { const t = (X.post || '').trim(); if (!t) return; setXs({ posts: [{ id: Date.now(), name: me, role, ch: ch === 'all' ? chans[1][0] : ch, when: 'Just now', body: t, likes: 0, replies: 0 }, ...posts], post: '' }); },
+        cmChannels: [['all', 'All posts'], ...chans].map(([k, l]) => ({ label: k === 'all' ? l : k, n: k === 'all' ? posts.length : posts.filter(p => p.ch === k).length, bg: ch === k ? '#F5F4F1' : 'transparent', fw: ch === k ? 500 : 400, onClick: () => setX('ch', k) })),
+        cmPosts: posts.filter(p => ch === 'all' || p.ch === k2(p, ch)).map(p => { const on = !!liked[p.id]; return { ...p, init: ini(p.name), roleBg: TN[RT[p.role] || 'neu'][0], roleFg: TN[RT[p.role] || 'neu'][1], likes: p.likes + (on ? 1 : 0), likeIcon: on ? 'heart' : 'heart-outline', likeFg: on ? '#D92D20' : '#6B6966', like: () => setX('liked', { ...liked, [p.id]: !on }), reply: () => flash('Replies open in a thread') }; }) }; };
+    const k2 = (p, ch) => ch;
+    const tasks = base => { const list = X.tasks || base; const tog = id => setX('tasks', list.map(t => t.id === id ? { ...t, done: !t.done } : t));
+      return { tkText: X.tk || '', tkSetText: e => setX('tk', e.target.value), tkAdd: () => { const t = (X.tk || '').trim(); if (!t) return; setXs({ tasks: [{ id: Date.now(), t, sub: 'Added by you', due: 'No date', tone: 'neu', done: false }, ...list], tk: '' }); },
+        tkOpen: list.filter(t => !t.done).length, tkDone: list.filter(t => t.done).length,
+        tkList: [...list].sort((a, b) => a.done - b.done).map(t => ({ t: t.t, sub: t.sub, due: t.done ? 'Done' : t.due, dueBg: TN[t.done ? 'neu' : t.tone][0], dueFg: TN[t.done ? 'neu' : t.tone][1], icon: t.done ? 'checkmark-circle' : 'ellipse-outline', ic: t.done ? '#6B6966' : '#9C9A95', fg: t.done ? '#9C9A95' : '#2B2B2B', deco: t.done ? 'line-through' : 'none', toggle: () => tog(t.id) })) }; };
+
+    const tab = S.tab;
+    const ts = seg('tsSeg', [['up', 'Upcoming', 3], ['done', 'Completed', 4]], 'up');
+    const UP = [['Module 1 quiz — User Centered Design', 'Module 1', 'Tue, 20 Oct 2026', '10 MCQs · 15 min', 'Opens soon'], ['Module 2 quiz — User Research', 'Module 2', 'Tue, 27 Oct 2026', '10 MCQs · 15 min', 'Locked'], ['UI/UX Design — Mid-sem', 'Semester exam', 'Tue, 27 Oct 2026', 'Written · 2 h · Hall B2', 'Scheduled']];
+    const DONE = [['Introduction quiz — Prerequisites', 'Introduction to UI UX', 'Mon, 12 Oct 2026', '3 MCQs', '3 / 3', 'Passed'], ['Design Process check-in', 'Live class', 'Wed, 7 Oct 2026', '5 MCQs', '4 / 5', 'Passed'], ['Personas and Journey Maps', 'Live class', 'Wed, 30 Sep 2026', '5 MCQs', '2 / 5', 'Failed'], ['Figma basics', 'Live class', 'Sat, 26 Sep 2026', '5 MCQs', '5 / 5', 'Passed']];
+    const tsRows = rows(ts.cur === 'up' ? UP.map(r => chip({ t: r[0], mod: r[1], date: r[2], fmt: r[3], score: '—', btn: r[4] === 'Opens soon' ? 'Set reminder' : 'Details', ...pb(false), on: () => flash(r[4] === 'Opens soon' ? 'Reminder set for ' + r[2] : 'Unlocks after you finish Module 1') }, 'st', r[4], r[4] === 'Locked' ? 'neu' : 'brand')) : DONE.map(r => chip({ t: r[0], mod: r[1], date: r[2], fmt: r[3], score: r[4], btn: r[5] === 'Failed' ? 'Retake' : 'Review', ...pb(r[5] === 'Failed'), on: () => this.setState({ trv: { r } }) }, 'st', r[5], r[5] === 'Failed' ? 'bad' : 'ok')));
+    const mt = seg('mtSeg', [['all', 'All', 12], ['doc', 'Documents'], ['link', 'Links'], ['tpl', 'Templates']], 'all');
+    const MAT = [['Reading list', 'Prof. Deepak Kulkarni · Tue, 6 Oct 2026', 'Introduction to UI UX', 'PDF', '1.2 MB', 'doc'], ['UCD process cheat sheet', 'Prof. Deepak Kulkarni · Fri, 9 Oct 2026', 'Module 1', 'PDF', '840 KB', 'doc'], ['Interview script template', 'TA Kiara · Mon, 12 Oct 2026', 'Module 2', 'DOCX', '96 KB', 'tpl'], ['Affinity map board', 'TA Kiara · Mon, 12 Oct 2026', 'Module 2', 'Link', '—', 'link'], ['Nielsen Norman — 10 heuristics', 'Prof. Deepak Kulkarni · Wed, 14 Oct 2026', 'Module 4', 'Link', '—', 'link'], ['Wireframe kit (Figma)', 'Prantik Sen · Thu, 15 Oct 2026', 'Module 5', 'Figma', '—', 'tpl'], ['Odd Semester 2026 timetable', 'Admin · Sat, 10 Oct 2026', 'General', 'PDF', '210 KB', 'doc'], ['Colour theory primer', 'Prof. Meera Iyer · Mon, 5 Oct 2026', 'Module 1', 'PDF', '2.4 MB', 'doc'], ['Typography specimen kit', 'Prof. Meera Iyer · Thu, 8 Oct 2026', 'Module 2', 'Figma', '—', 'tpl'], ['Grid systems reference', 'Prof. Meera Iyer · Tue, 13 Oct 2026', 'Module 3', 'Link', '—', 'link'], ['Field study consent form', 'Dr. Anil Rao · Wed, 7 Oct 2026', 'Module 1', 'DOCX', '64 KB', 'tpl'], ['Research methods handbook', 'Dr. Anil Rao · Fri, 16 Oct 2026', 'Module 2', 'PDF', '3.1 MB', 'doc']];
+    const MCOURSE = ['UI/UX Design', 'UI/UX Design', 'UI/UX Design', 'UI/UX Design', 'UI/UX Design', 'UI/UX Design', 'General', 'Visual Communication', 'Visual Communication', 'Visual Communication', 'Design Research', 'Design Research'];
+    const MORDER = [['UI/UX Design', 'Prof. Deepak Kulkarni'], ['Visual Communication', 'Prof. Meera Iyer'], ['Design Research', 'Dr. Anil Rao'], ['General', 'College office']];
+    const mtItem = m => chip({ t: m[0], by: m[1], mod: m[2], size: m[4], icon: m[5] === 'link' ? 'open-outline' : 'download-outline', btn: m[5] === 'link' ? 'Open link' : 'Download', on: () => flash(m[5] === 'link' ? 'Opening link' : 'Download started') }, 'type', m[3], 'neu');
+    const mtGroups = MORDER.map(([course, who]) => { const items = MAT.filter((m, i) => MCOURSE[i] === course && (mt.cur === 'all' || m[5] === mt.cur)); return { course, meta: who + ' · ' + items.length + (items.length === 1 ? ' file' : ' files'), rows: rows(items.map(mtItem)) }; }).filter(g => g.rows.length);
+    const EV = { 3: [['Intro to UI/UX · live', 'live']], 7: [['Design Process · live', 'live']], 12: [['Style guide due', 'bad']], 14: [['Mid-sem viva slots out', 'neu']], 17: [['UI Basics · 6 PM', 'live']], 20: [['Library closed', 'neu'], ['Module 1 quiz', 'bad'], ['UX examples due', 'bad']], 21: [['Heuristics workshop', 'live']], 24: [['Mid-sem viva', 'bad'], ['Portfolio review', 'live']], 27: [['UI/UX Mid-sem', 'bad']], 29: [['Visual Comm exam', 'bad']], 31: [['Research Methods exam', 'bad']] };
+    return {
+      ...(() => { const TV = S.trv; if (!TV) return { trOpen: false }; const r = TV.r; const [got, out] = r[4].split(' / ').map(Number);
+        const QB = [['What does UX design primarily focus on?', ['Visual polish', 'The whole experience of using a product', 'Code quality', 'Brand logos'], 1, 'UX covers every touchpoint, not only the interface.'], ['Which comes first in a user-centred process?', ['Prototyping', 'Understanding users', 'Visual design', 'Development'], 1, 'Research and empathy come before solutions.'], ['A persona represents…', ['A real customer', 'A target user group', 'A stakeholder', 'A developer'], 1, 'Personas are composites built from research.'], ['A journey map shows…', ['Site architecture', 'A user\u2019s steps, feelings and pain points over time', 'Sprint timelines', 'Component states'], 1, 'Journey maps track experience across stages.'], ['Which Figma feature keeps components consistent?', ['Frames', 'Main components and instances', 'Comments', 'Pages'], 1, 'Instances inherit changes from the main component.']];
+        const qs = QB.slice(0, out).map((b, i) => { const right = i < got; const mine = right ? b[2] : (b[2] + 1) % 4; return { n: i + 1, q: b[0], icon: right ? 'checkmark-circle' : 'close-circle', ic: right ? '#3C8200' : '#D92D20', bd: right ? '#E8E6E1' : 'rgba(255,59,48,0.3)', hasWhy: !right, why: b[3], opts: b[1].map((o, j) => ({ t: o, tag: j === b[2] ? (j === mine ? 'Your answer · correct' : 'Correct answer') : j === mine ? 'Your answer' : '', bg: j === b[2] ? 'rgba(88,204,2,0.10)' : j === mine ? 'rgba(255,59,48,0.08)' : '#FAFAF8', fg: j === b[2] ? '#3C8200' : j === mine ? '#D92D20' : '#2B2B2B' })) }; });
+        const failed = r[5] === 'Failed';
+        return { trOpen: true, trClose: () => this.setState({ trv: null }), trHead: r[0], trSub: r[1] + ' · ' + r[2] + ' · ' + r[3], trStats: [{ v: r[4], k: 'Your score', fg: failed ? '#D92D20' : '#3C8200' }, { v: Math.ceil(out * 0.6) + ' / ' + out, k: 'Pass mark', fg: '#2B2B2B' }, { v: r[5], k: 'Result', fg: failed ? '#D92D20' : '#3C8200' }], trQs: qs, trFailed: failed, trNote: failed ? 'You can retake this quiz once more before Fri, 23 Oct 2026.' : 'Answers stay visible here for revision.',
+          trRetake: () => this.setState({ trv: null, view: 'player', mode: 'video', rail: 'self', drawer: true, prog: 100, ans: {}, mcqSub: false }) }; })(),
+      ovStop: e => e.stopPropagation(),
+      xTests: tab === 'tests', xMaterials: tab === 'materials', xCalendar: tab === 'calendar', xCommunity: tab === 'community',
+      tsSeg: ts.list, tsRows, mtSeg: mt.list, mtGroups, mtEmpty: mtGroups.length === 0,
+      calDays: cal(EV), calSync: () => flash('Calendar synced'),
+      calAgenda: [['17', 'Oct', 'UI Basics', 'Live · 6:00 PM IST · Prof. Deepak'], ['20', 'Oct', 'Creating Good and Bad UX Design Examples', 'Assignment due · 11:59 PM'], ['20', 'Oct', 'Module 1 quiz', 'Opens 9:00 AM · 15 min'], ['21', 'Oct', 'Heuristic Evaluation Workshop', 'Live · 6:00 PM IST']].map(a => ({ d: a[0], m: a[1], t: a[2], sub: a[3] })),
+      ...this.cxVals(), logout: e => { if (e && e.stopPropagation) e.stopPropagation(); this.props.onLogout && this.props.onLogout(); }, ...community('Riya Deshmukh', 'Student', 'Share something with your batch…', [['ui-ux-sem5', 'UI/UX Sem 5'], ['doubts', 'Doubts'], ['portfolio', 'Portfolio feedback'], ['announcements', 'Announcements']], [
+        { id: 1, name: 'Prof. Deepak Kulkarni', role: 'Coordinator', ch: 'announcements', when: '2 h ago', body: 'Mid-sem viva slots are up on the notice board. Bring a printed style guide and your Figma link. Reply here if your slot clashes with another exam.', likes: 24, replies: 6 },
+        { id: 2, name: 'Aarav Patil', role: 'Student', ch: 'doubts', when: '5 h ago', body: 'In the double diamond, does "Define" end with the problem statement or with the HMW questions? The lecture and the reading list seem to disagree.', likes: 9, replies: 4 },
+        { id: 3, name: 'Sneha Kulkarni', role: 'Student', ch: 'portfolio', when: 'Yesterday', body: 'Uploaded my poster from the Figma basics assignment. Would love feedback on the hierarchy before I add it to my portfolio.', likes: 15, replies: 7 },
+        { id: 4, name: 'TA Kiara', role: 'TA', ch: 'ui-ux-sem5', when: 'Thu, 15 Oct 2026', body: 'Interview script template and the affinity map board are now in Study materials under Module 2.', likes: 31, replies: 2 }]),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="width:248px;flex-shrink:0;align-self:stretch;border-right:1px solid #E5E5EA;background:#FFFFFF;display:flex;flex-direction:column;padding:28px 16px 20px;gap:32px;box-sizing:border-box;font-family:Poppins, sans-serif;">
+  <div style="display:flex;align-items:center;gap:7px;padding:0 12px;">
+    <div style="width:12px;height:12px;border-radius:50%;background:#FFCC00;"></div>
+    <span style="font-weight:600;font-size:22px;letter-spacing:-0.3px;color:#1C1410;">pitchvilla</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;">
+    <sc-for list="{{ items }}" as="it" hint-placeholder-count="5">
+      <sc-if value="{{ it.active }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:14px;height:44px;padding:0 12px;border-radius:12px;background:#F5F5F7;">
+          <ion-icon name="{{ it.icon }}" style="font-size:20px;color:#1C1410;"></ion-icon>
+          <span style="font-size:14px;font-weight:600;color:#1C1410;">{{ it.label }}</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ it.inactive }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:14px;height:44px;padding:0 12px;border-radius:12px;cursor:pointer;" style-hover="background:#F5F5F7;">
+          <ion-icon name="{{ it.iconOutline }}" style="font-size:20px;color:#6B5E54;"></ion-icon>
+          <span style="font-size:14px;font-weight:500;color:#6B5E54;">{{ it.label }}</span>
+        </div>
+      </sc-if>
+    </sc-for>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid #E5E5EA;padding-top:20px;">
+    <span style="font-size:12px;font-weight:500;color:#A1A1AA;padding:0 12px 6px;letter-spacing:0.6px;">LIBRARY</span>
+    <sc-for list="{{ secondary }}" as="it" hint-placeholder-count="2">
+      <sc-if value="{{ it.active }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:14px;height:40px;padding:0 12px;border-radius:12px;background:#F5F5F7;">
+          <ion-icon name="{{ it.icon }}" style="font-size:18px;color:#1C1410;"></ion-icon>
+          <span style="font-size:14px;font-weight:600;color:#1C1410;">{{ it.label }}</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ it.inactive }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:14px;height:40px;padding:0 12px;border-radius:12px;cursor:pointer;" style-hover="background:#F5F5F7;">
+          <ion-icon name="{{ it.iconOutline }}" style="font-size:18px;color:#6B5E54;"></ion-icon>
+          <span style="font-size:14px;font-weight:500;color:#6B5E54;">{{ it.label }}</span>
+        </div>
+      </sc-if>
+    </sc-for>
+  </div>
+  <div style="margin-top:auto;display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;border:1px solid #E5E5EA;">
+    <div style="width:36px;height:36px;border-radius:50%;background:#FFCC00;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#1C1410;flex-shrink:0;">AM</div>
+    <div style="display:flex;flex-direction:column;min-width:0;">
+      <span style="font-size:13px;font-weight:600;color:#1C1410;">Aarav Mehta</span>
+      <span style="font-size:12px;color:#6B5E54;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">B.Tech · Semester 6</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:248,&quot;height&quot;:900},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;applications&quot;,&quot;quiz&quot;,&quot;courses&quot;,&quot;profile&quot;,&quot;saved&quot;,&quot;bookings&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const a = this.props.active ?? 'home';
+    const mk = (key, icon, label) => ({ key, icon, iconOutline: icon + '-outline', label, active: a === key, inactive: a !== key });
+    return {
+      items: [mk('home', 'home', 'Home'), mk('applications', 'list', 'Applications'), mk('quiz', 'finger-print', 'Career Quiz'), mk('courses', 'flash', 'Courses'), mk('profile', 'person', 'Profile')],
+      secondary: [mk('saved', 'bookmark', 'Saved'), mk('bookings', 'calendar', 'Bookings')],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <style>body{margin:0;font-family:Poppins,sans-serif;color:#2B2B2B;-webkit-font-smoothing:antialiased;} a{color:#2B2B2B;} a:hover{color:#6B6966;} input,textarea{font-family:Poppins,sans-serif;} input:focus{border-color:#8A6D00 !important;box-shadow:0 0 0 3px rgba(255,204,0,0.18);} *{scrollbar-width:none;-ms-overflow-style:none;} *::-webkit-scrollbar{display:none;width:0;height:0;}</style>
+</helmet>
+<div data-screen-label="Onboarding" style="min-height:calc(100vh - var(--flow-h,0px));background:#FFFFFF;font-family:Poppins,sans-serif;color:#2B2B2B;display:flex;flex-direction:column;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 32px;">
+    <div style="display:flex;align-items:center;gap:8px;"><div style="width:11px;height:11px;border-radius:50%;background:#FFCC00;"></div><span style="font-size:13px;font-weight:500;letter-spacing:-0.3px;">pitchvilla</span><span style="font-size:11px;font-weight:400;color:#6B6966;padding:2px 8px;border-radius:6px;border:1px solid #E8E6E1;margin-left:2px;">LMS</span></div>
+    <span style="font-size:12px;color:#6B6966;display:flex;align-items:center;gap:6px;cursor:pointer;"><ion-icon name="help-circle-outline" style="font-size:13px;"></ion-icon>Need help?</span>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 24px 24px;gap:16px;">
+    <sc-if value="{{ showSteps }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%;max-width:{{ cardW }};display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="height:4px;border-radius:999px;background:{{ st.bar }};"></div>
+            <span style="font-size:11px;font-weight:{{ st.fw }};color:{{ st.fg }};">{{ st.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div style="width:100%;max-width:{{ cardW }};background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:20px 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;">
+
+      <sc-if value="{{ s0 }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:16px;font-weight:500;letter-spacing:-0.4px;">{{ authTitle }}</span><span style="font-size:12px;color:#6B6966;">{{ authSub }}</span></div>
+        <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <span style="font-size:12px;font-weight:400;">I'm joining as</span>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <sc-for list="{{ roles }}" as="r" hint-placeholder-count="2">
+                <div onClick="{{ r.onClick }}" style="border:1px solid {{ r.border }};background:{{ r.bg }};border-radius:16px;padding:14px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:all .15s;">
+                  <div style="width:34px;height:34px;border-radius:10px;background:{{ r.iconBg }};display:flex;align-items:center;justify-content:center;flex-shrink:0;"><ion-icon name="{{ r.icon }}" style="font-size:13px;"></ion-icon></div>
+                  <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12px;font-weight:500;">{{ r.label }}</span><span style="font-size:12px;color:#6B6966;line-height:1.4;">{{ r.sub }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">College email</span><input value="{{ email }}" onChange="{{ setEmail }}" placeholder="name@college.edu" style="height:38px;border-radius:10px;border:1px solid #E8E6E1;background:#FFFFFF;padding:0 14px;font-size:13px;outline:none;transition:all .15s;"></input></label>
+          <label style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;justify-content:space-between;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Password</span><sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#6B6966;cursor:pointer;">Forgot password?</span></sc-if></div><input type="password" value="{{ pw }}" onChange="{{ setPw }}" placeholder="At least 8 characters" style="height:38px;border-radius:10px;border:1px solid #E8E6E1;background:#FFFFFF;padding:0 14px;font-size:13px;outline:none;transition:all .15s;"></input></label>
+          <sc-if value="{{ err }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#D92D20;display:flex;align-items:center;gap:6px;"><ion-icon name="alert-circle-outline"></ion-icon>{{ err }}</span></sc-if>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div onClick="{{ submitAuth }}" style="height:34px;border-radius:10px;background:#FFCC00;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;" style-hover="background:#F5C400;">{{ authCta }}</div>
+          <div style="display:flex;align-items:center;gap:12px;"><div style="flex:1;height:1px;background:#E8E6E1;"></div><span style="font-size:12px;color:#9C9A95;">or</span><div style="flex:1;height:1px;background:#E8E6E1;"></div></div>
+          <div onClick="{{ google }}" style="height:34px;border-radius:10px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;justify-content:center;gap:10px;font-size:12px;font-weight:400;cursor:pointer;" style-hover="background:#F7F6F3;"><ion-icon name="logo-google" style="font-size:13px;"></ion-icon>Continue with Google</div>
+        </div>
+        <span style="font-size:12px;color:#6B6966;text-align:center;">{{ switchText }} <span onClick="{{ switchMode }}" style="font-weight:500;color:#2B2B2B;cursor:pointer;">{{ switchCta }}</span></span>
+      </sc-if>
+
+      <sc-if value="{{ s1 }}" hint-placeholder-val="{{ false }}">
+        <div style="width:38px;height:38px;border-radius:10px;background:#FFF6D1;display:flex;align-items:center;justify-content:center;"><ion-icon name="mail-open-outline" style="font-size:14px;color:#8A6D00;"></ion-icon></div>
+        <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:16px;font-weight:500;letter-spacing:-0.4px;">Check your inbox</span><span style="font-size:12px;color:#6B6966;line-height:1.5;">Enter the 6-digit code we sent to <span style="color:#2B2B2B;font-weight:400;">{{ email }}</span></span></div>
+        <div style="position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;">
+          <sc-for list="{{ otpBoxes }}" as="b" hint-placeholder-count="6">
+            <div style="height:56px;border-radius:10px;border:1px solid {{ b.border }};background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;box-shadow:{{ b.ring }};">{{ b.d }}</div>
+          </sc-for>
+          <input value="{{ otp }}" onChange="{{ setOtp }}" maxlength="6" inputmode="numeric" autofocus="autofocus" style="position:absolute;inset:0;opacity:0;font-size:14px;cursor:text;"></input>
+        </div>
+        <span style="font-size:12px;color:#6B6966;">Prototype: type any 6 digits. Didn't get it? <span style="font-weight:500;color:#2B2B2B;cursor:pointer;">Resend in 0:28</span></span>
+        <sc-if value="{{ err }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#D92D20;">{{ err }}</span></sc-if>
+        <div style="display:flex;gap:10px;">
+          <div onClick="{{ back }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;font-size:12px;font-weight:400;cursor:pointer;white-space:nowrap;">Back</div>
+          <div onClick="{{ verifyOtp }}" style="flex:1;height:34px;border-radius:10px;background:#FFCC00;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;opacity:{{ otpOpacity }};">Verify email</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:16px;font-weight:500;letter-spacing:-0.4px;">Find your college</span><span style="font-size:12px;color:#6B6966;">Your request goes to this college's admin.</span></div>
+        <div style="height:38px;border-radius:10px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;gap:10px;padding:0 14px;"><ion-icon name="search-outline" style="font-size:13px;color:#9C9A95;"></ion-icon><input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search by name or city" style="flex:1;border:none;background:transparent;font-size:13px;outline:none;box-shadow:none;"></input></div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;">
+          <sc-for list="{{ colleges }}" as="c" hint-placeholder-count="5">
+            <div onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:1px solid {{ c.border }};background:{{ c.bg }};cursor:pointer;" style-hover="border-color:#D6D3CD;">
+              <div style="width:34px;height:34px;border-radius:10px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#6B6966;flex-shrink:0;">{{ c.init }}</div>
+              <div style="display:flex;flex-direction:column;min-width:0;flex:1;"><span title="{{ c.name }}" style="font-size:12px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ c.name }}</span><span style="font-size:12px;color:#6B6966;">{{ c.city }}</span></div>
+              <ion-icon name="{{ c.icon }}" style="font-size:13px;color:{{ c.ic }};"></ion-icon>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noColleges }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#6B6966;padding:12px 4px;grid-column:1 / -1;">No college matches "{{ q }}".</span></sc-if>
+        </div>
+        <sc-if value="{{ notRequested }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size:12px;color:#6B6966;">Can't find it? <span onClick="{{ requestCollege }}" style="font-weight:500;color:#2B2B2B;cursor:pointer;">Request your college</span></span>
+        </sc-if>
+        <sc-if value="{{ requested }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:10px;background:#F1F9EA;color:#3C8200;font-size:12px;"><ion-icon name="checkmark-circle-outline" style="font-size:13px;flex-shrink:0;"></ion-icon>Request sent. We'll email you when your college is added.</div>
+        </sc-if>
+        <div style="display:flex;gap:10px;">
+          <div onClick="{{ back }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;font-size:12px;font-weight:400;cursor:pointer;white-space:nowrap;">Back</div>
+          <div onClick="{{ toDetails }}" style="flex:1;height:34px;border-radius:10px;background:#FFCC00;opacity:{{ collegeOpacity }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;">Continue</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:16px;font-weight:500;letter-spacing:-0.4px;">Your details</span><span style="font-size:12px;color:#6B6966;">{{ detailsSub }}</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:center;"><div style="display:flex;align-items:center;gap:16px;">
+          <div onClick="{{ addPhoto }}" style="width:64px;height:64px;border-radius:50%;background:{{ photoBg }};border:1px dashed {{ photoBorder }};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:13px;font-weight:500;color:#6B6966;"><sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}">{{ initials }}</sc-if><sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}"><ion-icon name="camera-outline" style="font-size:14px;"></ion-icon></sc-if></div>
+          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;font-weight:400;">Profile photo</span><span onClick="{{ addPhoto }}" style="font-size:12px;color:#6B6966;cursor:pointer;">{{ photoCta }}</span></div>
+        </div>
+        <div onClick="{{ addId }}" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:1px dashed {{ idBorder }};background:{{ idBg }};cursor:pointer;">
+          <ion-icon name="{{ idIcon }}" style="font-size:13px;color:{{ idIc }};"></ion-icon>
+          <div style="flex:1;display:flex;flex-direction:column;"><span style="font-size:12px;font-weight:400;">{{ idLabel }}</span><span style="font-size:12px;color:#6B6966;">{{ idSub }}</span></div>
+        </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;">
+          <sc-for list="{{ fields }}" as="f" hint-placeholder-count="7">
+            <label style="display:flex;flex-direction:column;gap:6px;grid-column:{{ f.span }};"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">{{ f.label }}</span><input value="{{ f.value }}" onChange="{{ f.onChange }}" placeholder="{{ f.ph }}" style="height:38px;border-radius:10px;border:1px solid #E8E6E1;background:#FFFFFF;padding:0 12px;font-size:13px;outline:none;transition:all .15s;"></input></label>
+          </sc-for>
+        </div>
+        
+        <sc-if value="{{ err }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#D92D20;">{{ err }}</span></sc-if>
+        <div style="display:flex;gap:10px;">
+          <div onClick="{{ back }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;font-size:12px;font-weight:400;cursor:pointer;white-space:nowrap;">Back</div>
+          <div onClick="{{ toReview }}" style="flex:1;height:34px;border-radius:10px;background:#FFCC00;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;">Review request</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s4 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:16px;font-weight:500;letter-spacing:-0.4px;">Review and send</span><span style="font-size:12px;color:#6B6966;">The {{ collegeShort }} admin will check these details.</span></div>
+        <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:16px 20px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 24px;">
+          <sc-for list="{{ review }}" as="r" hint-placeholder-count="6">
+            <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:11px;color:#6B6966;">{{ r.k }}</span><span style="font-size:12px;font-weight:400;overflow-wrap:anywhere;">{{ r.v }}</span></div>
+          </sc-for>
+        </div>
+        <span onClick="{{ toDetailsEdit }}" style="font-size:12px;font-weight:500;cursor:pointer;width:max-content;display:flex;align-items:center;gap:6px;"><ion-icon name="create-outline"></ion-icon>Edit details</span>
+        <div style="display:flex;gap:10px;">
+          <div onClick="{{ back }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;font-size:12px;font-weight:400;cursor:pointer;white-space:nowrap;">Back</div>
+          <div onClick="{{ sendRequest }}" style="flex:1;height:34px;border-radius:10px;background:#FFCC00;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:500;cursor:pointer;">Send request</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s5 }}" hint-placeholder-val="{{ false }}">
+        <div style="width:38px;height:38px;border-radius:10px;background:{{ pendIconBg }};display:flex;align-items:center;justify-content:center;"><ion-icon name="{{ pendIcon }}" style="font-size:14px;color:{{ pendIconFg }};"></ion-icon></div>
+        <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:16px;font-weight:500;letter-spacing:-0.4px;">{{ pendTitle }}</span><span style="font-size:12px;color:#6B6966;line-height:1.55;">{{ pendSub }}</span></div>
+        <div style="display:flex;flex-direction:column;">
+          <sc-for list="{{ tracker }}" as="t" hint-placeholder-count="3">
+            <div style="display:flex;gap:14px;">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div style="width:22px;height:22px;border-radius:50%;background:{{ t.bg }};border:1.5px solid {{ t.border }};display:flex;align-items:center;justify-content:center;box-sizing:border-box;color:{{ t.fg }};"><ion-icon name="{{ t.icon }}" style="font-size:12px;"></ion-icon></div>
+                <div style="width:1.5px;flex:1;min-height:20px;background:{{ t.line }};"></div>
+              </div>
+              <div style="display:flex;flex-direction:column;padding-bottom:16px;"><span style="font-size:12px;font-weight:{{ t.fw }};color:{{ t.labelFg }};">{{ t.label }}</span><span style="font-size:12px;color:#6B6966;">{{ t.sub }}</span></div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ isApproved }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:12px;padding:14px 16px;border-radius:10px;background:#F1F9EA;">
+            <ion-icon name="notifications-outline" style="font-size:13px;flex-shrink:0;margin-top:1px;color:#3C8200;"></ion-icon>
+            <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;font-weight:400;line-height:1.45;">{{ approvedMsg }}</span><span style="font-size:12px;color:#6B6966;">Also sent to {{ email }}</span></div>
+          </div>
+          <div onClick="{{ finish }}" style="height:34px;border-radius:10px;background:#FFCC00;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:500;cursor:pointer;">Go to my dashboard<ion-icon name="arrow-forward"></ion-icon></div>
+        </sc-if>
+        <sc-if value="{{ isRejected }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:10px;background:#FEF3F2;">
+            <span style="font-size:12px;font-weight:500;color:#B42318;">Reason from admin</span>
+            <span style="font-size:12px;line-height:1.5;">"The college ID doesn't match our Semester 5 roll list. Please upload a clear photo of your ID card."</span>
+          </div>
+          <div onClick="{{ resubmit }}" style="height:34px;border-radius:10px;background:#FFCC00;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;">Edit and resubmit</div>
+        </sc-if>
+        <sc-if value="{{ isReview }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:8px;">
+            <div onClick="{{ toDetailsEdit }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:400;cursor:pointer;white-space:nowrap;"><ion-icon name="create-outline"></ion-icon>Edit details</div>
+            <div onClick="{{ withdraw }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:400;cursor:pointer;color:#B42318;white-space:nowrap;"><ion-icon name="close-circle-outline"></ion-icon>Withdraw</div>
+            <div style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:400;color:#6B6966;cursor:pointer;white-space:nowrap;"><ion-icon name="chatbubble-outline"></ion-icon>Support</div>
+          </div>
+        </sc-if>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ showSim }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:8px;padding:6px 6px 6px 14px;border-radius:999px;border:1px dashed #D6D3CD;background:#FFFFFF;">
+        <span style="font-size:11px;font-weight:400;letter-spacing:0.6px;color:#9C9A95;">PROTOTYPE · SIMULATE ADMIN</span>
+        <div onClick="{{ approve }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#F1F9EA;color:#3C8200;display:flex;align-items:center;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;">Approve</div>
+        <div onClick="{{ reject }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FEF3F2;color:#B42318;display:flex;align-items:center;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;">Reject</div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ s0 }}" hint-placeholder-val="{{ true }}">
+      <span style="font-size:12px;color:#9C9A95;max-width:420px;text-align:center;line-height:1.6;">Every account is approved by your college admin. By continuing you agree to the Terms and Privacy Policy.</span>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;onDone&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(role: string, firstLogin: boolean) =&gt; void&quot;}}">
+class Component extends DCLogic {
+  state = { mode: 'signup', step: 0, role: 'student', email: 'riya.deshmukh@vit.edu', pw: '', otp: '', q: '', college: null, requested: false, status: 'review', err: '', up: { photo: false, id: false },
+    f: { name: 'Riya Deshmukh', cid: 'VIT22UX104', prog: 'B.Des — Interaction Design', dept: 'Design', sem: 'Semester 5', batch: '2022–2026', phone: '+91 98220 41736', emp: 'VIT-FAC-0412', subj: 'UI/UX Design, Visual Communication' } };
+  renderVals() {
+    const S = this.state, st = S.step, isStu = S.role === 'student';
+    const go = (step) => this.setState({ step, err: '' });
+    const C = [['Vishwakarma Institute of Technology', 'Pune, Maharashtra'], ['MIT World Peace University', 'Pune, Maharashtra'], ['National Institute of Design', 'Ahmedabad, Gujarat'], ['Symbiosis Institute of Design', 'Pune, Maharashtra'], ['Shri Ramdeobaba College of Engineering', 'Nagpur, Maharashtra'], ['PES University', 'Bengaluru, Karnataka'], ['Manipal Institute of Technology', 'Manipal, Karnataka']];
+    const q = S.q.toLowerCase();
+    const colleges = C.filter(c => !q || (c[0] + c[1]).toLowerCase().includes(q)).map(c => { const sel = S.college === c[0]; return { name: c[0], city: c[1], init: c[0].split(' ').filter(w => /^[A-Z]/.test(w)).slice(0, 2).map(w => w[0]).join(''), border: sel ? '#E6C34D' : '#E8E6E1', bg: sel ? '#FFF6D1' : '#FFFFFF', icon: sel ? 'checkmark-circle' : 'chevron-forward', ic: sel ? '#8A6D00' : '#D6D3CD', onClick: () => this.setState({ college: c[0] }) }; });
+    const college = S.college || 'Vishwakarma Institute of Technology';
+    const collegeShort = college.split(' ').filter(w => /^[A-Z]/.test(w)).map(w => w[0]).join('');
+    const setF = (k) => (e) => this.setState({ f: { ...S.f, [k]: e.target.value } });
+    const fd = (k, label, ph, span) => ({ label, value: S.f[k], ph, span: span || 'auto', onChange: setF(k) });
+    const fields = isStu
+      ? [fd('name', 'Full name', 'As on your ID card', '1 / -1'), fd('cid', 'College ID / roll no.', 'e.g. VIT22UX104'), fd('prog', 'Programme', 'e.g. B.Tech CSE'), fd('dept', 'Department', 'e.g. Design'), fd('sem', 'Semester', 'e.g. Semester 5'), fd('batch', 'Batch / year', 'e.g. 2022–2026'), fd('phone', 'Phone', '+91')]
+      : [fd('name', 'Full name', 'Prof. …'), fd('emp', 'Employee ID', 'e.g. VIT-FAC-0412'), fd('dept', 'Department', 'e.g. Design'), fd('subj', 'Subjects taught', 'Comma separated', 'span 2'), fd('phone', 'Phone', '+91')];
+    const labels = ['Account', 'Verify', 'College', 'Details', 'Review'];
+    const steps = labels.map((label, i) => ({ label, bar: i < st ? '#E6C34D' : i === st ? '#FFCC00' : '#E8E6E1', fw: i === st ? 500 : 400, fg: i <= st ? '#2B2B2B' : '#9C9A95' }));
+    const ap = S.status === 'approved', rj = S.status === 'rejected';
+    const tk = (label, sub, state) => ({ label, sub, icon: state === 'done' ? 'checkmark' : state === 'cur' ? 'ellipsis-horizontal' : state === 'bad' ? 'close' : '', bg: state === 'done' ? '#58CC02' : state === 'cur' ? '#FFF6D1' : state === 'bad' ? '#FEF3F2' : '#FFFFFF', border: state === 'done' ? '#58CC02' : state === 'cur' ? '#E6C34D' : state === 'bad' ? '#F04438' : '#D6D3CD', fg: state === 'done' ? '#FFFFFF' : state === 'bad' ? '#B42318' : '#8A6D00', line: state === 'done' ? '#BDE5A0' : '#E8E6E1', fw: state === 'todo' ? 500 : 600, labelFg: state === 'todo' ? '#9C9A95' : '#2B2B2B' });
+    const tracker = [tk('Submitted', 'Wed, 14 Oct 2026 · 4:12 PM IST', 'done'), tk('Under review', ap || rj ? 'Reviewed Wed, 14 Oct 2026 · 4:20 PM IST' : 'Usually within 1 working day', ap || rj ? 'done' : 'cur'), tk(rj ? 'Not approved' : 'Approved', ap ? (isStu ? 'Coordinator assigned' : 'Seat and subject assigned') : rj ? 'See reason below' : "You'll get an email and an in-app notification", ap ? 'done' : rj ? 'bad' : 'todo')];
+    tracker[2].line = 'transparent';
+    const otpBoxes = [0, 1, 2, 3, 4, 5].map(i => ({ d: S.otp[i] || '', border: i === S.otp.length ? '#8A6D00' : S.otp[i] ? '#C9C9C5' : '#E8E6E1', ring: i === S.otp.length ? '0 0 0 3px rgba(255,204,0,0.18)' : 'none' }));
+    const login = S.mode === 'login';
+    return {
+      cardW: st === 2 ? '880px' : (st === 3 || st === 4) ? '720px' : '440px', steps, showSteps: st >= 1 && st <= 4, s0: st === 0, s1: st === 1, s2: st === 2, s3: st === 3, s4: st === 4, s5: st === 5, showSim: st === 5 && !ap && !rj,
+      isSignup: !login, isLogin: login,
+      authTitle: login ? 'Welcome back' : 'Create your account', authSub: login ? 'Log in with your college email.' : 'Takes about two minutes.', authCta: login ? 'Log in' : 'Continue',
+      switchText: login ? 'New to Pitchvilla?' : 'Already have an account?', switchCta: login ? 'Create an account' : 'Log in',
+      switchMode: () => this.setState({ mode: login ? 'signup' : 'login', err: '' }),
+      roles: [['student', 'school-outline', 'Student', 'Courses, live lectures, certificate'], ['coordinator', 'easel-outline', 'Coordinator', 'Professor or teaching assistant']].map(r => { const on = S.role === r[0]; return { icon: r[1], label: r[2], sub: r[3], border: on ? '#E6C34D' : '#E8E6E1', bg: on ? '#FFF6D1' : '#FFFFFF', iconBg: on ? '#F5F4F1' : '#F5F4F1', onClick: () => this.setState({ role: r[0] }) }; }),
+      email: S.email, pw: S.pw, setEmail: e => this.setState({ email: e.target.value }), setPw: e => this.setState({ pw: e.target.value }), err: S.err,
+      google: () => login ? this.props.onDone?.('student', false) : go(2),
+      submitAuth: () => { if (!/.+@.+\..+/.test(S.email)) return this.setState({ err: 'Enter a valid email address.' }); if (S.pw.length < 8) return this.setState({ err: 'Password must be at least 8 characters.' }); login ? this.props.onDone?.('student', false) : go(1); },
+      otp: S.otp, otpBoxes, otpOpacity: S.otp.length === 6 ? 1 : 0.45, setOtp: e => this.setState({ otp: e.target.value.replace(/\D/g, '').slice(0, 6), err: '' }),
+      verifyOtp: () => S.otp.length === 6 ? go(2) : this.setState({ err: 'Enter all 6 digits.' }),
+      back: () => go(Math.max(0, st - 1)),
+      q: S.q, setQ: e => this.setState({ q: e.target.value }), colleges, noColleges: colleges.length === 0,
+      requested: S.requested, notRequested: !S.requested, requestCollege: () => this.setState({ requested: true }),
+      collegeOpacity: S.college ? 1 : 0.45, toDetails: () => S.college && go(3),
+      detailsSub: isStu ? 'Use the details on your college ID card.' : 'Your admin uses these to assign your subject and seat.',
+      fields, initials: S.f.name.replace(/^(Prof\.|Dr\.)\s/, '').split(' ').map(w => w[0]).join('').slice(0, 2),
+      hasPhoto: S.up.photo, noPhoto: !S.up.photo, photoBg: S.up.photo ? '#F5F4F1' : '#FFFFFF', photoBorder: S.up.photo ? 'transparent' : '#D1D1CE', photoCta: S.up.photo ? 'Change photo' : 'Upload JPG or PNG', addPhoto: () => this.setState({ up: { ...S.up, photo: true } }),
+      idLabel: S.up.id ? (isStu ? 'College ID card added' : 'Faculty ID added') : (isStu ? 'Upload college ID card' : 'Upload faculty ID'), idSub: S.up.id ? 'id-card.jpg · tap to replace' : 'Optional · speeds up approval', idIcon: S.up.id ? 'checkmark-circle' : 'id-card-outline', idIc: S.up.id ? '#58CC02' : '#6B6966', idBorder: S.up.id ? '#BDE5A0' : '#D1D1CE', idBg: S.up.id ? '#F7FCF3' : '#FFFFFF', addId: () => this.setState({ up: { ...S.up, id: true } }),
+      toReview: () => fields.every(f => f.value.trim()) ? go(4) : this.setState({ err: 'Fill in every field to continue.' }),
+      collegeShort, review: [{ k: 'Role', v: isStu ? 'Student' : 'Coordinator' }, { k: 'College', v: college }, ...fields.map(f => ({ k: f.label, v: f.value })), { k: 'Email', v: S.email }],
+      toDetailsEdit: () => this.setState({ step: 3, status: 'review' }),
+      sendRequest: () => this.setState({ step: 5, status: 'review' }),
+      pendTitle: ap ? "You're in" : rj ? 'Your request needs changes' : 'Request sent to ' + collegeShort + ' admin',
+      pendSub: ap ? 'Your account is active.' : rj ? 'Fix the issue below and send it again.' : "Courses unlock once the admin approves. We'll notify you here and by email.",
+      pendIcon: ap ? 'checkmark-circle-outline' : rj ? 'alert-circle-outline' : 'hourglass-outline', pendIconBg: ap ? '#F1F9EA' : rj ? '#FEF3F2' : '#FFF6D1', pendIconFg: ap ? '#3C8200' : rj ? '#B42318' : '#8A6D00',
+      tracker, isApproved: ap, isRejected: rj, isReview: !ap && !rj,
+      approvedMsg: isStu ? 'Your request is approved. Your coordinator is Prof. Deepak Kulkarni for UI/UX Design.' : "Access granted — you're assigned to UI/UX Design (seat CSE-UIUX-01).",
+      approve: () => this.setState({ status: 'approved' }), reject: () => this.setState({ status: 'rejected' }),
+      resubmit: () => this.setState({ step: 3, status: 'review' }),
+      withdraw: () => this.setState({ step: 0, status: 'review', otp: '', college: null }),
+      finish: () => this.props.onDone?.(S.role, true),
+    };
+  }
+}
+</script>
+</body>
+</html>

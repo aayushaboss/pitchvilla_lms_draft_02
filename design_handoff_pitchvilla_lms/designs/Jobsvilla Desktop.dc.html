@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <style>
+    body { margin:0; font-family: Poppins, sans-serif; background:#E9E9EC; color:#1C1410; -webkit-font-smoothing:antialiased; }
+    a { color:#1C1410; text-decoration:underline; } a:hover { color:#6B5E54; }
+  </style>
+</helmet>
+<div style="width:3120px;padding:80px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px;">
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;align-items:center;gap:10px;"><div style="width:16px;height:16px;border-radius:50%;background:#FFCC00;"></div><span style="font-size:32px;font-weight:600;letter-spacing:-0.5px;">pitchvilla — desktop</span></div>
+    <span style="font-size:16px;color:#6B5E54;max-width:900px;">Seven core college-segment screens at 1440 × 900. The bottom tab bar becomes a left sidebar; single-column mobile flows become multi-pane layouts. Tokens are taken from lib/theme (Poppins, brand #FFCC00, ink #1C1410).</span>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:96px 80px;">
+
+    <!-- 01 SIGN IN -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <span style="font-size:20px;font-weight:600;color:#1C1410;">01 · Sign in</span>
+      <div data-screen-label="01 Sign in" style="width:1440px;height:900px;background:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(28,20,16,0.12);display:grid;grid-template-columns:minmax(0,1fr) 560px;">
+        <div style="padding:48px 64px;display:flex;flex-direction:column;gap:40px;background:#F5F5F7;">
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:14px;height:14px;border-radius:50%;background:#FFCC00;"></div><span style="font-size:24px;font-weight:600;letter-spacing:-0.3px;">pitchvilla</span></div>
+          <div style="display:flex;flex-direction:column;gap:16px;margin-top:56px;max-width:560px;">
+            <span style="font-size:44px;font-weight:600;line-height:1.15;letter-spacing:-1px;text-wrap:pretty;">India's startup talent network</span>
+            <span style="font-size:18px;color:#6B5E54;line-height:1.5;">Internships and full-time jobs at top startups.</span>
+          </div>
+          <div style="flex:1;border-radius:20px;background:repeating-linear-gradient(135deg,#ECECEF 0 10px,#F5F5F7 10px 20px);border:1px solid #E5E5EA;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B5E54;">brand illustration / app screenshot</span>
+          </div>
+        </div>
+        <div style="padding:48px 72px;display:flex;flex-direction:column;justify-content:center;gap:32px;">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <span style="font-size:26px;font-weight:600;letter-spacing:-0.5px;">Sign in to continue</span>
+            <span style="font-size:14px;color:#6B5E54;">New here? Same steps create your account.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="height:48px;border-radius:999px;border:2px solid #FFCC00;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;box-sizing:border-box;cursor:pointer;"><ion-icon name="logo-google" style="font-size:18px;"></ion-icon>Continue with Google</div>
+            <div style="display:flex;align-items:center;gap:12px;margin:8px 0;"><div style="flex:1;height:1px;background:#E5E5EA;"></div><span style="font-size:12px;color:#A1A1AA;">or</span><div style="flex:1;height:1px;background:#E5E5EA;"></div></div>
+            <span style="font-size:12px;font-weight:500;color:#1C1410;">Phone number</span>
+            <div style="display:flex;height:48px;border-radius:999px;background:#F5F5F7;align-items:center;padding:0 20px;gap:12px;">
+              <span style="font-size:14px;font-weight:500;">+91</span><div style="width:1px;height:20px;background:#D1D1D6;"></div><span style="font-size:14px;color:#A1A1AA;">98765 43210</span>
+            </div>
+            <div style="height:48px;border-radius:999px;background:#FFCC00;box-shadow:0 6px 14px rgba(255,204,0,0.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;margin-top:4px;cursor:pointer;">Send OTP</div>
+          </div>
+          <span style="font-size:12px;color:#6B5E54;line-height:1.6;">By continuing you agree to the Terms of Service and Privacy Policy.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 HOME -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <span style="font-size:20px;font-weight:600;color:#1C1410;">02 · Home feed</span>
+      <div data-screen-label="02 Home" style="width:1440px;min-height:900px;background:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(28,20,16,0.12);display:flex;">
+        <dc-import name="Sidebar" active="home" hint-size="248px,900px"></dc-import>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:16px;padding:24px 40px;border-bottom:1px solid #E5E5EA;">
+            <div style="display:flex;flex-direction:column;flex-shrink:0;width:260px;">
+              <span style="font-size:22px;font-weight:600;letter-spacing:-0.4px;">Hi, Aarav</span>
+              <span style="font-size:13px;color:#6B5E54;">Find your next role</span>
+            </div>
+            <div style="flex:1;height:46px;border-radius:999px;background:#F5F5F7;display:flex;align-items:center;gap:10px;padding:0 20px;"><ion-icon name="search-outline" style="font-size:18px;color:#6B5E54;"></ion-icon><span style="font-size:14px;color:#A1A1AA;">Search roles, companies or skills</span><span style="margin-left:auto;font-size:12px;color:#A1A1AA;border:1px solid #D1D1D6;border-radius:6px;padding:1px 6px;">/</span></div>
+            <div style="width:46px;height:46px;border-radius:50%;background:#F5F5F7;display:flex;align-items:center;justify-content:center;"><ion-icon name="options-outline" style="font-size:20px;"></ion-icon></div>
+            <div style="width:46px;height:46px;border-radius:50%;background:#F5F5F7;display:flex;align-items:center;justify-content:center;position:relative;"><ion-icon name="notifications-outline" style="font-size:20px;"></ion-icon><div style="position:absolute;top:11px;right:12px;width:9px;height:9px;border-radius:50%;background:#FFCC00;border:1.5px solid #F5F5F7;"></div></div>
+          </div>
+          <div style="display:flex;gap:32px;padding:28px 40px 48px;">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:32px;">
+              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;">
+                <div style="background:#FFCC00;border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 12px rgba(28,20,16,0.2);cursor:pointer;">
+                  <div style="flex:1;display:flex;flex-direction:column;gap:4px;"><span style="font-size:16px;font-weight:600;">Talk to a placement expert</span><span style="font-size:12px;color:rgba(28,20,16,0.7);">1:1 guidance to land your next role.</span></div>
+                  <ion-icon name="chatbubble-ellipses" style="font-size:32px;"></ion-icon>
+                </div>
+                <div style="background:#FFCC00;border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 12px rgba(28,20,16,0.2);cursor:pointer;">
+                  <div style="flex:1;display:flex;flex-direction:column;gap:4px;"><span style="font-size:16px;font-weight:600;">Get recruiters to notice you</span><span style="font-size:12px;color:rgba(28,20,16,0.7);">Free 10-min test, attached to your resume for recruiters.</span></div>
+                  <ion-icon name="eye" style="font-size:32px;"></ion-icon>
+                </div>
+              </div>
+              <sc-for list="{{ homeSections }}" as="sec" hint-placeholder-count="2">
+                <div style="display:flex;flex-direction:column;gap:16px;">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;">
+                    <span style="font-size:18px;font-weight:600;letter-spacing:-0.2px;">{{ sec.title }} <span style="color:#A1A1AA;font-weight:500;">{{ sec.count }}</span></span>
+                    <span style="font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;">View all<ion-icon name="chevron-forward" style="font-size:14px;"></ion-icon></span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;">
+                    <sc-for list="{{ sec.jobs }}" as="j" hint-placeholder-count="3">
+                      <dc-import name="JobCard" job="{{ j }}" hint-size="100%,250px"></dc-import>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+              <div style="width:300px;flex-shrink:0;display:flex;flex-direction:column;gap:20px;">
+                <div style="background:#F5F5F7;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+                  <span style="font-size:12px;font-weight:500;letter-spacing:0.8px;">UPCOMING INTERVIEW</span>
+                  <div style="display:flex;gap:12px;align-items:center;">
+                    <div style="width:44px;height:44px;border-radius:12px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:600;">R</div>
+                    <div style="display:flex;flex-direction:column;"><span style="font-size:15px;font-weight:600;">Razorpay</span><span style="font-size:12px;color:#6B5E54;">Digital Marketing Intern</span></div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#1C1410;">
+                    <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="calendar-outline" style="color:#6B5E54;"></ion-icon>Mon, 19 Oct · 1:00 PM</span>
+                    <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="location-outline" style="color:#6B5E54;"></ion-icon>Offline · Bengaluru office</span>
+                  </div>
+                  <span style="font-size:13px;font-weight:600;cursor:pointer;">View details →</span>
+                </div>
+                <div style="border:1px solid #E5E5EA;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:16px;font-weight:600;">Applications</span><span style="font-size:12px;font-weight:600;cursor:pointer;">See all</span></div>
+                  <sc-for list="{{ apps }}" as="a" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                      <div style="width:32px;height:32px;border-radius:8px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;">{{ a.initials }}</div>
+                      <div style="flex:1;min-width:0;display:flex;flex-direction:column;"><span style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.title }}</span><span style="font-size:12px;color:#6B5E54;">{{ a.company }}</span></div>
+                      <span style="font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:{{ a.badgeBg }};color:{{ a.badgeFg }};">{{ a.statusLabel }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="border:1px solid #E5E5EA;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+                  <span style="font-size:16px;font-weight:600;">Career Quiz</span>
+                  <span style="font-size:13px;color:#6B5E54;">Level 1 of 5 done. Level 2 · Situational Judgement Test is next.</span>
+                  <div style="height:8px;border-radius:999px;background:#E5E5EA;overflow:hidden;"><div style="width:20%;height:100%;background:#FFCC00;"></div></div>
+                  <div style="height:36px;border-radius:999px;border:2px solid #FFCC00;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;box-sizing:border-box;cursor:pointer;">Continue to Level 2</div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 SEARCH -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <span style="font-size:20px;font-weight:600;color:#1C1410;">03 · Browse + filter (click a row)</span>
+      <div data-screen-label="03 Browse" style="width:1440px;height:900px;background:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(28,20,16,0.12);display:flex;">
+        <dc-import name="Sidebar" active="home" hint-size="248px,900px"></dc-import>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:16px;padding:20px 32px;border-bottom:1px solid #E5E5EA;">
+            <div style="flex:1;height:46px;border-radius:999px;background:#F5F5F7;display:flex;align-items:center;gap:10px;padding:0 20px;"><ion-icon name="search-outline" style="font-size:18px;color:#6B5E54;"></ion-icon><span style="font-size:14px;">Digital Marketing</span><ion-icon name="close-circle" style="margin-left:auto;font-size:18px;color:#A1A1AA;"></ion-icon></div>
+            <div style="width:220px;height:46px;border-radius:999px;background:#F5F5F7;display:flex;align-items:center;gap:10px;padding:0 20px;box-sizing:border-box;"><ion-icon name="location-outline" style="font-size:18px;color:#6B5E54;"></ion-icon><span style="font-size:14px;color:#A1A1AA;">Any location</span></div>
+            <div style="width:46px;height:46px;border-radius:50%;background:#F5F5F7;display:flex;align-items:center;justify-content:center;"><ion-icon name="notifications-outline" style="font-size:20px;"></ion-icon></div>
+          </div>
+          <div style="flex:1;min-height:0;display:flex;">
+            <div style="width:248px;flex-shrink:0;border-right:1px solid #E5E5EA;padding:24px;display:flex;flex-direction:column;gap:24px;overflow:hidden;box-sizing:border-box;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:16px;font-weight:600;">Filter jobs</span><span style="font-size:12px;font-weight:600;cursor:pointer;">Reset</span></div>
+              <sc-for list="{{ filterGroups }}" as="g" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <span style="font-size:12px;font-weight:500;color:#6B5E54;">{{ g.label }}</span>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                    <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="3">
+                      <span style="height:32px;padding:0 14px;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;box-sizing:border-box;border:{{ o.border }};cursor:pointer;">{{ o.label }}</span>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="width:440px;flex-shrink:0;border-right:1px solid #E5E5EA;display:flex;flex-direction:column;min-height:0;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px;">
+                <span style="font-size:12px;font-weight:500;color:#6B5E54;">124 opportunities found</span>
+                <span style="font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;">Best match<ion-icon name="chevron-down"></ion-icon></span>
+              </div>
+              <div style="flex:1;overflow:auto;padding:4px 24px 24px;display:flex;flex-direction:column;gap:12px;">
+                <sc-for list="{{ results }}" as="r" hint-placeholder-count="6">
+                  <div onClick="{{ r.select }}" style="display:flex;gap:14px;padding:14px;border-radius:16px;border:{{ r.border }};box-sizing:border-box;cursor:pointer;background:#FFFFFF;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0;">{{ r.initials }}</div>
+                    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
+                      <div style="display:flex;justify-content:space-between;gap:8px;"><span style="font-size:14px;font-weight:600;">{{ r.title }}</span><ion-icon name="bookmark-outline" style="font-size:18px;color:#A1A1AA;flex-shrink:0;"></ion-icon></div>
+                      <span style="font-size:12px;font-weight:500;color:#6B5E54;">{{ r.company }} · {{ r.location }} · {{ r.workMode }}</span>
+                      <span style="font-size:12px;font-weight:500;color:#6B5E54;">{{ r.pay }}</span>
+                      <div style="display:flex;gap:8px;margin-top:6px;">
+                        <span style="height:22px;padding:0 9px;border-radius:999px;background:rgba(107,94,84,0.14);font-size:11px;font-weight:500;display:flex;align-items:center;">{{ r.match }}</span>
+                        <span style="height:22px;padding:0 9px;border-radius:999px;background:{{ r.dlBg }};color:{{ r.dlFg }};font-size:11px;font-weight:500;display:flex;align-items:center;">{{ r.deadline }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="flex:1;min-width:0;overflow:auto;padding:28px 32px;display:flex;flex-direction:column;gap:20px;">
+              <div style="display:flex;gap:16px;align-items:flex-start;">
+                <div style="width:56px;height:56px;border-radius:14px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;flex-shrink:0;">{{ sel.initials }}</div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><span style="font-size:20px;font-weight:600;letter-spacing:-0.3px;">{{ sel.title }}</span><span style="font-size:14px;font-weight:500;color:#6B5E54;">{{ sel.company }} · {{ sel.sector }}</span></div>
+              </div>
+              <div style="display:flex;gap:10px;">
+                <div style="flex:1;height:44px;border-radius:999px;background:#FFCC00;box-shadow:0 6px 14px rgba(255,204,0,0.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;cursor:pointer;">Apply now</div>
+                <div style="width:44px;height:44px;border-radius:50%;border:1px solid #E5E5EA;display:flex;align-items:center;justify-content:center;box-sizing:border-box;"><ion-icon name="bookmark-outline" style="font-size:18px;"></ion-icon></div>
+                <div style="width:44px;height:44px;border-radius:50%;border:1px solid #E5E5EA;display:flex;align-items:center;justify-content:center;box-sizing:border-box;"><ion-icon name="open-outline" style="font-size:18px;"></ion-icon></div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;font-size:13px;">
+                <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="location-outline" style="color:#6B5E54;"></ion-icon>{{ sel.location }} · {{ sel.workMode }}</span>
+                <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="cash-outline" style="color:#6B5E54;"></ion-icon>{{ sel.pay }}</span>
+                <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="briefcase-outline" style="color:#6B5E54;"></ion-icon>Experience: {{ sel.experience }}</span>
+                <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="people-outline" style="color:#6B5E54;"></ion-icon>{{ sel.applicants }} applicants</span>
+              </div>
+              <div style="height:1px;background:#E5E5EA;"></div>
+              <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:16px;font-weight:600;">About the role</span><span style="font-size:14px;color:#6B5E54;line-height:1.6;">{{ sel.about }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:16px;font-weight:600;">Requirements</span>
+                <sc-for list="{{ sel.requirements }}" as="q" hint-placeholder-count="3">
+                  <span style="font-size:14px;color:#1C1410;display:flex;gap:10px;align-items:flex-start;line-height:1.5;"><ion-icon name="checkmark-circle" style="font-size:16px;color:#58CC02;flex-shrink:0;margin-top:3px;"></ion-icon>{{ q }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 JOB DETAIL -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <span style="font-size:20px;font-weight:600;color:#1C1410;">04 · Job detail</span>
+      <div data-screen-label="04 Job detail" style="width:1440px;min-height:900px;background:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(28,20,16,0.12);display:flex;">
+        <dc-import name="Sidebar" active="home" hint-size="248px,900px"></dc-import>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:8px;padding:20px 48px;border-bottom:1px solid #E5E5EA;font-size:13px;color:#6B5E54;">
+            <ion-icon name="chevron-back" style="font-size:16px;color:#1C1410;"></ion-icon><span>Home</span><span>/</span><span>Digital Marketing</span><span>/</span><span style="color:#1C1410;font-weight:500;">Digital Marketing Intern</span>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;padding:36px 48px 56px;">
+            <div style="display:flex;flex-direction:column;gap:28px;">
+              <div style="display:flex;gap:20px;align-items:flex-start;">
+                <div style="width:72px;height:72px;border-radius:18px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:600;flex-shrink:0;">P</div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <span style="font-size:28px;font-weight:600;letter-spacing:-0.5px;">Digital Marketing Intern</span>
+                  <span style="font-size:15px;font-weight:500;color:#6B5E54;">PhonePe · FinTech</span>
+                  <div style="display:flex;gap:8px;margin-top:6px;">
+                    <span style="height:26px;padding:0 12px;border-radius:999px;background:rgba(107,94,84,0.14);font-size:12px;font-weight:500;display:flex;align-items:center;">Internship</span>
+                    <span style="height:26px;padding:0 12px;border-radius:999px;background:rgba(107,94,84,0.14);font-size:12px;font-weight:500;display:flex;align-items:center;gap:4px;">82% match<ion-icon name="information-circle-outline"></ion-icon></span>
+                    <span style="height:26px;padding:0 12px;border-radius:999px;background:rgba(255,59,48,0.12);color:#D92D20;font-size:12px;font-weight:500;display:flex;align-items:center;">3 days left</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #E5E5EA;border-radius:16px;">
+                <div style="padding:16px 20px;display:flex;flex-direction:column;gap:4px;border-right:1px solid #E5E5EA;"><span style="font-size:12px;color:#6B5E54;">Stipend</span><span style="font-size:14px;font-weight:600;">₹17,000–₹25,000/month</span></div>
+                <div style="padding:16px 20px;display:flex;flex-direction:column;gap:4px;border-right:1px solid #E5E5EA;"><span style="font-size:12px;color:#6B5E54;">Location</span><span style="font-size:14px;font-weight:600;">Bengaluru · Hybrid</span></div>
+                <div style="padding:16px 20px;display:flex;flex-direction:column;gap:4px;"><span style="font-size:12px;color:#6B5E54;">Experience</span><span style="font-size:14px;font-weight:600;">0 Years</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;"><span style="font-size:18px;font-weight:600;">About the role</span><span style="font-size:15px;color:#6B5E54;line-height:1.7;max-width:720px;">Support digital campaigns, content, reporting and lead generation. You will work with the growth team on paid and organic channels, track weekly performance and help ship campaign creatives.</span></div>
+              <div style="display:flex;flex-direction:column;gap:10px;"><span style="font-size:18px;font-weight:600;">Requirements</span>
+                <sc-for list="{{ detailReqs }}" as="q" hint-placeholder-count="4">
+                  <span style="font-size:15px;display:flex;gap:10px;line-height:1.5;"><ion-icon name="checkmark-circle" style="font-size:18px;color:#58CC02;flex-shrink:0;margin-top:2px;"></ion-icon>{{ q }}</span>
+                </sc-for>
+              </div>
+              <span style="font-size:12px;color:#A1A1AA;display:flex;gap:6px;align-items:center;"><ion-icon name="finger-print-outline"></ion-icon>Startup ID: ST014  ·  Job ID: JOB0041</span>
+              <div style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #E5E5EA;padding-top:28px;">
+                <span style="font-size:18px;font-weight:600;">Similar roles</span>
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;">
+                  <sc-for list="{{ similar }}" as="j" hint-placeholder-count="3">
+                    <dc-import name="JobCard" job="{{ j }}" hint-size="100%,250px"></dc-import>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:20px;">
+              <div style="border:1px solid #E5E5EA;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:16px;box-shadow:0 4px 12px rgba(28,20,16,0.08);">
+                <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:#6B5E54;">Apply by</span><span style="font-weight:600;">Sat, 17 Oct</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:#6B5E54;">Applicants</span><span style="font-weight:600;">248 so far</span></div>
+                <div style="height:48px;border-radius:999px;background:#FFCC00;box-shadow:0 6px 14px rgba(255,204,0,0.4);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;cursor:pointer;">Apply now</div>
+                <div style="height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:600;cursor:pointer;" style-hover="background:#F5F5F7;"><ion-icon name="bookmark-outline" style="font-size:18px;"></ion-icon>Save for later</div>
+                <span style="font-size:12px;color:#6B5E54;line-height:1.5;">Your saved resume and 3 quick screening questions are sent with this application.</span>
+              </div>
+              <div style="border:1px solid #E5E5EA;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px;">
+                <span style="font-size:16px;font-weight:600;">Prep for this role</span>
+                <sc-for list="{{ prep }}" as="c" hint-placeholder-count="2">
+                  <div style="display:flex;gap:12px;align-items:center;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><ion-icon name="flash-outline" style="font-size:18px;"></ion-icon></div>
+                    <div style="flex:1;display:flex;flex-direction:column;"><span style="font-size:13px;font-weight:600;">{{ c.title }}</span><span style="font-size:12px;color:#6B5E54;">{{ c.meta }}</span></div>
+                    <ion-icon name="chevron-forward" style="color:#A1A1AA;"></ion-icon>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 APPLICATIONS -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <span style="font-size:20px;font-weight:600;color:#1C1410;">05 · Applications (click a row)</span>
+      <div data-screen-label="05 Applications" style="width:1440px;height:900px;background:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(28,20,16,0.12);display:flex;">
+        <dc-import name="Sidebar" active="applications" hint-size="248px,900px"></dc-import>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+          <div style="padding:28px 40px 0;display:flex;flex-direction:column;gap:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:26px;font-weight:600;letter-spacing:-0.5px;">Applications</span>
+              <div style="width:280px;height:42px;border-radius:999px;background:#F5F5F7;display:flex;align-items:center;gap:10px;padding:0 18px;box-sizing:border-box;"><ion-icon name="search-outline" style="color:#6B5E54;"></ion-icon><span style="font-size:13px;color:#A1A1AA;">Search applications</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;">
+              <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+                <div style="border:1px solid #E5E5EA;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
+                  <div style="width:40px;height:40px;border-radius:50%;background:#F5F5F7;display:flex;align-items:center;justify-content:center;"><ion-icon name="{{ s.icon }}" style="font-size:18px;"></ion-icon></div>
+                  <div style="display:flex;flex-direction:column;"><span style="font-size:22px;font-weight:600;line-height:1.1;">{{ s.value }}</span><span style="font-size:12px;color:#6B5E54;">{{ s.label }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:28px;border-bottom:1px solid #E5E5EA;">
+              <span style="font-size:14px;font-weight:600;padding:10px 0;border-bottom:2px solid #FFCC00;margin-bottom:-1px;">All · 4</span>
+              <span style="font-size:14px;font-weight:500;color:#6B5E54;padding:10px 0;">In Progress · 1</span>
+              <span style="font-size:14px;font-weight:500;color:#6B5E54;padding:10px 0;">Offers · 1</span>
+              <span style="font-size:14px;font-weight:500;color:#6B5E54;padding:10px 0;">Not Selected · 2</span>
+            </div>
+          </div>
+          <div style="flex:1;min-height:0;display:flex;">
+            <div style="width:440px;flex-shrink:0;padding:16px 24px 24px 40px;display:flex;flex-direction:column;gap:10px;overflow:auto;box-sizing:border-box;">
+              <sc-for list="{{ apps }}" as="a" hint-placeholder-count="4">
+                <div onClick="{{ a.select }}" style="display:flex;gap:14px;align-items:center;padding:14px;border-radius:16px;border:{{ a.border }};box-sizing:border-box;cursor:pointer;">
+                  <div style="width:40px;height:40px;border-radius:10px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0;">{{ a.initials }}</div>
+                  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.title }}</span><span style="font-size:12px;color:#6B5E54;">{{ a.company }} · {{ a.appliedAgo }}</span></div>
+                  <span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:{{ a.badgeBg }};color:{{ a.badgeFg }};flex-shrink:0;">{{ a.statusLabel }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="flex:1;min-width:0;border-left:1px solid #E5E5EA;overflow:auto;padding:24px 40px 40px;display:flex;flex-direction:column;gap:24px;">
+              <div style="display:flex;gap:16px;align-items:center;">
+                <div style="width:56px;height:56px;border-radius:14px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;">{{ selApp.initials }}</div>
+                <div style="flex:1;display:flex;flex-direction:column;"><span style="font-size:20px;font-weight:600;letter-spacing:-0.3px;">{{ selApp.title }}</span><span style="font-size:14px;color:#6B5E54;">{{ selApp.company }} · {{ selApp.type }}</span></div>
+                <span style="font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;background:{{ selApp.badgeBg }};color:{{ selApp.badgeFg }};">{{ selApp.statusLabel }}</span>
+              </div>
+              <div style="display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;">
+                <div style="display:flex;flex-direction:column;gap:0;">
+                  <span style="font-size:16px;font-weight:600;margin-bottom:16px;">Timeline</span>
+                  <sc-for list="{{ selApp.timeline }}" as="t" hint-placeholder-count="3">
+                    <div style="display:flex;gap:14px;">
+                      <div style="display:flex;flex-direction:column;align-items:center;">
+                        <div style="width:14px;height:14px;border-radius:50%;background:#FFCC00;flex-shrink:0;"></div>
+                        <div style="width:2px;flex:1;min-height:36px;background:#E5E5EA;"></div>
+                      </div>
+                      <div style="display:flex;flex-direction:column;padding-bottom:18px;margin-top:-3px;"><span style="font-size:14px;font-weight:500;">{{ t.title }}</span><span style="font-size:12px;color:#6B5E54;">{{ t.date }}</span></div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                  <span style="font-size:16px;font-weight:600;">Updates</span>
+                  <sc-for list="{{ selApp.messages }}" as="m" hint-placeholder-count="2">
+                    <div style="background:#F5F5F7;border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;max-width:560px;">
+                      <span style="font-size:14px;line-height:1.55;">{{ m.text }}</span>
+                      <sc-if value="{{ m.interview }}" hint-placeholder-val="{{ false }}">
+                        <div style="background:#FFFFFF;border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;font-size:13px;">
+                          <span style="grid-column:1 / -1;font-weight:600;">{{ m.interview.round }}</span>
+                          <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="calendar-outline" style="color:#6B5E54;"></ion-icon>{{ m.interview.date }}</span>
+                          <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="time-outline" style="color:#6B5E54;"></ion-icon>{{ m.interview.time }}</span>
+                          <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="business-outline" style="color:#6B5E54;"></ion-icon>{{ m.interview.mode }}</span>
+                          <span style="display:flex;gap:8px;align-items:center;"><ion-icon name="location-outline" style="color:#6B5E54;"></ion-icon>{{ m.interview.location }}</span>
+                        </div>
+                      </sc-if>
+                      <span style="font-size:11px;color:#A1A1AA;">{{ m.date }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 CAREER QUIZ -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <span style="font-size:20px;font-weight:600;color:#1C1410;">06 · Career Quiz</span>
+      <div data-screen-label="06 Career Quiz" style="width:1440px;height:900px;background:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(28,20,16,0.12);display:flex;">
+        <dc-import name="Sidebar" active="quiz" hint-size="248px,900px"></dc-import>
+        <div style="flex:1;min-width:0;padding:32px 48px;display:flex;flex-direction:column;gap:32px;">
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-size:26px;font-weight:600;letter-spacing:-0.5px;">Career Quiz</span>
+            <span style="font-size:14px;color:#6B5E54;">Five short levels. Each one builds on the last, and your results are attached to the resume recruiters see.</span>
+          </div>
+          <div style="position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;">
+            <div style="position:absolute;left:10%;right:10%;top:23px;height:2px;background:#E5E5EA;"></div>
+            <div style="position:absolute;left:10%;width:20%;top:23px;height:2px;background:#FFCC00;"></div>
+            <sc-for list="{{ levels }}" as="l" hint-placeholder-count="5">
+              <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:16px;">
+                <div style="width:48px;height:48px;border-radius:50%;background:{{ l.nodeBg }};border:{{ l.nodeBorder }};display:flex;align-items:center;justify-content:center;box-sizing:border-box;"><ion-icon name="{{ l.nodeIcon }}" style="font-size:22px;color:{{ l.nodeFg }};"></ion-icon></div>
+                <div style="width:100%;border:{{ l.cardBorder }};border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;box-sizing:border-box;min-height:196px;opacity:{{ l.opacity }};">
+                  <span style="font-size:11px;font-weight:600;letter-spacing:1px;color:#6B5E54;">LEVEL {{ l.level }}</span>
+                  <span style="font-size:15px;font-weight:600;line-height:1.3;">{{ l.title }}</span>
+                  <span style="font-size:12px;color:#6B5E54;line-height:1.45;">{{ l.tagline }}</span>
+                  <span style="font-size:12px;color:#6B5E54;margin-top:auto;">{{ l.count }} questions · {{ l.time }}</span>
+                  <span style="font-size:12px;font-weight:600;">{{ l.action }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px;flex:1;min-height:0;">
+            <div style="border:1px solid #E5E5EA;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="display:flex;flex-direction:column;"><span style="font-size:16px;font-weight:600;">Level 1 result · Big Five (OCEAN)</span><span style="font-size:12px;color:#6B5E54;">Completed 9 Oct</span></div>
+                <div style="height:36px;padding:0 16px;border-radius:999px;border:2px solid #FFCC00;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;box-sizing:border-box;"><ion-icon name="download-outline"></ion-icon>Download PDF</div>
+              </div>
+              <sc-for list="{{ traits }}" as="t" hint-placeholder-count="5">
+                <div style="display:grid;grid-template-columns:120px minmax(0,1fr) 120px;gap:14px;align-items:center;font-size:12px;">
+                  <span style="color:#6B5E54;text-align:right;">{{ t.left }}</span>
+                  <div style="height:8px;border-radius:999px;background:#E5E5EA;position:relative;"><div style="position:absolute;top:-4px;width:16px;height:16px;border-radius:50%;background:#FFCC00;border:2px solid #FFFFFF;box-shadow:0 1px 4px rgba(28,20,16,0.25);left:{{ t.pos }};margin-left:-8px;"></div></div>
+                  <span style="font-weight:500;">{{ t.right }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div style="border:1px solid #E5E5EA;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px;">
+                <span style="font-size:12px;font-weight:600;letter-spacing:1px;color:#6B5E54;">UP NEXT · LEVEL 2</span>
+                <span style="font-size:16px;font-weight:600;">Situational Judgement Test</span>
+                <span style="font-size:13px;color:#6B5E54;line-height:1.55;">Puts you in realistic workplace scenarios to see how you'd actually respond — not what you know, but how you'd act under pressure.</span>
+                <div style="height:44px;border-radius:999px;background:#FFCC00;box-shadow:0 6px 14px rgba(255,204,0,0.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;margin-top:6px;cursor:pointer;">Start Level 2</div>
+              </div>
+              <div style="background:#FFCC00;border-radius:20px;padding:20px 24px;display:flex;align-items:center;gap:14px;">
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><span style="font-size:14px;font-weight:600;">See your full results</span><span style="font-size:12px;color:rgba(28,20,16,0.7);">Every level, combined into one result. Unlocks after Level 5.</span></div>
+                <ion-icon name="lock-closed" style="font-size:22px;"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 PROFILE -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <span style="font-size:20px;font-weight:600;color:#1C1410;">07 · Profile</span>
+      <div data-screen-label="07 Profile" style="width:1440px;height:900px;background:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(28,20,16,0.12);display:flex;">
+        <dc-import name="Sidebar" active="profile" hint-size="248px,900px"></dc-import>
+        <div style="flex:1;min-width:0;padding:32px 48px;display:grid;grid-template-columns:340px minmax(0,1fr);gap:32px;align-content:start;">
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div style="border:1px solid #E5E5EA;border-radius:20px;padding:28px 24px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
+              <div style="width:96px;height:96px;border-radius:50%;background:#FFCC00;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:600;">AM</div>
+              <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:20px;font-weight:600;">Aarav Mehta</span><span style="font-size:13px;color:#6B5E54;">B.Tech Computer Science · Semester 6</span><span style="font-size:13px;color:#6B5E54;">Pune</span></div>
+              <div style="width:100%;display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+                <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#6B5E54;">Profile strength</span><span style="font-weight:600;">70%</span></div>
+                <div style="height:8px;border-radius:999px;background:#E5E5EA;overflow:hidden;"><div style="width:70%;height:100%;background:#FFCC00;"></div></div>
+              </div>
+              <div style="width:100%;height:42px;border-radius:999px;border:2px solid #FFCC00;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;box-sizing:border-box;margin-top:8px;cursor:pointer;">Edit Profile</div>
+            </div>
+            <div style="border:1px solid #E5E5EA;border-radius:20px;padding:8px;display:flex;flex-direction:column;">
+              <sc-for list="{{ profileRows }}" as="p" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:14px;height:48px;padding:0 14px;border-radius:12px;cursor:pointer;" style-hover="background:#F5F5F7;">
+                  <ion-icon name="{{ p.icon }}" style="font-size:20px;color:#6B5E54;"></ion-icon>
+                  <span style="flex:1;font-size:14px;font-weight:500;">{{ p.label }}</span>
+                  <ion-icon name="chevron-forward" style="color:#A1A1AA;"></ion-icon>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div style="border:1px solid #E5E5EA;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:16px;font-weight:600;">Resume</span><span style="font-size:13px;font-weight:600;cursor:pointer;">Edit</span></div>
+              <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#F5F5F7;border-radius:12px;">
+                <div style="width:40px;height:40px;border-radius:10px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;"><ion-icon name="document-text-outline" style="font-size:20px;"></ion-icon></div>
+                <div style="flex:1;display:flex;flex-direction:column;"><span style="font-size:14px;font-weight:500;">Aarav_Mehta_Resume.pdf</span><span style="font-size:12px;color:#6B5E54;">Updated 2 days ago · 6 of 7 sections complete</span></div>
+                <span style="font-size:13px;font-weight:600;">View</span>
+              </div>
+            </div>
+            <div style="border:1px solid #E5E5EA;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:18px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:16px;font-weight:600;">Basic details</span><span style="font-size:13px;font-weight:600;cursor:pointer;">Edit</span></div>
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 24px;">
+                <sc-for list="{{ details }}" as="d" hint-placeholder-count="6">
+                  <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;color:#6B5E54;">{{ d.label }}</span><span style="font-size:14px;font-weight:500;">{{ d.value }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;">
+              <div style="border:1px solid #E5E5EA;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;">
+                <span style="font-size:14px;font-weight:600;">Video profile</span>
+                <span style="font-size:12px;color:#6B5E54;line-height:1.5;">A 60-second intro recruiters can watch before they call.</span>
+                <div style="height:32px;padding:0 14px;border-radius:999px;border:2px solid #FFCC00;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;box-sizing:border-box;align-self:flex-start;margin-top:auto;"><ion-icon name="add-circle-outline"></ion-icon>Record or upload</div>
+              </div>
+              <div style="border:1px solid #E5E5EA;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:4px;">
+                <span style="font-size:14px;font-weight:600;">Search appearances</span>
+                <span style="font-size:28px;font-weight:600;margin-top:6px;">38</span>
+                <span style="font-size:12px;color:#6B5E54;">Last 14 days</span>
+              </div>
+              <div style="border:1px solid #E5E5EA;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:4px;">
+                <span style="font-size:14px;font-weight:600;">Recruiter actions</span>
+                <span style="font-size:28px;font-weight:600;margin-top:6px;">5</span>
+                <span style="font-size:12px;color:#6B5E54;">Profile views this week</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showRightRail&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { sel: 0, app: 1 };
+  renderVals() {
+    const J = (title, company, location, pay, match, deadline, urgent, extra = {}) => ({ title, company, initials: company[0], location, pay, match, deadline, urgent, ...extra });
+    const homeSections = [
+      { title: 'Digital Marketing', count: '124', jobs: [
+        J('Digital Marketing Intern', 'PhonePe', 'Bengaluru', '₹17,000–₹25,000/month', '82% match', '3 days left', true),
+        J('Growth Marketing Associate', 'Zomato', 'Gurugram', '₹4.0–₹6.5 LPA', '76% match', '9 days left', false, { saved: true }),
+        J('Performance Marketing Intern', 'Razorpay', 'Bengaluru', '₹15,000–₹22,000/month', '', '', false, { applied: true }),
+      ] },
+      { title: 'Product Design', count: '86', jobs: [
+        J('UI/UX Design Intern', 'CRED', 'Bengaluru', '₹20,000–₹30,000/month', '74% match', '6 days left', false),
+        J('Junior Product Designer', 'Meesho', 'Bengaluru', '₹5.0–₹8.0 LPA', '69% match', '2 days left', true),
+        J('Visual Design Intern', 'OYO', 'Gurugram', '₹12,000–₹18,000/month', '63% match', '14 days left', false),
+      ] },
+    ];
+    const sel = this.state.sel;
+    const R = [
+      J('Digital Marketing Intern', 'PhonePe', 'Bengaluru', '₹17,000–₹25,000/month', '82% match', '3 days left', true, { workMode: 'Hybrid', sector: 'FinTech', experience: '0 Years', applicants: 248, about: 'Support digital campaigns, content, reporting and lead generation across paid and organic channels.', requirements: ['Pursuing or completed a bachelor\'s degree', 'Comfortable with Google Analytics and spreadsheets', 'Clear written English'] }),
+      J('Digital Marketing Intern', 'Zomato', 'Gurugram', '₹15,000–₹20,000/month', '79% match', '5 days left', false, { workMode: 'On-site', sector: 'D2C / FoodTech', experience: '0 Years', applicants: 312, about: 'Plan and run city-level campaigns, track CAC and write weekly performance notes.', requirements: ['Interest in consumer brands', 'Basic Meta Ads Manager knowledge', 'Available full-time for 6 months'] }),
+      J('Content Marketing Intern', 'OYO', 'Gurugram', '₹12,000–₹18,000/month', '71% match', '8 days left', false, { workMode: 'Remote', sector: 'TravelTech', experience: '0 Years', applicants: 140, about: 'Write blog posts, landing-page copy and social content for the hotels marketplace.', requirements: ['Strong writing portfolio', 'Basic SEO understanding', 'Can turn around drafts within 48 hours'] }),
+      J('SEO Analyst', 'Swiggy', 'Bengaluru', '₹3.5–₹5.0 LPA', '68% match', '12 days left', false, { workMode: 'Hybrid', sector: 'FoodTech', experience: '0–1 Year', applicants: 96, about: 'Own keyword research, technical audits and monthly SEO reporting for the restaurant pages.', requirements: ['Familiar with Search Console and Ahrefs', 'Analytical mindset', 'HTML basics'] }),
+      J('Social Media Intern', 'Nykaa', 'Mumbai', '₹10,000–₹15,000/month', '64% match', '2 days left', true, { workMode: 'On-site', sector: 'Beauty / E-commerce', experience: '0 Years', applicants: 410, about: 'Run daily posting calendars, community replies and creator coordination.', requirements: ['Active on Instagram and YouTube', 'Basic Canva skills', 'Based in Mumbai'] }),
+    ];
+    const results = R.map((r, i) => ({ ...r, border: i === sel ? '2px solid #FFCC00' : '1px solid #E5E5EA', dlBg: r.urgent ? 'rgba(255,59,48,0.12)' : 'rgba(107,94,84,0.14)', dlFg: r.urgent ? '#D92D20' : '#6B5E54', select: () => this.setState({ sel: i }) }));
+    const chip = (label, on) => ({ label, border: on ? '2px solid #FFCC00' : '1px solid #E5E5EA' });
+    const filterGroups = [
+      { label: 'Type', options: [chip('Internship', true), chip('Full-time', false)] },
+      { label: 'Work mode', options: [chip('Remote', false), chip('Hybrid', true), chip('On-site', false)] },
+      { label: 'Employment type', options: [chip('Full-time', false), chip('Part-time', false)] },
+      { label: 'Preferred cities', options: [chip('Bengaluru', true), chip('Gurugram', true), chip('Mumbai', false), chip('Pune', false), chip('Hyderabad', false)] },
+    ];
+    const bad = { Offer: ['rgba(88,204,2,0.12)', '#3C8200', 'Offer'], Interview: ['rgba(255,149,0,0.14)', '#B25900', 'Interview'], Rejected: ['rgba(255,59,48,0.12)', '#D92D20', 'Not selected'] };
+    const A = [
+      { title: 'Product Design Intern', company: 'Zerodha', type: 'Internship', status: 'Offer', appliedAgo: '12 days ago',
+        timeline: [{ title: 'Application submitted', date: '2 Oct' }, { title: 'Resume under review', date: '5 Oct' }, { title: 'Interview completed', date: '9 Oct' }, { title: 'Offer extended', date: '12 Oct' }],
+        messages: [{ text: 'Your portfolio stood out — moving you to the interview round.', date: '5 Oct' }, { text: 'Thanks for chatting with our design lead this week — the team is finalizing decisions now.', date: '9 Oct' }, { text: '🎉 Congratulations! Zerodha would like to offer you the Product Design Intern role. Check your registered email for the formal offer letter and next steps.', date: '12 Oct' }] },
+      { title: 'Digital Marketing Intern', company: 'Razorpay', type: 'Internship', status: 'Interview', appliedAgo: '6 days ago',
+        timeline: [{ title: 'Application submitted', date: '8 Oct' }, { title: 'Resume under review', date: '10 Oct' }, { title: 'Interview scheduled', date: '13 Oct' }],
+        messages: [{ text: "Good news — you've cleared the first screen. We're comparing your profile with the shortlist now.", date: '10 Oct' }, { text: "You're shortlisted! 🎉 Here are your interview details for Razorpay:", date: '13 Oct', interview: { round: 'Interview Round 1', date: 'Mon, 19 Oct', time: '1:00 PM', mode: 'Offline', location: 'Razorpay office, Bengaluru' } }, { text: 'Bring a printed resume and photo ID. Arrive 10 min early and ask for the campus-hiring desk.', date: '13 Oct' }] },
+      { title: 'Social Media Marketing Intern', company: 'Meesho', type: 'Internship', status: 'Rejected', appliedAgo: '9 days ago',
+        timeline: [{ title: 'Application submitted', date: '5 Oct' }, { title: 'Decision received', date: '12 Oct' }],
+        messages: [{ text: "Meesho moved forward with a candidate whose campaign work leaned more into paid-social — this one's closed.", date: '12 Oct' }] },
+      { title: 'Content Writer Intern', company: 'Inshorts', type: 'Internship', status: 'Rejected', appliedAgo: '15 days ago',
+        timeline: [{ title: 'Application submitted', date: '29 Sep' }, { title: 'Resume under review', date: '2 Oct' }, { title: 'Decision received', date: '7 Oct' }],
+        messages: [{ text: 'Your resume is with the editorial team now.', date: '2 Oct' }, { text: "Inshorts decided to go with someone who'd already run campaigns in their niche — this one's closed.", date: '7 Oct' }] },
+    ];
+    const apps = A.map((a, i) => ({ ...a, initials: a.company[0], badgeBg: bad[a.status][0], badgeFg: bad[a.status][1], statusLabel: bad[a.status][2], border: i === this.state.app ? '2px solid #FFCC00' : '1px solid #E5E5EA', select: () => this.setState({ app: i }) }));
+    const meta = [['Big Five (OCEAN)', 'How do you naturally act?', '8–10 min'], ['Situational Judgement Test', 'What attracts you?', '12–15 min'], ['Hogan Personality Inventory Test', 'How do you interact with people?', '15–18 min'], ['DISC Assessment', 'How do you operate at work?', '18–20 min'], ['Holland RIASEC Career Test', 'Where do all four dimensions point you?', '20–25 min']];
+    const levels = meta.map((m, i) => {
+      const done = i === 0, cur = i === 1;
+      return { level: i + 1, title: m[0], tagline: m[1], time: m[2], count: 20,
+        nodeBg: done ? '#58CC02' : cur ? '#FFCC00' : '#FFFFFF', nodeBorder: done || cur ? 'none' : '2px solid #E5E5EA', nodeFg: done ? '#FFFFFF' : cur ? '#1C1410' : '#A1A1AA',
+        nodeIcon: done ? 'checkmark' : cur ? 'play' : 'lock-closed', cardBorder: cur ? '2px solid #FFCC00' : '1px solid #E5E5EA', opacity: done || cur ? 1 : 0.6,
+        action: done ? 'View report →' : cur ? 'START →' : 'Locked' };
+    });
+    return {
+      homeSections, results, filterGroups, sel: results[sel], apps, selApp: apps[this.state.app], levels,
+      showRail: this.props.showRightRail ?? true,
+      similar: [homeSections[0].jobs[1], R[2], homeSections[1].jobs[2]].map(j => ({ ...j, applied: false })),
+      detailReqs: ['Pursuing or completed a bachelor\'s degree in any discipline', 'Comfortable with Google Analytics, Sheets and basic reporting', 'Clear written English for campaign copy', 'Available for 6 months, hybrid in Bengaluru'],
+      prep: [{ title: 'Digital Marketing Fundamentals', meta: '4 weeks · Certificate included' }, { title: 'Google Analytics for Beginners', meta: '2 weeks · Certificate included' }],
+      stats: [{ icon: 'document-text-outline', value: '4', label: 'Total applications' }, { icon: 'trophy-outline', value: '1', label: 'Offers' }, { icon: 'hourglass-outline', value: '1', label: 'In progress' }, { icon: 'close-circle-outline', value: '2', label: 'Not selected' }],
+      traits: [{ left: 'Consistent', right: 'Curious', pos: '78%' }, { left: 'Flexible', right: 'Organised', pos: '64%' }, { left: 'Reserved', right: 'Outgoing', pos: '55%' }, { left: 'Direct', right: 'Cooperative', pos: '71%' }, { left: 'Sensitive', right: 'Steady', pos: '48%' }],
+      profileRows: [{ icon: 'bookmark-outline', label: 'Saved' }, { icon: 'calendar-outline', label: 'Bookings' }, { icon: 'trash-outline', label: 'Recently Deleted' }, { icon: 'help-circle-outline', label: 'Support & Help' }],
+      details: [{ label: 'Phone', value: '+91 98765 43210' }, { label: 'Email', value: 'aarav.mehta@gmail.com' }, { label: 'City', value: 'Pune' }, { label: 'Looking for', value: 'Internship' }, { label: 'Roles', value: 'Digital Marketing, Product Design' }, { label: 'Languages', value: 'English, Hindi, Marathi' }],
+    };
+  }
+}
+</script>
+</body>
+</html>

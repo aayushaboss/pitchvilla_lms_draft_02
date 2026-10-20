@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <style>body{margin:0;font-family:Poppins,sans-serif;color:#2B2B2B;background:#FFFFFF;-webkit-font-smoothing:antialiased;} a{color:#2B2B2B;} a:hover{color:#6B6966;} *{scrollbar-width:none;-ms-overflow-style:none;} *::-webkit-scrollbar{display:none;width:0;height:0;}</style>
+</helmet>
+<div style="--flow-h:32px;min-height:100vh;min-width:1280px;position:relative;">
+  <div style="height:32px;box-sizing:border-box;position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:2px;padding:0 12px;background:#2B2B2B;font-family:Poppins,sans-serif;">
+    <span style="font-size:10px;font-weight:500;letter-spacing:0.8px;color:#9C9A95;padding-right:10px;">PROTOTYPE FLOW</span>
+    <sc-for list="{{ roles }}" as="r" hint-placeholder-count="4">
+      <div onClick="{{ r.onClick }}" style="height:24px;padding:0 10px;border-radius:999px;background:{{ r.bg }};color:{{ r.fg }};display:flex;align-items:center;gap:5px;font-size:11px;font-weight:500;cursor:pointer;"><ion-icon name="{{ r.icon }}" style="font-size:12px;"></ion-icon>{{ r.label }}</div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ rOnb }}" hint-placeholder-val="{{ true }}"><dc-import name="LMS Onboarding" on-done="{{ onDone }}" hint-size="100%,100vh"></dc-import></sc-if>
+  <sc-if value="{{ rStu }}" hint-placeholder-val="{{ false }}"><dc-import name="LMS Student" first-login="{{ firstLogin }}" on-logout="{{ onLogout }}" hint-size="100%,100vh"></dc-import></sc-if>
+  <sc-if value="{{ rCo }}" hint-placeholder-val="{{ false }}"><dc-import name="LMS Coordinator" on-logout="{{ onLogout }}" hint-size="100%,100vh"></dc-import></sc-if>
+  <sc-if value="{{ rAd }}" hint-placeholder-val="{{ false }}"><dc-import name="LMS Admin" on-logout="{{ onLogout }}" hint-size="100%,100vh"></dc-import></sc-if>
+  <sc-if value="{{ askOut }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ cancelOut }}" style="position:fixed;inset:0;z-index:200;background:rgba(43,43,43,0.32);display:flex;align-items:center;justify-content:center;font-family:Poppins,sans-serif;">
+      <div onClick="{{ stop }}" style="width:380px;background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px;box-shadow:0 20px 50px rgba(43,43,43,0.14);">
+        <div style="width:44px;height:44px;border-radius:50%;background:#F5F4F1;display:flex;align-items:center;justify-content:center;"><ion-icon name="log-out-outline" style="font-size:20px;color:#2B2B2B;"></ion-icon></div>
+        <div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:16px;font-weight:500;color:#2B2B2B;">Log out of Pitchvilla?</span><span style="font-size:12px;line-height:1.6;color:#6B6966;">You'll need to sign in again to access your courses.</span></div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;">
+          <div onClick="{{ cancelOut }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;font-size:12px;font-weight:500;color:#2B2B2B;cursor:pointer;" style-hover="background:#F7F6F3;">Cancel</div>
+          <div onClick="{{ confirmOut }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;font-size:12px;font-weight:500;color:#2B2B2B;cursor:pointer;">Log out</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { role: (typeof localStorage !== 'undefined' && localStorage.getItem('pv-lms-role')) || 'onboarding', firstLogin: false, k: 0 };
+  setRole(role, firstLogin) { try { localStorage.setItem('pv-lms-role', role); } catch (e) {} this.setState({ role, firstLogin: !!firstLogin }); }
+  renderVals() {
+    const R = this.state.role;
+    return {
+      rOnb: R === 'onboarding', rStu: R === 'student', rCo: R === 'coordinator', rAd: R === 'admin', firstLogin: this.state.firstLogin,
+      onDone: (role, first) => this.setRole(role, first), onLogout: () => this.setState({ askOut: true }), askOut: !!this.state.askOut, cancelOut: () => this.setState({ askOut: false }), confirmOut: () => { this.setState({ askOut: false }); this.setRole('onboarding', false); }, stop: e => e.stopPropagation(),
+      roles: [['onboarding', 'log-in-outline', 'Onboarding'], ['student', 'school-outline', 'Student'], ['coordinator', 'easel-outline', 'Coordinator'], ['admin', 'shield-checkmark-outline', 'Admin']].map(([k, icon, label]) => ({ icon, label, bg: R === k ? 'rgba(255,255,255,0.14)' : 'transparent', fg: R === k ? '#FFFFFF' : '#B5B2AC', onClick: () => this.setRole(k, false) })),
+    };
+  }
+}
+</script>
+</body>
+</html>

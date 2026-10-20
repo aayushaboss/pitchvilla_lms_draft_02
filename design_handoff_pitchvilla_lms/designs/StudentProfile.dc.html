@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <style>body{margin:0;font-family:Poppins,sans-serif;color:#2B2B2B;-webkit-font-smoothing:antialiased;} a{color:#2B2B2B;} a:hover{color:#6B6966;} *{scrollbar-width:none;-ms-overflow-style:none;} *::-webkit-scrollbar{display:none;width:0;height:0;}</style>
+</helmet>
+<div style="font-family:Poppins,sans-serif;color:#2B2B2B;display:flex;flex-direction:column;gap:14px;">
+  <sc-if value="{{ showBack }}" hint-placeholder-val="{{ true }}"><div onClick="{{ back }}" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:#6B6966;cursor:pointer;width:max-content;" style-hover="color:#2B2B2B;"><ion-icon name="arrow-back"></ion-icon>{{ backLabel }}</div></sc-if>
+
+  <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:16px 24px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+    <div style="width:56px;height:56px;border-radius:50%;background:#ECEAE5;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;flex-shrink:0;">{{ s.initials }}</div>
+    <div style="flex:1;min-width:280px;display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span style="font-size:16px;font-weight:500;letter-spacing:-0.4px;">{{ s.name }}</span>
+        <span style="font-size:11px;font-weight:500;padding:4px 8px;border-radius:999px;white-space:nowrap;background:rgba(88,204,2,0.12);color:#3C8200;">{{ s.status }}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 24px;">
+        <sc-for list="{{ meta }}" as="m" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;color:#9C9A95;">{{ m.k }}</span><span style="font-size:12px;font-weight:400;">{{ m.v }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <sc-for list="{{ actions }}" as="a" hint-placeholder-count="2">
+        <div onClick="{{ a.onClick }}" style="box-sizing:border-box;height:36px;padding:0 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;" style-hover="background:#F7F6F3;"><ion-icon name="{{ a.icon }}" style="font-size:13px;"></ion-icon>{{ a.label }}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:4px;border-bottom:1px solid #E8E6E1;overflow-x:auto;">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="8">
+      <div onClick="{{ t.onClick }}" style="padding:12px 16px;font-size:12px;font-weight:{{ t.fw }};color:{{ t.fg }};border-bottom:3px solid {{ t.bar }};cursor:pointer;white-space:nowrap;">{{ t.label }}</div>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:16px 24px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:13px;font-weight:500;">Certificate progress</span><span style="font-size:12px;font-weight:500;">{{ overall }}% overall</span></div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;">
+          <sc-for list="{{ buckets }}" as="b" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:12px;color:#6B6966;">{{ b.label }}</span>
+              <span style="font-size:13px;font-weight:500;">{{ b.done }}<span style="font-size:12px;color:#9C9A95;font-weight:400;"> / {{ b.total }} h</span></span>
+              <div style="height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ b.pct }};background:#FFCC00;border-radius:999px;"></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;">
+        <sc-for list="{{ quick }}" as="q" hint-placeholder-count="3">
+          <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:14px 20px;display:flex;flex-direction:column;gap:2px;"><span style="font-size:16px;font-weight:500;">{{ q.v }}</span><span style="font-size:12px;color:#6B6966;">{{ q.k }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isCourses }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <sc-for list="{{ modules }}" as="m" hint-placeholder-count="4">
+        <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:14px 18px;display:grid;grid-template-columns:minmax(0,1fr) 220px 60px;gap:20px;align-items:center;">
+          <div style="display:flex;flex-direction:column;"><span style="font-size:12px;font-weight:400;">{{ m.title }}</span><span style="font-size:12px;color:#9C9A95;">{{ m.course }}</span></div>
+          <div style="height:6px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ m.pct }};background:#FFCC00;"></div></div>
+          <span style="font-size:12px;font-weight:500;text-align:right;">{{ m.pct }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isTable }}" hint-placeholder-val="{{ false }}">
+    <div style="border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:{{ tbl.cols }};gap:16px;padding:12px 20px;background:#F5F4F1;">
+        <sc-for list="{{ tbl.head }}" as="h" hint-placeholder-count="4"><span style="font-size:12px;font-weight:500;color:#6B6966;">{{ h }}</span></sc-for>
+      </div>
+      <sc-for list="{{ tbl.rows }}" as="r" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:{{ tbl.cols }};gap:16px;padding:14px 20px;border-top:1px solid #E8E6E1;align-items:center;">
+          <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="4">
+            <div><span style="font-size:12px;font-weight:{{ c.fw }};padding:{{ c.pad }};border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};">{{ c.t }}</span></div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ edOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ edClose }}" style="position:fixed;inset:0;z-index:80;background:rgba(43,43,43,0.32);display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:Poppins,sans-serif;">
+      <div onClick="{{ ovStop }}" data-screen-label="Edit details" style="width:100%;max-width:560px;max-height:calc(100vh - 48px);background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;box-shadow:0 20px 50px rgba(43,43,43,0.14);display:flex;flex-direction:column;overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;border-bottom:1px solid #E8E6E1;flex-shrink:0;"><div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:14px;font-weight:500;">{{ edHead }}</span><span style="font-size:11px;color:#6B6966;">{{ edSub }}</span></div><div onClick="{{ edClose }}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" style-hover="background:#F5F4F1;"><ion-icon name="close" style="font-size:16px;"></ion-icon></div></div>
+        <div style="flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:14px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><sc-for list="{{ edLocked }}" as="l" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px;padding:10px 12px;border-radius:10px;background:#F5F4F1;"><span style="font-size:11px;color:#6B6966;display:flex;align-items:center;gap:4px;"><ion-icon name="lock-closed-outline" style="font-size:11px;"></ion-icon>{{ l.k }}</span><span style="font-size:12px;">{{ l.v }}</span></div></sc-for></div>
+          <span style="font-size:11px;color:#6B6966;">College records can only be changed by your admin.</span>
+          <sc-for list="{{ edFields }}" as="f" hint-placeholder-count="3"><label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">{{ f.k }}</span><input value="{{ f.v }}" onChange="{{ f.set }}" placeholder="{{ f.ph }}" style="height:38px;box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:0 12px;font-size:13px;outline:none;background:#FFFFFF;font-family:Poppins,sans-serif;color:#2B2B2B;"></input></label></sc-for>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;border-top:1px solid #E8E6E1;flex-shrink:0;">
+          <span style="font-size:12px;color:#D92D20;">{{ edErr }}</span>
+          <div style="display:flex;gap:8px;"><div onClick="{{ edClose }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;" style-hover="background:#F7F6F3;">Cancel</div><div onClick="{{ edSave }}" style="height:36px;box-sizing:border-box;padding:0 18px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;">Save changes</div></div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ ceOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ ceClose }}" style="position:fixed;inset:0;z-index:80;background:rgba(43,43,43,0.32);display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:Poppins,sans-serif;">
+      <div onClick="{{ ovStop }}" data-screen-label="Certificate" style="width:100%;max-width:560px;max-height:calc(100vh - 48px);background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;box-shadow:0 20px 50px rgba(43,43,43,0.14);display:flex;flex-direction:column;overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;border-bottom:1px solid #E8E6E1;flex-shrink:0;"><div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:14px;font-weight:500;">{{ ceHead }}</span><span style="font-size:11px;color:#6B6966;">{{ ceSub }}</span></div><div onClick="{{ ceClose }}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" style-hover="background:#F5F4F1;"><ion-icon name="close" style="font-size:16px;"></ion-icon></div></div>
+        <div style="flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:12px;background:#F5F4F1;"><ion-icon name="lock-closed-outline" style="font-size:18px;flex-shrink:0;"></ion-icon><span style="font-size:12px;line-height:1.6;">{{ ceText }}</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;"><sc-for list="{{ ceBuckets }}" as="b" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#6B6966;">{{ b.label }}</span><span style="font-weight:500;">{{ b.v }}</span></div><div style="height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ b.w }};background:#FFCC00;border-radius:999px;"></div></div><span style="font-size:11px;color:#6B6966;">{{ b.left }}</span></div></sc-for></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;border-top:1px solid #E8E6E1;flex-shrink:0;">
+          <span style="font-size:11px;color:#6B6966;">Unlocks automatically at 60 hours.</span>
+          <div onClick="{{ ceClose }}" style="height:36px;box-sizing:border-box;padding:0 18px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;">Got it</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:800},&quot;viewer&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;admin&quot;,&quot;coordinator&quot;],&quot;default&quot;:&quot;admin&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;student&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;},&quot;onBack&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onAction&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(label: string) =&gt; void&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'overview' };
+  renderVals() {
+    const s = this.props.student ?? { name: 'Riya Deshmukh', initials: 'RD', id: 'VIT22UX104', semester: 'Semester 5', subject: 'UI/UX Design', coordinator: 'Prof. Deepak Kulkarni', status: 'Active', email: 'riya.deshmukh@vit.edu', phone: '+91 98220 41736', attendance: 86 };
+    if (this.state.mine) Object.assign(s, { phone: this.state.mine.phone, email: this.state.mine.email });
+    const viewer = this.props.viewer ?? 'admin';
+    const T = { ok: ['rgba(88,204,2,0.12)', '#3C8200'], warn: ['rgba(255,149,0,0.14)', '#B25900'], bad: ['rgba(255,59,48,0.12)', '#D92D20'], neu: ['#F5F4F1', '#6B6966'] };
+    const c = (t, tone) => tone ? { t, bg: T[tone][0], fg: T[tone][1], pad: '4px 10px', fw: 500 } : { t, bg: 'transparent', fg: '#2B2B2B', pad: '0', fw: 400 };
+    const B = [['Pre-recorded', 18.5, 30], ['Live lectures', 7, 12], ['Community', 4.5, 12], ['Tests & assessments', 2, 6]];
+    const done = B.reduce((a, b) => a + b[1], 0);
+    const tables = {
+      live: { head: ['Lecture', 'Date', 'Status', 'Minutes'], cols: 'minmax(0,2fr) 1fr 1fr 1fr', rows: [
+        ['Design Process and Thinking Method', 'Wed, 7 Oct 2026', 'Attended', '112 / 120'], ['Introduction to UI/UX', 'Sat, 3 Oct 2026', 'Attended', '98 / 110'], ['Personas and Journey Maps', 'Wed, 30 Sep 2026', 'Missed', '0 / 120'], ['Tools — Figma basics', 'Sat, 26 Sep 2026', 'Attended', '120 / 120']
+      ].map(r => ({ cells: [c(r[0]), c(r[1]), c(r[2], r[2] === 'Missed' ? 'bad' : 'ok'), c(r[3])] })) },
+      assignments: { head: ['Assignment', 'Submitted', 'Status', 'Marks'], cols: 'minmax(0,2fr) 1fr 1fr 1fr', rows: [
+        ['Creating and Defining Style Guide for the App', '—', 'Overdue', '—'], ['Creating a Poster in Figma', 'Mon, 5 Oct 2026', 'Graded', '18 / 20'], ['Lo-Fi and Hi-Fi Wireframes', 'Mon, 28 Sep 2026', 'Late', '14 / 20'], ['Define a User Research Plan', 'Sun, 20 Sep 2026', 'Graded', '17 / 20']
+      ].map(r => ({ cells: [c(r[0]), c(r[1]), c(r[2], r[2] === 'Overdue' ? 'bad' : r[2] === 'Late' ? 'warn' : 'ok'), c(r[3])] })) },
+      quizzes: { head: ['Quiz', 'Attempted', 'Score', 'Result'], cols: 'minmax(0,2fr) 1fr 1fr 1fr', rows: [
+        ['Module 1 — Prerequisites MCQ', 'Fri, 2 Oct 2026', '9 / 10', 'Passed'], ['Module 2 — UCD Process MCQ', 'Thu, 8 Oct 2026', '6 / 10', 'Passed'], ['Module 3 — User Research MCQ', 'Sun, 11 Oct 2026', '4 / 10', 'Retake']
+      ].map(r => ({ cells: [c(r[0]), c(r[1]), c(r[2]), c(r[3], r[3] === 'Passed' ? 'ok' : 'warn')] })) },
+      results: { head: ['Semester', 'Subject', 'Marks', 'Status'], cols: '1fr minmax(0,2fr) 1fr 1fr', rows: [
+        ['Semester 4', 'Human Computer Interaction', '78 / 100', 'Published'], ['Semester 4', 'Visual Communication', '71 / 100', 'Published'], ['Semester 5', 'UI/UX Design', '—', 'Pending']
+      ].map(r => ({ cells: [c(r[0]), c(r[1]), c(r[2]), c(r[3], r[3] === 'Published' ? 'ok' : 'neu')] })) },
+      community: { head: ['Activity', 'Space', 'Date', 'Hours'], cols: 'minmax(0,2fr) 1fr 1fr 1fr', rows: [
+        ['Posted: "Feedback on my onboarding flow"', 'UI/UX Design', 'Mon, 12 Oct 2026', '0.5 h'], ['Attended: Portfolio review event', 'Design Club', 'Fri, 9 Oct 2026', '2 h'], ['Replied to 6 threads', 'UI/UX Design', 'Tue, 6 Oct 2026', '1 h']
+      ].map(r => ({ cells: [c(r[0]), c(r[1]), c(r[2]), c(r[3])] })) },
+      activity: { head: ['Event', 'When'], cols: 'minmax(0,3fr) 1fr', rows: [
+        ['Watched Module 2 — Prerequisites (12 min)', 'Wed, 14 Oct 2026 · 10:42 AM'], ['Attempted Module 3 MCQ — 4 / 10', 'Sun, 11 Oct 2026 · 8:15 PM'], ['Submitted "Creating a Poster in Figma"', 'Mon, 5 Oct 2026 · 11:58 PM'], ['Joined live: Design Process and Thinking Method', 'Wed, 7 Oct 2026 · 6:02 PM']
+      ].map(r => ({ cells: [c(r[0]), c(r[1])] })) },
+    };
+    const TABS = [['overview', 'Overview'], ['courses', 'Courses'], ['live', 'Live attendance'], ['assignments', 'Assignments'], ['quizzes', 'Quizzes'], ['results', 'Results'], ['community', 'Community'], ['activity', 'Activity log']];
+    const tab = this.state.tab;
+    const actions = viewer === 'admin'
+      ? [{ label: 'Reassign coordinator', icon: 'swap-horizontal' }, { label: 'Deactivate', icon: 'ban-outline' }]
+      : viewer === 'self' ? [{ label: 'Edit details', icon: 'create-outline' }, { label: 'Certificate · locked', icon: 'lock-closed-outline' }]
+      : [{ label: 'Message', icon: 'chatbubble-outline' }, { label: 'Grade submissions', icon: 'create-outline' }];
+    return {
+      s, showBack: viewer !== 'self', back: () => this.props.onBack?.(), backLabel: viewer === 'admin' ? 'Back to students' : 'Back to my students',
+      meta: [{ k: 'College ID', v: s.id }, { k: 'Semester', v: s.semester }, { k: 'Subject', v: s.subject }, { k: 'Coordinator', v: s.coordinator }, { k: 'Email', v: s.email }, { k: 'Phone', v: s.phone }],
+      actions: actions.map(a => ({ ...a, onClick: () => this.props.onAction ? this.props.onAction(a.label) : this.setState({ ov: a.label.startsWith('Edit') ? 'edit' : 'cert', draft: { ...(this.state.mine || {}) }, err: '' }) })),
+      ovStop: e => e.stopPropagation(),
+      edOpen: this.state.ov === 'edit', edClose: () => this.setState({ ov: null }), edHead: 'Edit details', edSub: 'Contact details your coordinator and batch can see',
+      edLocked: [['Full name', s.name], ['College ID', s.id], ['Semester', s.semester], ['Subject', s.subject]].map(([k, v]) => ({ k, v })),
+      edFields: [['phone', 'Phone', '+91 …'], ['email', 'Personal email', 'name@example.com'], ['portfolio', 'Portfolio or LinkedIn', 'https://…']].map(([key, k, ph]) => ({ k, ph, v: (this.state.draft || {})[key] ?? (key === 'phone' ? s.phone : key === 'email' ? s.email : ''), set: e => { const v = e.target.value; this.setState(st => ({ draft: { ...(st.draft || {}), [key]: v }, err: '' })); } })),
+      edErr: this.state.err || '',
+      edSave: () => { const d = this.state.draft || {}; const ph = d.phone ?? s.phone, em = d.email ?? s.email; if (!/^\+?[\d\s-]{8,}$/.test(ph)) return this.setState({ err: 'Enter a valid phone number.' }); if (!/^\S+@\S+\.\S+$/.test(em)) return this.setState({ err: 'Enter a valid email.' }); this.setState({ mine: { ...d, phone: ph, email: em }, ov: null, saved: true }); },
+      ceOpen: this.state.ov === 'cert', ceClose: () => this.setState({ ov: null }), ceHead: 'Certificate locked', ceSub: 'UI/UX Design Specialisation',
+      ceText: 'You have completed ' + done + ' of 60 hours (' + Math.round(done / 60 * 100) + '%). ' + (60 - done) + ' more hours unlock your certificate.',
+      ceBuckets: B.map(b => ({ label: b[0], v: b[1] + ' / ' + b[2] + ' h', w: Math.round(b[1] / b[2] * 100) + '%', left: b[1] >= b[2] ? 'Complete' : (b[2] - b[1]) + ' h left' })),
+      tabs: TABS.map(([k, l]) => ({ label: l, fw: tab === k ? 500 : 400, fg: tab === k ? '#2B2B2B' : '#6B6966', bar: tab === k ? '#2B2B2B' : 'transparent', onClick: () => this.setState({ tab: k }) })),
+      isOverview: tab === 'overview', isCourses: tab === 'courses', isTable: !!tables[tab], tbl: tables[tab] || tables.live,
+      buckets: B.map(b => ({ label: b[0], done: b[1], total: b[2], pct: Math.round(b[1] / b[2] * 100) + '%' })),
+      overall: Math.round(done / 60 * 100),
+      quick: [{ k: 'Attendance', v: (s.attendance ?? 86) + '%' }, { k: 'Courses completed', v: '1 of 4' }, { k: 'Assignments done', v: '9 of 12' }],
+      modules: [['Introduction to UI UX', 100], ['User Centered Design Process', 64], ['User Research', 30], ['Design Interactions', 0]].map(m => ({ title: m[0], course: 'UI/UX Design Specialisation', pct: m[1] + '%' })),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <style>body{margin:0;font-family:Poppins,sans-serif;color:#2B2B2B;-webkit-font-smoothing:antialiased;} a{color:#2B2B2B;} a:hover{color:#6B6966;} input,textarea{font-family:Poppins,sans-serif;color:#2B2B2B;} input::placeholder,textarea::placeholder{color:#9C9A95;} *{scrollbar-width:none;} *::-webkit-scrollbar{display:none;}</style>
+</helmet>
+<div data-screen-label="Course builder" style="font-family:Poppins,sans-serif;color:#2B2B2B;display:flex;flex-direction:column;gap:16px;">
+  <input type="file" ref="{{ fileRef }}" onChange="{{ onFile }}" style="display:none;"></input>
+
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <div onClick="{{ close }}" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:#6B6966;cursor:pointer;width:max-content;" style-hover="color:#2B2B2B;"><ion-icon name="arrow-back"></ion-icon>{{ backLabel }}</div>
+      <span style="font-size:18px;font-weight:500;letter-spacing:-0.4px;">{{ heading }}</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <sc-if value="{{ showFill }}" hint-placeholder-val="{{ true }}"><span onClick="{{ fillSample }}" style="font-size:12px;color:#6B6966;cursor:pointer;padding:0 8px;" style-hover="color:#2B2B2B;">Fill sample data</span></sc-if>
+      <sc-if value="{{ sView }}" hint-placeholder-val="{{ false }}"><div onClick="{{ startEdit }}" style="height:36px;box-sizing:border-box;padding:0 18px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;"><ion-icon name="create-outline" style="font-size:14px;"></ion-icon>{{ editLabel }}</div></sc-if>
+      <sc-if value="{{ showDraft }}" hint-placeholder-val="{{ true }}"><div onClick="{{ saveDraft }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;" style-hover="background:#F7F6F3;"><ion-icon name="save-outline" style="font-size:13px;"></ion-icon>Save draft</div></sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ showSteps }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
+        <div onClick="{{ st.onClick }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer;">
+          <div style="height:4px;border-radius:999px;background:{{ st.bar }};"></div>
+          <span style="font-size:11px;font-weight:{{ st.fw }};color:{{ st.fg }};">{{ st.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ err }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:rgba(255,59,48,0.08);color:#D92D20;font-size:12px;"><ion-icon name="alert-circle-outline" style="font-size:14px;flex-shrink:0;"></ion-icon>{{ err }}</div>
+  </sc-if>
+
+  <sc-if value="{{ sView }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:20px 24px;display:flex;gap:20px;align-items:flex-start;">
+        <div style="width:240px;height:135px;border-radius:12px;background:#F5F4F1;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><sc-if value="{{ hasThumb }}" hint-placeholder-val="{{ false }}"><img src="{{ thumbUrl }}" style="width:100%;height:100%;object-fit:cover;"></sc-if><sc-if value="{{ noThumb }}" hint-placeholder-val="{{ true }}"><ion-icon name="image-outline" style="font-size:22px;color:#9C9A95;"></ion-icon></sc-if></div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span style="font-size:11px;font-weight:500;padding:4px 8px;border-radius:999px;white-space:nowrap;background:{{ vStatusBg }};color:{{ vStatusFg }};">{{ vStatus }}</span><span style="font-size:11px;color:#6B6966;">{{ vSubj }}</span></div>
+          <span style="font-size:12px;color:#6B6966;">{{ rvMeta }}</span>
+          <span style="font-size:12px;line-height:1.6;text-wrap:pretty;">{{ rvDesc }}</span>
+          <span style="font-size:11px;color:#6B6966;display:flex;align-items:center;gap:6px;"><ion-icon name="videocam-outline" style="font-size:13px;"></ion-icon>{{ vIntro }}</span>
+          <sc-if value="{{ vNote }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:10px;background:rgba(255,149,0,0.10);color:#B25900;font-size:12px;line-height:1.5;"><ion-icon name="chatbubble-ellipses-outline" style="font-size:14px;flex-shrink:0;margin-top:2px;"></ion-icon><span>Admin: {{ vNote }}</span></div></sc-if>
+        </div>
+      </div>
+      <sc-for list="{{ vModules }}" as="m" hint-placeholder-count="2">
+        <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:12px;padding:16px 24px;"><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:13px;font-weight:500;">{{ m.head }}</span><span style="font-size:11px;color:#6B6966;">{{ m.desc }}</span></div><span onClick="{{ m.edit }}" style="font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;"><ion-icon name="create-outline" style="font-size:13px;"></ion-icon>Edit</span></div>
+          <sc-for list="{{ m.rows }}" as="r" hint-placeholder-count="3">
+            <div onClick="{{ r.onClick }}" style="display:flex;align-items:center;gap:12px;padding:10px 24px;border-top:1px solid #E8E6E1;cursor:pointer;" style-hover="background:#F7F6F3;"><ion-icon name="{{ r.icon }}" style="font-size:15px;color:#6B6966;flex-shrink:0;"></ion-icon><span style="flex:1;min-width:0;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.title }}</span><span style="font-size:11px;color:#6B6966;white-space:nowrap;">{{ r.meta }}</span><ion-icon name="chevron-forward" style="font-size:13px;color:#9C9A95;flex-shrink:0;"></ion-icon></div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s0 }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start;">
+      <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:14px;min-width:0;">
+        <span style="font-size:13px;font-weight:500;">Course details</span>
+        <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Course title</span><input value="{{ title }}" onChange="{{ setTitle }}" placeholder="e.g. Interaction Design Foundations" style="height:38px;box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:0 12px;font-size:13px;outline:none;background:#FFFFFF;"></input></label>
+        <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Description</span><textarea value="{{ desc }}" onChange="{{ setDesc }}" rows="5" placeholder="What the course covers and what students will be able to do by the end." style="box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:10px 12px;font-size:13px;line-height:1.6;outline:none;resize:none;background:#FFFFFF;"></textarea></label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Subject</span><input value="{{ subject }}" onChange="{{ setSubject }}" style="height:38px;box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:0 12px;font-size:13px;outline:none;background:#FFFFFF;"></input></label>
+          <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Semester</span><input value="{{ sem }}" onChange="{{ setSem }}" style="height:38px;box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:0 12px;font-size:13px;outline:none;background:#FFFFFF;"></input></label>
+        </div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:14px;min-width:0;">
+        <span style="font-size:13px;font-weight:500;">Media</span>
+        <sc-for list="{{ media }}" as="d" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">{{ d.label }}</span>
+            <sc-if value="{{ d.empty }}" hint-placeholder-val="{{ true }}"><div onClick="{{ d.pick }}" style="height:112px;box-sizing:border-box;border:1px dashed #D1D1CE;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;background:#FAFAF8;" style-hover="background:#F5F4F1;"><div style="width:36px;height:36px;border-radius:50%;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;justify-content:center;"><ion-icon name="{{ d.icon }}" style="font-size:15px;"></ion-icon></div><span style="font-size:12px;font-weight:500;">{{ d.cta }}</span><span style="font-size:11px;color:#9C9A95;">{{ d.hint }}</span></div></sc-if>
+            <sc-if value="{{ d.busy }}" hint-placeholder-val="{{ false }}"><div style="height:112px;box-sizing:border-box;border:1px solid #E8E6E1;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;justify-content:center;gap:10px;"><div style="display:flex;align-items:center;gap:8px;"><ion-icon name="{{ d.icon }}" style="font-size:14px;color:#6B6966;"></ion-icon><span style="flex:1;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ d.name }}</span><span style="font-size:11px;color:#6B6966;font-variant-numeric:tabular-nums;">{{ d.pct }}</span></div><div style="height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ d.pctW }};background:#FFCC00;border-radius:999px;"></div></div><span style="font-size:11px;color:#9C9A95;">Uploading…</span></div></sc-if>
+            <sc-if value="{{ d.done }}" hint-placeholder-val="{{ false }}"><div style="border:1px solid #E8E6E1;border-radius:12px;overflow:hidden;display:flex;"><div style="width:168px;height:112px;flex-shrink:0;background:#2B2B2B;display:flex;align-items:center;justify-content:center;overflow:hidden;"><sc-if value="{{ d.showVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ d.url }}" controls="controls" style="width:100%;height:100%;object-fit:cover;"></video></sc-if><sc-if value="{{ d.showImg }}" hint-placeholder-val="{{ false }}"><img src="{{ d.url }}" style="width:100%;height:100%;object-fit:cover;"></sc-if><sc-if value="{{ d.showPh }}" hint-placeholder-val="{{ false }}"><ion-icon name="play-circle" style="font-size:32px;color:#FFFFFF;"></ion-icon></sc-if></div><div style="flex:1;min-width:0;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;gap:8px;"><div style="display:flex;align-items:center;gap:6px;min-width:0;"><ion-icon name="checkmark-circle" style="font-size:14px;color:#3C8200;flex-shrink:0;"></ion-icon><span style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ d.name }}</span></div><span style="font-size:11px;color:#6B6966;">{{ d.meta }}</span><div style="display:flex;gap:16px;"><span onClick="{{ d.pick }}" style="font-size:12px;font-weight:500;cursor:pointer;">Replace</span><span onClick="{{ d.remove }}" style="font-size:12px;color:#6B6966;cursor:pointer;">Remove</span></div></div></div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s1 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:{{ cols }};gap:16px;align-items:start;">
+      <sc-if value="{{ isCourse }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:16px 12px;display:flex;flex-direction:column;gap:12px;min-width:0;position:sticky;top:16px;max-height:calc(100vh - 140px);overflow-y:auto;box-sizing:border-box;">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 8px;"><span style="font-size:13px;font-weight:500;">Course outline</span><span style="font-size:11px;color:#9C9A95;">{{ outlineMeta }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <sc-for list="{{ tree }}" as="r" hint-placeholder-count="4">
+              <div onClick="{{ r.onClick }}" style="display:flex;align-items:center;gap:10px;padding:7px 10px 7px {{ r.pl }};margin-top:{{ r.mt }};border-radius:10px;background:{{ r.bg }};cursor:pointer;" style-hover="background:#F7F6F3;">
+                <ion-icon name="{{ r.icon }}" style="font-size:14px;color:{{ r.iconFg }};flex-shrink:0;"></ion-icon>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;"><span style="font-size:12px;font-weight:{{ r.fw }};color:{{ r.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.title }}</span><sc-if value="{{ r.hasMeta }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:{{ r.metaFg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.meta }}</span></sc-if></div>
+                <sc-if value="{{ r.warn }}" hint-placeholder-val="{{ false }}"><span title="Needs attention" style="width:7px;height:7px;border-radius:50%;background:#D92D20;flex-shrink:0;"></span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div onClick="{{ addModule }}" style="height:36px;box-sizing:border-box;border-radius:999px;border:1px solid #E8E6E1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;margin:0 4px;" style-hover="background:#F7F6F3;"><ion-icon name="add"></ion-icon>Add module</div>
+        </div>
+      </sc-if>
+
+      <div style="display:flex;flex-direction:column;gap:12px;min-width:0;">
+        <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:13px;font-weight:500;">{{ edHead }}</span><span style="font-size:11px;color:#6B6966;">{{ edSub }}</span></div>
+            <sc-if value="{{ edTools }}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:4px;"><div onClick="{{ edUp }}" title="Move up" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6B6966;" style-hover="background:#F5F4F1;"><ion-icon name="arrow-up-outline" style="font-size:15px;"></ion-icon></div><div onClick="{{ edDown }}" title="Move down" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6B6966;" style-hover="background:#F5F4F1;"><ion-icon name="arrow-down-outline" style="font-size:15px;"></ion-icon></div><div onClick="{{ edDel }}" title="Delete" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#D92D20;opacity:{{ edDelOp }};" style-hover="background:#F5F4F1;"><ion-icon name="trash-outline" style="font-size:15px;"></ion-icon></div></div></sc-if>
+          </div>
+
+          <sc-if value="{{ kModule }}" hint-placeholder-val="{{ true }}">
+            <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Module title</span><input value="{{ mTitle }}" onChange="{{ mSetTitle }}" placeholder="e.g. User Centered Design Process" style="height:38px;box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:0 12px;font-size:13px;outline:none;background:#FFFFFF;"></input></label>
+            <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Description</span><textarea value="{{ mDesc }}" onChange="{{ mSetDesc }}" rows="3" placeholder="What this module covers." style="box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:10px 12px;font-size:13px;line-height:1.6;outline:none;resize:none;background:#FFFFFF;"></textarea></label>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Study material <span style="color:#9C9A95;">(optional)</span></span><span style="font-size:11px;color:#9C9A95;">Shows under this module in Study materials</span></div>
+              <sc-for list="{{ mMats }}" as="m" hint-placeholder-count="0">
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid #E8E6E1;border-radius:10px;">
+                  <div style="width:32px;height:32px;border-radius:8px;background:#F5F4F1;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><ion-icon name="document-text-outline" style="font-size:15px;"></ion-icon></div>
+                  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;"><span style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ m.name }}</span><sc-if value="{{ m.busy }}" hint-placeholder-val="{{ false }}"><div style="height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ m.pctW }};background:#FFCC00;border-radius:999px;"></div></div></sc-if><sc-if value="{{ m.done }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;color:#6B6966;">{{ m.meta }}</span></sc-if></div>
+                  <div onClick="{{ m.remove }}" title="Remove file" style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#9C9A95;flex-shrink:0;" style-hover="background:#F5F4F1;"><ion-icon name="close" style="font-size:14px;"></ion-icon></div>
+                </div>
+              </sc-for>
+              <div onClick="{{ mAttach }}" style="height:40px;box-sizing:border-box;border-radius:10px;border:1px dashed #D1D1CE;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;background:#FAFAF8;" style-hover="background:#F5F4F1;"><ion-icon name="attach-outline" style="font-size:15px;"></ion-icon>Attach study material</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <div onClick="{{ addLessonHere }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:1px solid #E8E6E1;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;" style-hover="background:#F7F6F3;"><ion-icon name="add"></ion-icon>Add lesson</div>
+              <div onClick="{{ openQuizHere }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:1px solid #E8E6E1;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;" style-hover="background:#F7F6F3;"><ion-icon name="checkbox-outline" style="font-size:13px;"></ion-icon>Edit module quiz</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ kLesson }}" hint-placeholder-val="{{ false }}">
+            <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Lesson title</span><input value="{{ lTitle }}" onChange="{{ lSetTitle }}" placeholder="e.g. The double diamond" style="height:38px;box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:0 12px;font-size:13px;outline:none;background:#FFFFFF;"></input></label>
+            <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Description</span><textarea value="{{ lDesc }}" onChange="{{ lSetDesc }}" rows="2" placeholder="What this lesson covers." style="box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:10px 12px;font-size:13px;line-height:1.6;outline:none;resize:none;background:#FFFFFF;"></textarea></label>
+            <sc-for list="{{ lDz }}" as="d" hint-placeholder-count="1">
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">{{ d.label }}</span>
+                <sc-if value="{{ d.empty }}" hint-placeholder-val="{{ true }}"><div onClick="{{ d.pick }}" style="height:112px;box-sizing:border-box;border:1px dashed #D1D1CE;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;background:#FAFAF8;" style-hover="background:#F5F4F1;"><div style="width:36px;height:36px;border-radius:50%;background:#FFFFFF;border:1px solid #E8E6E1;display:flex;align-items:center;justify-content:center;"><ion-icon name="{{ d.icon }}" style="font-size:15px;"></ion-icon></div><span style="font-size:12px;font-weight:500;">{{ d.cta }}</span><span style="font-size:11px;color:#9C9A95;">{{ d.hint }}</span></div></sc-if>
+                <sc-if value="{{ d.busy }}" hint-placeholder-val="{{ false }}"><div style="height:112px;box-sizing:border-box;border:1px solid #E8E6E1;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;justify-content:center;gap:10px;"><div style="display:flex;align-items:center;gap:8px;"><ion-icon name="{{ d.icon }}" style="font-size:14px;color:#6B6966;"></ion-icon><span style="flex:1;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ d.name }}</span><span style="font-size:11px;color:#6B6966;font-variant-numeric:tabular-nums;">{{ d.pct }}</span></div><div style="height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ d.pctW }};background:#FFCC00;border-radius:999px;"></div></div><span style="font-size:11px;color:#9C9A95;">Uploading…</span></div></sc-if>
+                <sc-if value="{{ d.done }}" hint-placeholder-val="{{ false }}"><div style="border:1px solid #E8E6E1;border-radius:12px;overflow:hidden;display:flex;"><div style="width:168px;height:112px;flex-shrink:0;background:#2B2B2B;display:flex;align-items:center;justify-content:center;overflow:hidden;"><sc-if value="{{ d.showVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ d.url }}" controls="controls" style="width:100%;height:100%;object-fit:cover;"></video></sc-if><sc-if value="{{ d.showPh }}" hint-placeholder-val="{{ false }}"><ion-icon name="play-circle" style="font-size:32px;color:#FFFFFF;"></ion-icon></sc-if></div><div style="flex:1;min-width:0;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;gap:8px;"><div style="display:flex;align-items:center;gap:6px;min-width:0;"><ion-icon name="checkmark-circle" style="font-size:14px;color:#3C8200;flex-shrink:0;"></ion-icon><span style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ d.name }}</span></div><span style="font-size:11px;color:#6B6966;">{{ d.meta }}</span><div style="display:flex;gap:16px;"><span onClick="{{ d.pick }}" style="font-size:12px;font-weight:500;cursor:pointer;">Replace</span><span onClick="{{ d.remove }}" style="font-size:12px;color:#6B6966;cursor:pointer;">Remove</span></div></div></div></sc-if>
+              </div>
+            </sc-for>
+          </sc-if>
+
+          <sc-if value="{{ kQuiz }}" hint-placeholder-val="{{ false }}">
+            <sc-if value="{{ isQuizMode }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Module</span><div style="display:flex;flex-wrap:wrap;gap:6px;"><sc-for list="{{ modChips }}" as="c" hint-placeholder-count="4"><div onClick="{{ c.onClick }}" style="height:30px;box-sizing:border-box;padding:0 12px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};display:flex;align-items:center;font-size:12px;cursor:pointer;white-space:nowrap;">{{ c.label }}</div></sc-for></div></div>
+            </sc-if>
+            <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Quiz title</span><input value="{{ qzTitle }}" onChange="{{ qzSetTitle }}" placeholder="e.g. Module 1 quiz — User Centered Design" style="height:38px;box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:0 12px;font-size:13px;outline:none;background:#FFFFFF;"></input></label>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;">
+              <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Time limit</span><div style="display:flex;flex-wrap:wrap;gap:6px;"><sc-for list="{{ minChips }}" as="c" hint-placeholder-count="4"><div onClick="{{ c.onClick }}" style="height:30px;box-sizing:border-box;padding:0 10px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};display:flex;align-items:center;font-size:12px;cursor:pointer;white-space:nowrap;">{{ c.label }}</div></sc-for></div></div>
+              <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Opens on</span><input type="date" value="{{ qzOpens }}" onChange="{{ qzSetOpens }}" style="height:30px;box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:0 10px;font-size:13px;outline:none;background:#FFFFFF;"></input></label>
+              <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:11px;font-weight:500;color:#6B6966;letter-spacing:0.1px;">Pass mark</span><div style="display:flex;flex-wrap:wrap;gap:6px;"><sc-for list="{{ passChips }}" as="c" hint-placeholder-count="4"><div onClick="{{ c.onClick }}" style="height:30px;box-sizing:border-box;padding:0 10px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};display:flex;align-items:center;font-size:12px;cursor:pointer;white-space:nowrap;">{{ c.label }}</div></sc-for></div></div>
+            </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ showQs }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:4px 4px 0;">
+            <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:13px;font-weight:500;">{{ qsHead }}</span><span style="font-size:11px;color:#6B6966;">{{ qsSub }}</span></div>
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;"><sc-if value="{{ hasQs }}" hint-placeholder-val="{{ false }}"><div onClick="{{ regenAll }}" style="height:32px;box-sizing:border-box;padding:0 14px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;" style-hover="background:#F7F6F3;"><ion-icon name="refresh-outline" style="font-size:14px;"></ion-icon>Regenerate all</div></sc-if>
+            <sc-if value="{{ showLessonPass }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:11px;color:#6B6966;">Pass</span><sc-for list="{{ lPassChips }}" as="c" hint-placeholder-count="3"><div onClick="{{ c.onClick }}" style="height:28px;box-sizing:border-box;padding:0 10px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};display:flex;align-items:center;font-size:12px;cursor:pointer;white-space:nowrap;">{{ c.label }}</div></sc-for></div></sc-if></div>
+          </div>
+          <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:16px 20px;display:flex;flex-direction:column;gap:12px;">
+            <sc-if value="{{ genIdle }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                <div style="width:36px;height:36px;border-radius:50%;background:#F5F4F1;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><ion-icon name="sparkles-outline" style="font-size:16px;"></ion-icon></div>
+                <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:2px;"><span style="font-size:12px;font-weight:500;">Generate MCQs from a document</span><span style="font-size:11px;color:#6B6966;">Upload notes, slides or a reading. Mock questions are drafted and added below for you to edit.</span></div>
+                <div style="display:flex;align-items:center;gap:6px;"><sc-for list="{{ genChips }}" as="c" hint-placeholder-count="3"><div onClick="{{ c.onClick }}" style="height:28px;box-sizing:border-box;padding:0 10px;border-radius:999px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};display:flex;align-items:center;font-size:12px;cursor:pointer;white-space:nowrap;">{{ c.label }}</div></sc-for></div>
+                <div onClick="{{ genPick }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;" style-hover="background:#F7F6F3;"><ion-icon name="cloud-upload-outline" style="font-size:14px;"></ion-icon>Upload document</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ genBusy }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:8px;"><ion-icon name="document-text-outline" style="font-size:14px;color:#6B6966;"></ion-icon><span style="flex:1;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ genName }}</span><span style="font-size:11px;color:#6B6966;">{{ genStage }}</span></div>
+              <div style="height:4px;border-radius:999px;background:#E8E6E1;overflow:hidden;"><div style="height:100%;width:{{ genPctW }};background:#FFCC00;border-radius:999px;transition:width .4s;"></div></div>
+            </sc-if>
+            <sc-if value="{{ genDone }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><ion-icon name="checkmark-circle" style="font-size:15px;color:#3C8200;"></ion-icon><span style="flex:1;font-size:12px;">{{ genMsg }}</span><span onClick="{{ genPick }}" style="font-size:12px;font-weight:500;cursor:pointer;">Generate more</span><span onClick="{{ genReset }}" style="font-size:12px;color:#6B6966;cursor:pointer;">Dismiss</span></div>
+            </sc-if>
+          </div>
+          <sc-for list="{{ questions }}" as="q" hint-placeholder-count="1">
+            <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:12px;font-weight:500;">{{ q.label }}</span><sc-if value="{{ q.ai }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;background:#F5F4F1;color:#6B6966;display:flex;align-items:center;gap:4px;"><ion-icon name="sparkles-outline" style="font-size:10px;"></ion-icon>Draft · review</span></sc-if></div><div style="display:flex;gap:4px;"><div onClick="{{ q.regen }}" title="Regenerate this question" style="height:32px;padding:0 10px;border-radius:8px;display:flex;align-items:center;gap:6px;cursor:pointer;color:#6B6966;font-size:12px;" style-hover="background:#F5F4F1;"><ion-icon name="refresh-outline" style="font-size:15px;"></ion-icon>Regenerate</div><div onClick="{{ q.del }}" title="Delete question" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6B6966;opacity:{{ q.delOp }};" style-hover="background:#F5F4F1;"><ion-icon name="trash-outline" style="font-size:15px;"></ion-icon></div></div></div>
+              <textarea value="{{ q.text }}" onChange="{{ q.setText }}" rows="2" placeholder="Type the question" style="box-sizing:border-box;border-radius:10px;border:1px solid #E8E6E1;padding:10px 12px;font-size:13px;line-height:1.6;outline:none;resize:none;background:#FFFFFF;"></textarea>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div onClick="{{ o.mark }}" title="Mark as correct answer" style="width:20px;height:20px;box-sizing:border-box;border-radius:50%;border:1.5px solid {{ o.dotBd }};background:{{ o.dotBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;"><sc-if value="{{ o.isAns }}" hint-placeholder-val="{{ false }}"><ion-icon name="checkmark" style="font-size:12px;color:#FFFFFF;"></ion-icon></sc-if></div>
+                    <input value="{{ o.v }}" onChange="{{ o.set }}" placeholder="{{ o.ph }}" style="flex:1;min-width:0;height:36px;box-sizing:border-box;border-radius:10px;border:1px solid {{ o.inBd }};background:{{ o.inBg }};padding:0 12px;font-size:13px;outline:none;"></input>
+                    <sc-if value="{{ o.canRm }}" hint-placeholder-val="{{ false }}"><div onClick="{{ o.rm }}" title="Remove option" style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#9C9A95;flex-shrink:0;" style-hover="background:#F5F4F1;"><ion-icon name="close" style="font-size:14px;"></ion-icon></div></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;"><sc-if value="{{ q.canAdd }}" hint-placeholder-val="{{ true }}"><span onClick="{{ q.addOpt }}" style="font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;"><ion-icon name="add"></ion-icon>Add option</span></sc-if><span style="font-size:11px;color:#9C9A95;margin-left:auto;">Click a circle to mark the correct answer</span></div>
+            </div>
+          </sc-for>
+          <div onClick="{{ addQuestion }}" style="height:44px;box-sizing:border-box;border-radius:16px;border:1px dashed #D1D1CE;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;" style-hover="background:#F7F6F3;"><ion-icon name="add"></ion-icon>Add question</div>
+        </sc-if>
+        <sc-if value="{{ isCourse }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding-top:4px;">
+            <div onClick="{{ navPrev }}" style="height:36px;box-sizing:border-box;padding:0 14px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;max-width:48%;opacity:{{ navPrevOp }};" style-hover="background:#F7F6F3;"><ion-icon name="chevron-back" style="font-size:14px;flex-shrink:0;"></ion-icon><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ navPrevLabel }}</span></div>
+            <div onClick="{{ navNext }}" style="height:36px;box-sizing:border-box;padding:0 14px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;flex-shrink:0;max-width:48%;opacity:{{ navNextOp }};" style-hover="background:#F7F6F3;"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ navNextLabel }}</span><ion-icon name="chevron-forward" style="font-size:14px;flex-shrink:0;"></ion-icon></div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start;">
+      <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:16px;min-width:0;">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="width:176px;height:99px;border-radius:10px;background:#F5F4F1;overflow:hidden;flex-shrink:0;"><sc-if value="{{ hasThumb }}" hint-placeholder-val="{{ false }}"><img src="{{ thumbUrl }}" style="width:100%;height:100%;object-fit:cover;"></sc-if></div>
+          <div style="display:flex;flex-direction:column;gap:6px;min-width:0;"><span style="font-size:14px;font-weight:500;">{{ rvTitle }}</span><span style="font-size:11px;color:#6B6966;">{{ rvMeta }}</span><span style="font-size:12px;color:#6B6966;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{{ rvDesc }}</span></div>
+        </div>
+        <div style="border:1px solid #E8E6E1;border-radius:12px;overflow:hidden;">
+          <sc-for list="{{ checks }}" as="c" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:{{ c.bt }};"><ion-icon name="{{ c.icon }}" style="font-size:16px;color:{{ c.fg }};flex-shrink:0;"></ion-icon><span style="font-size:12px;font-weight:500;width:150px;flex-shrink:0;">{{ c.label }}</span><span style="flex:1;font-size:12px;color:#6B6966;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;">{{ c.detail }}</span><span onClick="{{ c.fix }}" style="font-size:12px;font-weight:500;cursor:pointer;">Edit</span></div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #E8E6E1;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:16px;">
+        <sc-if value="{{ notDone }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size:13px;font-weight:500;">Submit for review</span>
+          <span style="font-size:12px;color:#6B6966;line-height:1.6;">The admin checks videos, material and quizzes before the course is published to students. You'll be notified when it's approved or if changes are needed.</span>
+          <div onClick="{{ submit }}" style="height:36px;box-sizing:border-box;border-radius:999px;background:#FFCC00;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;"><ion-icon name="paper-plane-outline" style="font-size:13px;"></ion-icon>{{ submitLabel }}</div>
+        </sc-if>
+        <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(88,204,2,0.12);display:flex;align-items:center;justify-content:center;"><ion-icon name="checkmark" style="font-size:18px;color:#3C8200;"></ion-icon></div>
+          <div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:13px;font-weight:500;">{{ doneHead }}</span><span style="font-size:12px;color:#6B6966;line-height:1.6;">"{{ rvTitle }}" is now In review. It appears in your Courses list.</span></div>
+          <div onClick="{{ close }}" style="height:36px;box-sizing:border-box;border-radius:999px;background:#FFCC00;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;">Back to courses</div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showFooter }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div onClick="{{ footBack }}" style="height:36px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:1px solid #E8E6E1;background:#FFFFFF;display:flex;align-items:center;font-size:12px;font-weight:500;cursor:pointer;" style-hover="background:#F7F6F3;">{{ footBackLabel }}</div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:11px;color:#9C9A95;">{{ footStep }}</span><sc-if value="{{ showNext }}" hint-placeholder-val="{{ true }}"><div onClick="{{ footNext }}" style="height:36px;box-sizing:border-box;padding:0 20px;border-radius:999px;background:#FFCC00;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;cursor:pointer;">{{ footNextLabel }}<ion-icon name="arrow-forward" style="font-size:13px;"></ion-icon></div></sc-if></div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;mode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;course&quot;,&quot;quiz&quot;],&quot;default&quot;:&quot;course&quot;,&quot;tsType&quot;:&quot;'course' | 'quiz'&quot;},&quot;onClose&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onSubmit&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(item: object) =&gt; void&quot;}}">
+const BANK = [['What is the main goal of user-centred design?', ['Designing around real user needs', 'Reducing development cost', 'Following brand rules', 'Adding more features'], 0], ['Which method is best for understanding why users behave a certain way?', ['Analytics dashboards', 'One-to-one interviews', 'A/B tests', 'Heatmaps'], 1], ['A heuristic evaluation is carried out by…', ['End users', 'Expert reviewers against usability principles', 'Developers during code review', 'Marketing teams'], 1], ['What does a low-fidelity wireframe focus on?', ['Final colours', 'Layout and structure', 'Animations', 'Copywriting'], 1], ['Which principle reduces memory load for users?', ['Recognition rather than recall', 'Flexibility and efficiency', 'Error recovery', 'Help and documentation'], 0], ['An affinity map is used to…', ['Group research findings into themes', 'Track project budget', 'Plan sprints', 'Design icons'], 0], ['What is the purpose of a persona?', ['A fictional user that represents a target group', 'A brand mascot', 'A test account', 'A developer role'], 0], ['Visual hierarchy helps users…', ['Know what to look at first', 'Download faster', 'Log in securely', 'Change settings'], 0], ['In the double diamond, the first diamond is about…', ['Delivering the solution', 'Understanding the problem', 'Testing prototypes', 'Launching'], 1], ['Good feedback in an interface should be…', ['Immediate and clear', 'Hidden', 'Delayed', 'Only visual'], 0]];
+const pickBank = (n, avoid) => { const pool = BANK.filter(b => !(avoid || []).includes(b[0])); const src = pool.length >= n ? pool : BANK; const a = [...src].sort(() => Math.random() - 0.5).slice(0, n); return a.map((b, i) => ({ id: Date.now() + i + Math.floor(Math.random() * 1e5), text: b[0], opts: [...b[1]], ans: b[2], ai: true })); };
+const blankQ = id => ({ id, text: '', opts: ['', '', '', ''], ans: 0 });
+const newLesson = id => ({ id, title: '', desc: '', pass: null, qs: [] });
+const newQuiz = id => ({ title: '', mins: 15, opens: '2026-10-27', pass: 60, qs: [blankQ(id)] });
+const newModule = id => ({ id, title: '', desc: '', lessons: [newLesson(id + 1)], quiz: newQuiz(id + 2) });
+const MODS = ['Introduction to UI UX', 'Module 1', 'Module 2', 'Module 3', 'Module 4', 'Module 5'];
+class Component extends DCLogic {
+  state = { genN: 5, gen: null, step: 0, title: '', desc: '', subject: 'UI/UX Design', sem: 'Semester 5', up: {}, modules: [newModule(1)], sel: { k: 'module', m: 1, l: null }, sq: { ...newQuiz(900), mod: 'Module 1' }, tried: false, err: '', done: false, nid: 100 };
+  fileRef = React.createRef();
+  iv = {};
+  componentDidMount() {
+    const qz = this.props.quiz; if (qz && this.props.mode === 'quiz') { const MOD = (String(qz.mod).match(/Module (\d)/) ? 'Module ' + RegExp.$1 : 'Module 1'); this.setState({ sq: { ...this.state.sq, title: qz.title, mod: MOD, qs: pickBank(5).map(q => ({ ...q, ai: false })) }, editingQuiz: true }); }
+    const c = this.props.course; if (!c) return;
+    const data = c.data || this.seed(c);
+    this.setState({ ...data, courseId: c.id, cStatus: c.status, cTone: c.tone, cNote: c.note || '', existing: true, view: this.props.mode === 'view', step: 0, sel: { k: 'module', m: data.modules[0].id, l: null } });
+  }
+  seed(c) {
+    const n = Math.max(1, parseInt((c.meta || '').match(/(\d+) modules?/) ? RegExp.$1 : 2, 10));
+    const NAMES = ['Foundations', 'Core concepts', 'Methods in practice', 'Tools and workflow', 'Case studies', 'Capstone project'];
+    const up = { thumb: { name: 'course-cover.png', size: 0.6e6, url: c.thumb || '', prog: 100 } };
+    let id = 5000;
+    const modules = Array.from({ length: n }, (_, i) => { const mid = id += 10; const lessons = [1, 2].map(j => { const lid = mid + j; up['vid:' + lid] = { name: 'm' + (i + 1) + '-lesson-' + j + '.mp4', size: (150 + j * 40) * 1e6, url: '', prog: 100 }; return { id: lid, title: NAMES[i % 6] + ' · part ' + j, desc: '', pass: j === 1 ? 2 : null, qs: j === 1 ? pickBank(3).map(q => ({ ...q, ai: false })) : [] }; }); if (i === 0) up['mat:' + mid + ':1'] = { name: 'module-' + (i + 1) + '-reading.pdf', size: 1.4e6, url: '', prog: 100 }; return { id: mid, title: NAMES[i % 6], desc: 'Module ' + (i + 1) + ' of ' + c.t + '.', lessons, quiz: { title: 'Module ' + (i + 1) + ' quiz — ' + NAMES[i % 6], mins: 15, opens: '2026-10-27', pass: 60, qs: pickBank(5).map(q => ({ ...q, ai: false })) } }; });
+    return { title: c.t, desc: c.t + ' for Semester 5 students. Covers ' + NAMES.slice(0, n).join(', ').toLowerCase() + '.', subject: 'UI/UX Design', sem: 'Semester 5', up, modules, nid: 9000 };
+  }
+  componentWillUnmount() { Object.values(this.iv).forEach(clearInterval); }
+  pick(key, accept) { this.pk = key; const el = this.fileRef.current; if (!el) return; el.accept = accept; el.value = ''; el.click(); }
+  onFile = e => { const f = e.target.files && e.target.files[0]; if (!f) return; if (this.pk === 'gen') return this.generate(f); this.startUp(this.pk, f.name, f.size, URL.createObjectURL(f)); };
+  applyQs(t, add) {
+    this.setState(s => {
+      if (t.kind === 'sq') return { sq: { ...s.sq, qs: [...s.sq.qs.filter(q => q.text.trim()), ...add] } };
+      return { modules: s.modules.map(m => m.id !== t.m ? m : t.kind === 'lesson' ? { ...m, lessons: m.lessons.map(l => l.id === t.l ? { ...l, qs: [...l.qs.filter(q => q.text.trim()), ...add] } : l) } : { ...m, quiz: { ...m.quiz, qs: [...m.quiz.qs.filter(q => q.text.trim()), ...add] } }) };
+    });
+  }
+  async generate(file) {
+    const t = this.genTarget, n = this.state.genN || 5, topic = t.topic;
+    this.setState({ gen: { phase: 'busy', name: file.name, stage: 0 } });
+    const tick = setInterval(() => this.setState(s => s.gen && s.gen.phase === 'busy' ? { gen: { ...s.gen, stage: Math.min(2, s.gen.stage + 1) } } : null), 1400);
+    let qs = null;
+    await new Promise(r => setTimeout(r, 4200));
+    if (!qs) qs = pickBank(n);
+    clearInterval(tick);
+    const base = Date.now();
+    this.applyQs(t, qs.map((q, i) => ({ ...q, id: base + i, ai: true })));
+    this.setState({ gen: { phase: 'done', name: file.name, count: qs.length } });
+  }
+  setUp(key, v) { this.setState(s => ({ up: { ...s.up, [key]: v }, err: '' })); }
+  startUp(key, name, size, url) {
+    clearInterval(this.iv[key]); this.setUp(key, { name, size, url, prog: 0 });
+    this.iv[key] = setInterval(() => { const cur = this.state.up[key]; if (!cur) return clearInterval(this.iv[key]); const p = Math.min(100, cur.prog + 8 + Math.random() * 14); this.setUp(key, { ...cur, prog: p }); if (p >= 100) clearInterval(this.iv[key]); }, 120);
+  }
+  scrollTop() { const el = this.fileRef.current; let p = el && el.parentElement; while (p && !/(auto|scroll)/.test(getComputedStyle(p).overflowY)) p = p.parentElement; const t = p || document.scrollingElement; t.scrollTop = 0; if (window.scrollTo) window.scrollTo(0, 0); }
+  componentDidUpdate() { if (this.pendingTop) { this.pendingTop = false; requestAnimationFrame(() => this.scrollTop()); } }
+  rmUp(key) { clearInterval(this.iv[key]); this.setState(s => { const up = { ...s.up }; delete up[key]; return { up }; }); }
+  renderVals() {
+    const S = this.state, P = this.props, quiz = P.mode === 'quiz';
+    const pad = n => String(n).padStart(2, '0');
+    const close = () => P.onClose && P.onClose();
+    const fmt = b => b >= 1e6 ? (b / 1e6).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1e3)) + ' KB';
+    const isUp = k => !!S.up[k] && S.up[k].prog >= 100;
+    const dz = (key, kind, label, cta, hint) => { const u = S.up[key]; const done = !!u && u.prog >= 100; return { label, cta, hint, icon: kind === 'image' ? 'image-outline' : 'videocam-outline', empty: !u, busy: !!u && !done, done, name: u ? u.name : '', pct: u ? Math.round(u.prog) + '%' : '', pctW: (u ? Math.round(u.prog) : 0) + '%', meta: u ? fmt(u.size) + ' · uploaded' : '', url: (u && u.url) || '', showVideo: done && kind === 'video' && !!u.url, showImg: done && kind === 'image' && !!u.url, showPh: done && !u.url, pick: () => this.pick(key, kind === 'video' ? 'video/*' : 'image/*'), remove: () => this.rmUp(key) }; };
+    const chipOf = (label, on, onClick) => ({ label, onClick, bg: on ? '#2B2B2B' : '#FFFFFF', fg: on ? '#FFFFFF' : '#2B2B2B', bd: on ? '#2B2B2B' : '#E8E6E1' });
+
+    const M = S.modules;
+    const mi = Math.max(0, M.findIndex(m => m.id === S.sel.m)), mc = M[mi];
+    const li = S.sel.k === 'lesson' ? mc.lessons.findIndex(l => l.id === S.sel.l) : -1, lc = li >= 0 ? mc.lessons[li] : null;
+    const kind = quiz ? 'quiz' : S.sel.k === 'lesson' && !lc ? 'module' : S.sel.k;
+    const sel = (k, m, l) => this.setState(s => ({ sel: { k, m, l: l || null }, gen: s.gen && s.gen.phase === 'busy' ? s.gen : null }));
+    const updM = fn => this.setState(s => ({ modules: s.modules.map(m => m.id === mc.id ? fn(m) : m), err: '' }));
+    const updL = fn => updM(m => ({ ...m, lessons: m.lessons.map(l => l.id === lc.id ? fn(l) : l) }));
+    const qz = quiz ? S.sq : mc.quiz;
+    const updQz = patch => quiz ? this.setState(s => ({ sq: { ...s.sq, ...patch }, err: '' })) : updM(m => ({ ...m, quiz: { ...m.quiz, ...patch } }));
+    const curQs = kind === 'lesson' ? lc.qs : kind === 'quiz' ? qz.qs : [];
+    const setQs = fn => kind === 'lesson' ? updL(l => ({ ...l, qs: fn(l.qs) })) : quiz ? this.setState(s => ({ sq: { ...s.sq, qs: fn(s.sq.qs) }, err: '' })) : updM(m => ({ ...m, quiz: { ...m.quiz, qs: fn(m.quiz.qs) } }));
+    const updQi = (qi, fn) => setQs(qs => qs.map((x, i) => i === qi ? fn(x) : x));
+    const swap = (a, i, d) => { const j = i + d; if (j < 0 || j >= a.length) return null; const b = [...a]; [b[i], b[j]] = [b[j], b[i]]; return b; };
+
+    const qP = qs => { const m = []; qs.forEach((x, i) => { const filled = x.opts.filter(o => o.trim()).length; if (!x.text.trim()) m.push('text for question ' + (i + 1)); else if (filled < 2) m.push('two options for question ' + (i + 1)); else if (!(x.opts[x.ans] || '').trim()) m.push('a correct answer for question ' + (i + 1)); }); return m; };
+    const lessonP = l => [!l.title.trim() && 'a title', !isUp('vid:' + l.id) && 'a video', ...qP(l.qs)].filter(Boolean);
+    const quizP = q => [!q.title.trim() && 'a quiz title', !q.qs.length && 'at least one question', ...qP(q.qs)].filter(Boolean);
+    const probs = () => { const out = []; M.forEach((m, i) => { const mn = 'Module ' + pad(i + 1); if (!m.title.trim()) out.push({ t: mn + ' needs a title', sel: { k: 'module', m: m.id } }); if (!m.lessons.length) out.push({ t: mn + ' needs a lesson', sel: { k: 'module', m: m.id } }); m.lessons.forEach((l, j) => lessonP(l).forEach(p => out.push({ t: mn + ' · Lesson ' + pad(j + 1) + ' needs ' + p, sel: { k: 'lesson', m: m.id, l: l.id } }))); quizP(m.quiz).forEach(p => out.push({ t: mn + ' quiz needs ' + p, sel: { k: 'quiz', m: m.id } })); }); return out; };
+    const chk0 = () => [!S.title.trim() && 'a course title', !S.desc.trim() && 'a description', !isUp('thumb') && 'a thumbnail'].filter(Boolean);
+    const msg0 = m => 'Add ' + m.join(', ') + '.';
+    const fail = list => this.setState({ tried: true, err: list.slice(0, 2).map(p => p.t).join(' · ') + (list.length > 2 ? ' (+' + (list.length - 2) + ' more)' : ''), sel: list[0].sel.l ? list[0].sel : { ...list[0].sel, l: null } });
+    const next = () => { if (S.step === 0) { const m = chk0(); if (m.length) return this.setState({ err: msg0(m) }); return this.setState({ step: 1, err: '' }); } const p = probs(); if (p.length) return fail(p); this.setState({ step: 2, err: '' }); };
+
+    const nLessons = M.reduce((a, m) => a + m.lessons.length, 0);
+    const lessonVids = M.reduce((a, m) => a + m.lessons.filter(l => isUp('vid:' + l.id)).length, 0);
+    const lessonMcqs = M.reduce((a, m) => a + m.lessons.reduce((b, l) => b + l.qs.length, 0), 0);
+    const quizMcqs = M.reduce((a, m) => a + m.quiz.qs.length, 0);
+    const matKeys = id => Object.keys(S.up).filter(k => k.startsWith('mat:' + id + ':'));
+    const matsDone = id => matKeys(id).filter(isUp).length;
+    const totalMats = M.reduce((a, m) => a + matsDone(m.id), 0);
+    const vids = lessonVids + (isUp('intro') ? 1 : 0);
+    const thumbUrl = (S.up.thumb && S.up.thumb.url) || '';
+    const course = { t: S.title.trim() || 'Untitled course', meta: M.length + (M.length === 1 ? ' module · ' : ' modules · ') + vids + ' videos · ' + (lessonMcqs + quizMcqs) + ' MCQs' + (totalMats ? ' · ' + totalMats + ' files' : ''), thumb: thumbUrl };
+    const snap = () => ({ title: S.title, desc: S.desc, subject: S.subject, sem: S.sem, up: S.up, modules: S.modules, nid: S.nid });
+    const cid = S.courseId || ('n' + Date.now());
+    const submit = () => { const m = chk0(); if (m.length) return this.setState({ step: 0, err: msg0(m) }); const p = probs(); if (p.length) return this.setState({ step: 1 }, () => fail(p)); P.onSubmit && P.onSubmit({ ...course, id: cid, data: snap(), note: '', meta: course.meta + ' · ' + (S.existing ? 'resubmitted' : 'submitted') + ' Mon, 19 Oct 2026', status: 'In review', tone: 'brand' }); this.setState({ done: true, err: '', courseId: cid }); };
+    const saveDraft = () => { if (!S.title.trim()) return this.setState({ err: 'Add a course title to save a draft.', step: 0 }); P.onSubmit && P.onSubmit({ ...course, id: cid, data: snap(), note: S.cNote || '', status: S.existing && S.cStatus !== 'Draft' ? S.cStatus : 'Draft', tone: S.existing && S.cStatus !== 'Draft' ? S.cTone : 'neu', draft: true }); close(); };
+    const publishQuiz = () => { const m = quizP(S.sq); if (m.length) return this.setState({ err: 'Add ' + m.slice(0, 3).join(', ') + '.' }); P.onSubmit && P.onSubmit({ type: 'quiz', t: S.sq.title.trim(), mod: S.sq.mod, q: S.sq.qs.length + ' MCQs' }); close(); };
+
+    const fillSample = () => {
+      const Q = (id, text, opts) => ({ id, text, opts, ans: 0 });
+      const q1 = [Q(301, 'Which principle says the system should keep users informed about what is going on?', ['Visibility of system status', 'Aesthetic and minimalist design', 'Error prevention', 'Recognition rather than recall']), Q(302, 'A mental model is…', ["The user's belief about how a system works", 'A wireframe of the interface', 'A persona document', 'A colour palette']), Q(303, 'Which is an example of an affordance?', ['A raised button that looks pressable', 'A brand colour', 'A loading spinner', 'A footer link'])];
+      const q2 = [Q(311, 'Micro-interactions are best described as…', ['Small, single-purpose moments of feedback', 'Full page transitions', 'Marketing animations', 'Onboarding tours']), Q(312, 'Which part of a micro-interaction starts it?', ['Trigger', 'Rules', 'Loops', 'Modes']), Q(313, 'Good feedback should be…', ['Immediate and proportional', 'Delayed for effect', 'Hidden from users', 'Always a sound'])];
+      if (quiz) return this.setState({ sq: { ...S.sq, title: 'Module 3 quiz — Design Interactions', mod: 'Module 3', qs: q1.concat(q2) }, err: '' });
+      const up = { thumb: { name: 'course-cover.png', size: 0.62e6, url: 'assets/module-01-cover.png', prog: 100 }, intro: { name: 'intro-interaction-design.mp4', size: 48.2e6, url: '', prog: 100 }, 'vid:202': { name: '01-what-is-interaction.mp4', size: 212e6, url: '', prog: 100 }, 'vid:203': { name: '02-mental-models.mp4', size: 188e6, url: '', prog: 100 }, 'vid:212': { name: '03-feedback.mp4', size: 241e6, url: '', prog: 100 }, 'vid:213': { name: '04-micro-interactions.mp4', size: 176e6, url: '', prog: 100 }, 'mat:201:1': { name: 'IxD-reading-list.pdf', size: 1.2e6, url: '', prog: 100 }, 'mat:211:1': { name: 'feedback-patterns-slides.pptx', size: 6.4e6, url: '', prog: 100 } };
+      const modules = [
+        { id: 201, title: 'Foundations of Interaction', desc: 'What interaction design is and how people build mental models of the products they use.', lessons: [{ id: 202, title: 'What is interaction design', desc: 'Definitions, history and where IxD sits next to UI and UX.', pass: 2, qs: q1 }, { id: 203, title: 'Mental models', desc: 'How users predict system behaviour.', pass: null, qs: [] }], quiz: { title: 'Module 1 quiz — Foundations of Interaction', mins: 15, opens: '2026-10-27', pass: 60, qs: q1 } },
+        { id: 211, title: 'Feedback and Micro-interactions', desc: 'Signals, states and small moments that make an interface feel responsive.', lessons: [{ id: 212, title: 'Feedback and affordance', desc: 'Designing clear signals for every state.', pass: 2, qs: q2 }, { id: 213, title: 'Micro-interactions', desc: 'Triggers, rules, feedback and loops.', pass: null, qs: [] }], quiz: { title: 'Module 2 quiz — Feedback and Micro-interactions', mins: 15, opens: '2026-11-03', pass: 60, qs: q2 } },
+      ];
+      this.setState({ title: 'Interaction Design Foundations', desc: 'Core interaction design principles for Sem 5: how people form mental models, how interfaces signal what is possible, and how feedback builds trust.', up, modules, sel: { k: 'module', m: 201, l: null }, err: '', tried: false });
+    };
+
+    const tree = [];
+    M.forEach((m, i) => {
+      const mSel = kind === 'module' && m.id === mc.id;
+      const mWarn = S.tried && (!m.title.trim() || !m.lessons.length);
+      tree.push({ pl: '10px', mt: i ? '8px' : '0px', icon: 'folder-open-outline', iconFg: '#2B2B2B', title: 'Module ' + pad(i + 1) + ' · ' + (m.title || 'Untitled module'), fg: '#2B2B2B', fw: 500, hasMeta: true, meta: m.lessons.length + (m.lessons.length === 1 ? ' lesson' : ' lessons') + (matsDone(m.id) ? ' · ' + matsDone(m.id) + (matsDone(m.id) === 1 ? ' file' : ' files') : ''), metaFg: '#9C9A95', bg: mSel ? '#F5F4F1' : 'transparent', warn: mWarn, onClick: () => sel('module', m.id) });
+      m.lessons.forEach((l, j) => { const on = kind === 'lesson' && lc && l.id === lc.id; const v = isUp('vid:' + l.id); tree.push({ pl: '30px', mt: '0px', icon: 'play-circle-outline', iconFg: '#6B6966', title: pad(j + 1) + ' · ' + (l.title || 'Untitled lesson'), fg: '#2B2B2B', fw: on ? 500 : 400, hasMeta: true, meta: (v ? 'Video' : 'No video yet') + (l.qs.length ? ' · ' + l.qs.length + ' MCQs' : ''), metaFg: v ? '#3C8200' : '#9C9A95', bg: on ? '#F5F4F1' : 'transparent', warn: S.tried && lessonP(l).length > 0, onClick: () => sel('lesson', m.id, l.id) }); });
+      tree.push({ pl: '30px', mt: '0px', icon: 'checkbox-outline', iconFg: '#6B6966', title: 'Module quiz', fg: '#2B2B2B', fw: kind === 'quiz' && m.id === mc.id ? 500 : 400, hasMeta: true, meta: m.quiz.qs.length + ' MCQs · ' + m.quiz.mins + ' min', metaFg: '#9C9A95', bg: kind === 'quiz' && m.id === mc.id ? '#F5F4F1' : 'transparent', warn: S.tried && quizP(m.quiz).length > 0, onClick: () => sel('quiz', m.id) });
+      tree.push({ pl: '30px', mt: '0px', icon: 'add', iconFg: '#9C9A95', title: 'Add lesson', fg: '#6B6966', fw: 400, hasMeta: false, meta: '', metaFg: '', bg: 'transparent', warn: false, onClick: () => this.setState(s => ({ modules: s.modules.map(x => x.id === m.id ? { ...x, lessons: [...x.lessons, newLesson(s.nid)] } : x), sel: { k: 'lesson', m: m.id, l: s.nid }, nid: s.nid + 1, err: '' })) });
+    });
+
+    const order = []; M.forEach((m, i) => { order.push({ k: 'module', m: m.id, l: null, label: 'Module ' + pad(i + 1) }); m.lessons.forEach((l, j) => order.push({ k: 'lesson', m: m.id, l: l.id, label: 'Module ' + pad(i + 1) + ' · Lesson ' + pad(j + 1) })); order.push({ k: 'quiz', m: m.id, l: null, label: 'Module ' + pad(i + 1) + ' · Quiz' }); });
+    const oi = order.findIndex(o => o.k === kind && o.m === mc.id && (kind !== 'lesson' || o.l === (lc && lc.id)));
+    const goO = o => { if (!o) return; this.setState({ sel: { k: o.k, m: o.m, l: o.l }, gen: null }); this.pendingTop = true; setTimeout(() => this.scrollTop(), 30); };
+    const lPass = lc ? Math.min(lc.qs.length, lc.pass || Math.max(1, Math.ceil(lc.qs.length * 2 / 3))) : 0;
+    const edHead = quiz ? 'Quiz settings' : kind === 'module' ? 'Module ' + pad(mi + 1) : kind === 'lesson' ? 'Module ' + pad(mi + 1) + ' · Lesson ' + pad(li + 1) : 'Module ' + pad(mi + 1) + ' · Quiz';
+    const edSub = quiz ? 'Appears in students\u2019 Tests & quizzes for the module you pick.' : kind === 'module' ? 'Title, description and study material for this module.' : kind === 'lesson' ? 'Students watch the video, then answer its MCQs to complete the lesson.' : 'Opens on the date you set and appears in students\u2019 Tests & quizzes.';
+    const delOk = kind === 'module' ? M.length > 1 : kind === 'lesson' ? mc.lessons.length > 1 : false;
+
+    const steps = ['Introduction', 'Modules & lessons', 'Review'].map((l, i) => ({ label: pad(i + 1) + ' · ' + l, bar: i < S.step ? '#E6C34D' : i === S.step ? '#FFCC00' : '#E8E6E1', fg: i <= S.step ? '#2B2B2B' : '#9C9A95', fw: i === S.step ? 500 : 400, onClick: () => i < S.step && !S.done && this.setState({ step: i, err: '' }) }));
+    const pr = probs();
+    const ok = (label, good, detail, step, neutral) => ({ label, detail, icon: neutral ? 'remove-circle-outline' : good ? 'checkmark-circle' : 'alert-circle', fg: neutral ? '#9C9A95' : good ? '#3C8200' : '#B25900', fix: () => this.setState({ step, done: false }) });
+    const checks = [
+      ok('Title and description', !!S.title.trim() && !!S.desc.trim(), S.title.trim() || 'Missing', 0),
+      ok('Thumbnail', isUp('thumb'), isUp('thumb') ? S.up.thumb.name : 'Not uploaded', 0),
+      ok('Intro video', true, isUp('intro') ? S.up.intro.name : 'Optional · not added', 0, !isUp('intro')),
+      ok('Modules and lessons', !pr.some(p => p.sel.k !== 'quiz'), M.length + ' modules · ' + nLessons + ' lessons · ' + lessonVids + ' videos', 1),
+      ok('Lesson MCQs', true, lessonMcqs ? lessonMcqs + ' questions across ' + M.reduce((a, m) => a + m.lessons.filter(l => l.qs.length).length, 0) + ' lessons' : 'Optional · none added', 1, !lessonMcqs),
+      ok('Module quizzes', !pr.some(p => p.sel.k === 'quiz'), M.length + (M.length === 1 ? ' quiz · ' : ' quizzes · ') + quizMcqs + ' questions', 1),
+      ok('Study material', true, totalMats ? totalMats + ' files' : 'Optional · none attached', 1, !totalMats),
+    ].map((c, i) => ({ ...c, bt: i === 0 ? 'none' : '1px solid #E8E6E1' }));
+
+    const view = !!S.view && !quiz;
+    const TN = { ok: ['rgba(88,204,2,0.12)', '#3C8200'], warn: ['rgba(255,149,0,0.14)', '#B25900'], neu: ['#F5F4F1', '#6B6966'], brand: ['rgba(255,204,0,0.25)', '#8A6D00'] };
+    const startEdit = sel => this.setState({ view: false, step: sel ? 1 : 0, sel: sel || S.sel, done: false, err: '' });
+    const vModules = M.map((m, i) => ({ head: 'Module ' + pad(i + 1) + ' · ' + (m.title || 'Untitled module'), desc: m.lessons.length + (m.lessons.length === 1 ? ' lesson' : ' lessons') + ' · ' + m.quiz.qs.length + '-question quiz' + (matsDone(m.id) ? ' · ' + matsDone(m.id) + (matsDone(m.id) === 1 ? ' file' : ' files') : ''), edit: () => startEdit({ k: 'module', m: m.id, l: null }),
+      rows: [...m.lessons.map((l, j) => ({ icon: 'play-circle-outline', title: pad(j + 1) + ' · ' + (l.title || 'Untitled lesson'), meta: (S.up['vid:' + l.id] ? S.up['vid:' + l.id].name : 'No video') + (l.qs.length ? ' · ' + l.qs.length + ' MCQs' : ''), onClick: () => startEdit({ k: 'lesson', m: m.id, l: l.id }) })),
+        ...matKeys(m.id).map(k => ({ icon: 'document-text-outline', title: S.up[k].name, meta: 'Study material', onClick: () => startEdit({ k: 'module', m: m.id, l: null }) })),
+        { icon: 'checkbox-outline', title: m.quiz.title || 'Module quiz', meta: m.quiz.qs.length + ' MCQs · ' + m.quiz.mins + ' min · pass ' + m.quiz.pass + '%', onClick: () => startEdit({ k: 'quiz', m: m.id, l: null }) }] }));
+    const st = view ? -1 : quiz ? 1 : S.step;
+    return {
+      fileRef: this.fileRef, onFile: this.onFile, close, fillSample, saveDraft,
+      sView: view, startEdit: () => startEdit(), editLabel: S.cStatus === 'Draft' ? 'Continue editing' : 'Edit course', vModules,
+      vStatus: S.cStatus || 'Draft', vStatusBg: (TN[S.cTone] || TN.neu)[0], vStatusFg: (TN[S.cTone] || TN.neu)[1], vSubj: S.subject + ' · ' + S.sem, vIntro: isUp('intro') ? 'Intro video · ' + S.up.intro.name : 'No intro video', vNote: S.cNote || '', noThumb: !thumbUrl,
+      showFill: !view && !S.existing, submitLabel: S.existing ? 'Resubmit for review' : 'Submit to admin', doneHead: S.existing ? 'Changes sent to admin' : 'Sent to admin',
+      heading: quiz ? (S.editingQuiz ? 'Edit quiz' : 'New quiz') : view ? S.title : S.existing ? 'Edit course' : 'New course', backLabel: quiz ? 'Quizzes' : 'Courses', isCourse: !quiz, isQuizMode: quiz, showDraft: !quiz && !S.done && !view, showSteps: !quiz && !view,
+      steps, err: S.err, s0: st === 0, s1: st === 1, s2: st === 2, cols: quiz ? 'minmax(0,1fr)' : '300px minmax(0,1fr)',
+      title: S.title, setTitle: e => this.setState({ title: e.target.value, err: '' }), desc: S.desc, setDesc: e => this.setState({ desc: e.target.value, err: '' }),
+      subject: S.subject, setSubject: e => this.setState({ subject: e.target.value }), sem: S.sem, setSem: e => this.setState({ sem: e.target.value }),
+      media: [dz('thumb', 'image', 'Thumbnail', 'Upload thumbnail', 'JPG or PNG · 16:9, at least 1280 × 720'), dz('intro', 'video', 'Introductory video (optional)', 'Upload intro video', 'MP4 or MOV · 2–3 min works best')],
+      outlineMeta: M.length + (M.length === 1 ? ' module' : ' modules') + ' · ' + nLessons + (nLessons === 1 ? ' lesson' : ' lessons'), tree,
+      addModule: () => this.setState(s => ({ modules: [...s.modules, newModule(s.nid)], sel: { k: 'module', m: s.nid, l: null }, nid: s.nid + 3, err: '' })),
+      edHead, edSub, edTools: !quiz && kind !== 'quiz', edDelOp: delOk ? 1 : 0.35,
+      edUp: () => kind === 'module' ? this.setState(s => { const b = swap(s.modules, mi, -1); return b ? { modules: b } : null; }) : updM(m => ({ ...m, lessons: swap(m.lessons, li, -1) || m.lessons })),
+      edDown: () => kind === 'module' ? this.setState(s => { const b = swap(s.modules, mi, 1); return b ? { modules: b } : null; }) : updM(m => ({ ...m, lessons: swap(m.lessons, li, 1) || m.lessons })),
+      edDel: () => { if (!delOk) return; if (kind === 'module') this.setState(s => { const a = s.modules.filter(m => m.id !== mc.id); return { modules: a, sel: { k: 'module', m: a[Math.max(0, mi - 1)].id, l: null } }; }); else { updM(m => ({ ...m, lessons: m.lessons.filter(l => l.id !== lc.id) })); sel('module', mc.id); } },
+      navPrev: () => goO(order[oi - 1]), navNext: () => goO(order[oi + 1]), navPrevOp: oi > 0 ? 1 : 0.35, navNextOp: oi < order.length - 1 ? 1 : 0.35,
+      navPrevLabel: order[oi - 1] ? order[oi - 1].label : 'Previous', navNextLabel: order[oi + 1] ? 'Next: ' + order[oi + 1].label : 'Next',
+      kModule: kind === 'module', kLesson: kind === 'lesson', kQuiz: kind === 'quiz',
+      mTitle: mc.title, mSetTitle: e => updM(m => ({ ...m, title: e.target.value })), mDesc: mc.desc, mSetDesc: e => updM(m => ({ ...m, desc: e.target.value })),
+      mMats: matKeys(mc.id).map(k => { const u = S.up[k], done = u.prog >= 100; return { name: u.name, busy: !done, done, pctW: Math.round(u.prog) + '%', meta: fmt(u.size) + ' · attached', remove: () => this.rmUp(k) }; }),
+      mAttach: () => this.pick('mat:' + mc.id + ':' + Date.now(), '.pdf,.doc,.docx,.ppt,.pptx,.zip,.key,image/*'),
+      addLessonHere: () => this.setState(s => ({ modules: s.modules.map(x => x.id === mc.id ? { ...x, lessons: [...x.lessons, newLesson(s.nid)] } : x), sel: { k: 'lesson', m: mc.id, l: s.nid }, nid: s.nid + 1, err: '' })),
+      openQuizHere: () => sel('quiz', mc.id),
+      lTitle: lc ? lc.title : '', lSetTitle: e => updL(l => ({ ...l, title: e.target.value })), lDesc: lc ? lc.desc : '', lSetDesc: e => updL(l => ({ ...l, desc: e.target.value })),
+      lDz: lc ? [dz('vid:' + lc.id, 'video', 'Lesson video', 'Upload lesson video', 'MP4 or MOV · up to 2 GB')] : [],
+      modChips: MODS.map(l => chipOf(l, S.sq.mod === l, () => updQz({ mod: l }))),
+      qzTitle: qz.title, qzSetTitle: e => updQz({ title: e.target.value }), qzOpens: qz.opens, qzSetOpens: e => updQz({ opens: e.target.value }),
+      minChips: [10, 15, 20, 30].map(n => chipOf(n + ' min', qz.mins === n, () => updQz({ mins: n }))),
+      passChips: [40, 60, 80].map(n => chipOf(n + '%', qz.pass === n, () => updQz({ pass: n }))),
+      showQs: kind === 'lesson' || kind === 'quiz',
+      qsHead: kind === 'lesson' ? 'Check your understanding' : 'Questions',
+      qsSub: kind === 'lesson' ? (curQs.length ? curQs.length + ' MCQs · unlock when the video ends' : 'Optional · MCQs unlock when the video ends and must be passed to complete the lesson') : curQs.length + ' MCQs · ' + qz.mins + ' min · pass ' + qz.pass + '%',
+      showLessonPass: kind === 'lesson' && curQs.length > 0,
+      lPassChips: kind === 'lesson' ? curQs.map((_, i) => chipOf((i + 1) + ' of ' + curQs.length, lPass === i + 1, () => updL(l => ({ ...l, pass: i + 1 })))) : [],
+      hasQs: curQs.length > 0, regenAll: () => setQs(qs => pickBank(qs.length, qs.map(q => q.text))),
+      questions: curQs.map((x, qi) => ({ label: 'Question ' + (qi + 1), ai: !!x.ai, regen: () => { const nq = pickBank(1, curQs.map(q => q.text))[0]; updQi(qi, () => nq); }, text: x.text, setText: e => { const v = e.target.value; updQi(qi, y => ({ ...y, text: v })); },
+        delOp: kind === 'quiz' && curQs.length < 2 ? 0.35 : 1, del: () => { if (kind === 'quiz' && curQs.length < 2) return; setQs(qs => qs.filter((_, i) => i !== qi)); },
+        canAdd: x.opts.length < 6, addOpt: () => updQi(qi, y => ({ ...y, opts: [...y.opts, ''] })),
+        opts: x.opts.map((o, oi) => { const a = x.ans === oi; return { v: o, ph: 'Option ' + 'ABCDEF'[oi], isAns: a, dotBd: a ? '#58CC02' : '#C9C6BF', dotBg: a ? '#58CC02' : '#FFFFFF', inBd: a ? 'rgba(88,204,2,0.5)' : '#E8E6E1', inBg: a ? 'rgba(88,204,2,0.06)' : '#FFFFFF', mark: () => updQi(qi, y => ({ ...y, ans: oi })), set: e => { const v = e.target.value; updQi(qi, y => ({ ...y, opts: y.opts.map((z, j) => j === oi ? v : z) })); }, canRm: x.opts.length > 2, rm: () => updQi(qi, y => ({ ...y, opts: y.opts.filter((_, j) => j !== oi), ans: y.ans === oi ? 0 : y.ans > oi ? y.ans - 1 : y.ans })) }; }) })),
+      genIdle: !S.gen || S.gen.phase === 'idle', genBusy: !!S.gen && S.gen.phase === 'busy', genDone: !!S.gen && S.gen.phase === 'done',
+      genName: S.gen ? S.gen.name : '', genStage: S.gen ? ['Reading document…', 'Finding key concepts…', 'Writing questions…'][S.gen.stage || 0] : '', genPctW: S.gen ? [25, 55, 85][S.gen.stage || 0] + '%' : '0%',
+      genMsg: S.gen && S.gen.phase === 'done' ? S.gen.count + ' questions drafted from ' + S.gen.name + '. Check each answer before publishing.' : '',
+      genChips: [3, 5, 10].map(n => chipOf(n + ' Qs', (S.genN || 5) === n, () => this.setState({ genN: n }))),
+      genPick: () => { this.genTarget = quiz ? { kind: 'sq', topic: S.sq.title || S.sq.mod } : kind === 'lesson' ? { kind: 'lesson', m: mc.id, l: lc.id, topic: (lc.title || '') + (lc.desc ? ' — ' + lc.desc : '') } : { kind: 'quiz', m: mc.id, topic: (mc.title || qz.title || '') + (mc.desc ? ' — ' + mc.desc : '') }; this.pick('gen', '.pdf,.txt,.md,.doc,.docx,.ppt,.pptx'); },
+      genReset: () => this.setState({ gen: null }),
+      addQuestion: () => { const id = S.nid; this.setState({ nid: id + 1 }); setQs(qs => [...qs, blankQ(id)]); },
+      hasThumb: !!thumbUrl, thumbUrl, rvTitle: course.t, rvMeta: S.subject + ' · ' + S.sem + ' · ' + course.meta, rvDesc: S.desc || 'No description yet.', checks,
+      submit, isDone: S.done, notDone: !S.done,
+      showFooter: !S.done && !view, footBackLabel: quiz || S.step === 0 ? 'Cancel' : 'Back', footBack: quiz || S.step === 0 ? close : () => this.setState({ step: S.step - 1, err: '' }),
+      footStep: quiz ? '' : 'Step ' + (S.step + 1) + ' of 3', showNext: quiz || S.step < 2, footNextLabel: quiz ? 'Publish quiz' : 'Continue', footNext: quiz ? publishQuiz : next,
+    };
+  }
+}
+</script>
+</body>
+</html>
